@@ -1,0 +1,436 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2022 Haoqing Xu
+% School of Artificial Intelligence, Southeast University.
+% --------------------------------------------------------------------------
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3c of this license or (at your option) any later
+% version. This version of this license is in
+%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+% and the latest version of this license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% The Current Maintainer of this work is Haoqing Xu.
+%
+% Home Page of the Project: https://github.com/SuikaXhq/seu-bachelor-thesis-2019
+%
+% \fi
+% \iffalse
+%<*driver>
+\ProvidesFile{seuthesis-2019.dtx}
+%</driver>
+%<cls>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+%<cls>\ProvidesClass{seuthesis-2019}
+%<cfg>\ProvidesFile{seuthesis-2019.cfg}
+%<*cls>
+  [2022.4.16 v0.1 LaTeX Template for SEU Bachelor Thesis ver2019]
+%</cls>
+%<*driver>
+\documentclass[10pt,a4paper,oneside]{ltxdoc}
+\usepackage{seuthesisdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{seuthesis-2019.dtx}
+\end{document}
+%</driver>
+% \fi
+
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+% 
+% \StopEventually{\PrintIndex}
+
+% \section{实现细节}
+% \subsection{字段定义}
+% 定义模版内常用字段，包括章节标题、固定项名称等。该部分保存于文档配置文件（*.cfg）。变量命名规则为seut@功能@类型@名称，功能包含预设字段（field）、变量（var）等，类型包括字符串（str）、数值（num）、布尔（bool）等，名称可能包含所属页面等辅助信息。
+% 
+% 定义常用变量。
+%    \begin{macrocode}
+%<*cfg>
+\newcommand*{\seut@space}[1]{\hspace{#1\ccwd}}
+%    \end{macrocode}
+% 定义封面页字段。
+%    \begin{macrocode}
+\newcommand*{\seut@const@str@titlepage@logotitle}     {毕业设计(论文)报告}
+\newcommand*{\seut@field@str@titlepage@title}         {题\seut@space{0.5}目：}
+\newcommand*{\seut@field@str@titlepage@studentnum}    {学\seut@space{2}号：}
+\newcommand*{\seut@field@str@titlepage@author}        {姓\seut@space{2}名：}
+\newcommand*{\seut@field@str@titlepage@department}    {学\seut@space{2}院：}
+\newcommand*{\seut@field@str@titlepage@major}         {专\seut@space{2}业：}
+\newcommand*{\seut@field@str@titlepage@supervisor}    {指导教师：}
+\newcommand*{\seut@field@str@titlepage@period}        {起止日期：}
+
+\newif\ifseut@title@long\seut@title@longtrue
+\newcommand*{\seut@var@str@titlepage@title}{}
+\newcommand*{\seut@var@str@titlepage@title@up}{}
+\newcommand*{\seut@var@str@titlepage@title@down}{}
+\newcommand*{\seut@var@str@titlepage@studentnum}{}
+\newcommand*{\seut@var@str@titlepage@author}{}
+\newcommand*{\seut@var@str@titlepage@department}{}
+\newcommand*{\seut@var@str@titlepage@major}{}
+\newcommand*{\seut@var@str@titlepage@supervisor}{}
+\newcommand*{\seut@var@str@titlepage@period}{}
+%    \end{macrocode}
+% 定义声明页字段。
+%    \begin{macrocode}
+
+%    \end{macrocode}
+% 定义字符串常量。
+%    \begin{macrocode}
+\newcommand*{\seut@const@str@headertext}{东南大学本科毕业设计（论文）}
+%    \end{macrocode}
+% 定义英文字体名称，包括衬线、无衬线、等宽字体。
+%    \begin{macrocode}
+\newcommand*{\seut@const@str@font@serif@win}        {Times New Roman}
+\newcommand*{\seut@const@str@font@sans@win}         {Arial}
+\newcommand*{\seut@const@str@font@mono@win}         {Courier New}
+%    \end{macrocode}
+% 定义中文字体名称，包括宋体、黑体、仿宋、楷体四种常用字体。
+%    \begin{macrocode}
+\newcommand*{\seut@const@str@font@songti@FZ}        {FZShuSong-Z01}
+\newcommand*{\seut@const@str@font@heiti@FZ}         {FZHei-B01}
+\newcommand*{\seut@const@str@font@fangsong@FZ}      {FZFangSong-Z02}
+\newcommand*{\seut@const@str@font@kaiti@FZ}         {FZKai-Z03}
+
+\newcommand*{\seut@const@str@font@songti@win}       {SimSun}
+\newcommand*{\seut@const@str@font@heiti@win}        {SimHei}
+\newcommand*{\seut@const@str@font@fangsong@win}     {FangSong}
+\newcommand*{\seut@const@str@font@kaiti@win}        {KaiTi}
+%    \end{macrocode}
+% 定义字体选项布尔值，默认为Windows字体。
+%    \begin{macrocode}
+\newif\ifseut@font@win\seut@font@wintrue
+\newif\ifseut@font@mac\seut@font@macfalse
+%    \end{macrocode}
+%</cfg>
+
+% \subsection{启动前检查}
+% 检查\XeLaTeX引擎。
+%    \begin{macrocode}
+%<*cls>
+\RequirePackage{ifxetex}
+\RequireXeTeX
+%    \end{macrocode}
+
+% \subsection{文档类选项处理}
+% 导入配置文件。
+%    \begin{macrocode}
+\input{seuthesis-2019.cfg}
+%    \end{macrocode}
+% 处理字体设置。
+%    \begin{macrocode}
+\DeclareOption{winfonts}{%
+  \seut@font@wintrue
+  \seut@font@macfalse
+}
+\DeclareOption{macfonts}{%
+  \seut@font@winfalse
+  \seut@font@mactrue
+}
+%    \end{macrocode}
+% 传递剩余选项给底层文档类。
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexrep}}
+%    \end{macrocode}
+% 结束选项处理。
+%    \begin{macrocode}
+\ProcessOptions\relax
+%    \end{macrocode}
+
+% \subsection{宏包}
+% 调用底层文档类，此处指定默认字号为小四号。
+%    \begin{macrocode}
+\LoadClass[UTF8,zihao=-4]{ctexrep}
+%    \end{macrocode}
+% 导入页面设置宏包。
+%    \begin{macrocode}
+\RequirePackage{geometry}
+\RequirePackage{titlesec}
+\RequirePackage{setspace}
+\RequirePackage{fancyhdr}
+%    \end{macrocode}
+% 导入图片、表格设置宏包。
+%    \begin{macrocode}
+\RequirePackage{graphicx}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{float}
+\RequirePackage{array}
+\RequirePackage{longtable}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+%    \end{macrocode}
+% 导入数学环境宏包。
+%    \begin{macrocode}
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+%    \end{macrocode}
+% 导入引用设置宏包并添加hyperref设置。
+%    \begin{macrocode}
+\RequirePackage[hyphens]{url}
+\RequirePackage{hyperref}
+\hypersetup{
+    unicode=false,
+    hyperfootnotes=true,
+    hyperindex=true,
+    pageanchor=true,
+    CJKbookmarks=true,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    bookmarksopenlevel=0,
+    breaklinks=true,
+    colorlinks=false,
+    plainpages=false,
+    pdfpagelabels,
+    pdfborder=0 0 0,
+}
+\urlstyle{same}
+\RequirePackage[sort&compress]{gbt7714}
+\RequirePackage{hypernat}
+%    \end{macrocode}
+% 导入一些杂项宏包。其中部分宏包必须在前述宏包后导入。
+%    \begin{macrocode}
+\RequirePackage{ifthen}
+\RequirePackage{tabularx}
+\RequirePackage{calc}
+\RequirePackage{etoolbox}
+\RequirePackage{xeCJKfntef}
+\RequirePackage{doc}
+%    \end{macrocode}
+
+% \subsection{页面布局设置}
+% 页边距（2厘米）及装订线（左侧0.5厘米）设置。Word版模版中，上下边距实际上由页眉页脚定义，因此此处无需定义上下页边距。
+%    \begin{macrocode}
+\geometry{
+  a4paper,
+  left=2.5cm,
+  right=2cm,
+  includehead=true,
+  includefoot=true,
+}
+%    \end{macrocode}
+% 页眉页脚边距设置，其行距为22磅，页眉顶端距离1.5厘米，页脚底端距离1.75厘米。
+%    \begin{macrocode}
+\geometry{
+  headheight=22pt,
+  headsep=0pt,
+  footskip=22pt,
+  top=1.5cm,
+  bottom=1.75cm,
+}
+%    \end{macrocode}
+
+% \subsection{字体设置}
+% 选择合适的中文字体名称变量。
+%    \begin{macrocode}
+\ifseut@font@win
+\newcommand*{\seut@var@str@font@serif}      {\seut@const@str@font@serif@win}
+\newcommand*{\seut@var@str@font@sans}       {\seut@const@str@font@sans@win}
+\newcommand*{\seut@var@str@font@mono}       {\seut@const@str@font@mono@win}
+
+\newcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@win}
+\newcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@win}
+\newcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@win}
+\newcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@win}
+\fi
+
+\ifseut@font@mac
+\newcommand*{\seut@var@str@font@serif}      {\seut@const@str@font@serif@mac}
+\newcommand*{\seut@var@str@font@sans}       {\seut@const@str@font@sans@mac}
+\newcommand*{\seut@var@str@font@mono}       {\seut@const@str@font@mono@mac}
+
+\newcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@mac}
+\newcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@mac}
+\newcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@mac}
+\newcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@mac}
+\fi
+%    \end{macrocode}
+% 设置中文字体。启用伪粗体和伪斜体，设置主要中文字体为宋体、无衬线中文字体为黑体、等宽中文字体为仿宋。
+%    \begin{macrocode}
+\xeCJKsetup{
+  AutoFakeBold=true,
+  AutoFakeSlant=true,
+}
+\setCJKfamilyfont{zhsong}{\seut@var@str@font@songti}
+\setCJKfamilyfont{zhhei}{\seut@var@str@font@heiti}
+\setCJKfamilyfont{zhfs}{\seut@var@str@font@fangsong}
+\setCJKfamilyfont{zhkai}{\seut@var@str@font@kaiti}
+\setCJKmainfont{\seut@var@str@font@songti}
+\setCJKsansfont{\seut@var@str@font@heiti}
+\setCJKmonofont{\seut@var@str@font@fangsong}
+%    \end{macrocode}
+% 设置英文字体。
+%    \begin{macrocode}
+\setmainfont{\seut@var@str@font@serif}
+\setsansfont{\seut@var@str@font@sans}
+\setmonofont{\seut@var@str@font@mono}
+%    \end{macrocode}
+
+% \subsection{页眉页脚}
+% 设置页眉页脚格式，包括无样式（plain）、前页样式（front）、正文样式（main）。
+%    \begin{macrocode}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+\fancypagestyle{front}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+  \fancyfoot[C]{\Roman{\thepage}}%
+}
+\fancypagestyle{main}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0.75pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+  \fancyhead[C]{\seut@const@str@headertext}%
+  \fancyfoot[C]{\arabic{\thepage}}%
+}
+\pagestyle{plain}
+%    \end{macrocode}
+% \subsection{文档结构}
+% 设置关于毕业设计（论文）的文档结构指令。包括摘要目录部分（前页部分，frontmatter）以及正文部分（mainmatter）并指定页编号和页眉页脚样式。
+%    \begin{macrocode}
+\newcommand{\frontmatter}{%
+  \clearpage
+  \pagenumbering{Roman}
+  \pagestyle{front}
+}
+\newcommand{\mainmatter}{%
+  \clearpage
+  \pagenumbering{arabic}
+  \pagestyle{main}
+}
+%    \end{macrocode}
+% \subsection{段落设置}
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{linespread}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{linespread}为1.7以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{linespread}$=$1.4）。由于生成声明页需要切换行间距，此处定义为文档命令。
+%    \begin{macrocode}
+\newcommand*{\seut@control@mainlinespread}{\renewcommand*{\linespread}{1.7}}
+\newcommand*{\seut@control@declarelinespread}{\renewcommand*{\linespread}{1.4}}
+\seut@control@mainlinespread
+%    \end{macrocode}
+
+% \subsection{浮动体设置}
+
+% \subsection{注释脚注}
+
+% \subsection{数学环境}
+
+% \subsection{封面页}
+% 定义封面表单的填写命令，包括标题（上/下）、学号、姓名、专业、学院、导师、起止时间等。
+%    \begin{macrocode}
+\renewcommand{\title}[2]{%
+  \renewcommand*{\seut@var@str@titlepage@title}{#1#2}
+  \renewcommand*{\seut@var@str@titlepage@title@up}{#1}
+  \renewcommand*{\seut@var@str@titlepage@title@down}{#2}}
+\newcommand{\studentnum}[1]{\renewcommand*{\seut@var@str@titlepage@studentnum}{#1}}
+\renewcommand{\author}[1]{\renewcommand*{\seut@var@str@titlepage@author}{#1}}
+\newcommand{\department}[1]{\renewcommand*{\seut@var@str@titlepage@department}{#1}}
+\newcommand{\major}[1]{\renewcommand*{\seut@var@str@titlepage@major}{#1}}
+\newcommand{\supervisor}[1]{\renewcommand*{\seut@var@str@titlepage@supervisor}{#1}}
+\newcommand{\period}[1]{\renewcommand*{\seut@var@str@titlepage@period}{#1}}
+%    \end{macrocode}
+% 定义表单项占位符实现，包括可能的内容和下划线。
+%    \begin{macrocode}
+\newcommand{\seut@control@placeholder}[2][\linewidth]{\CJKunderline{\makebox[#1]{#2}}}
+\def\seutplaceholder{\@ifnextchar[\seut@control@placeholder\CJKunderline}
+%    \end{macrocode}
+% 制作标题页，首先定义一些PDF Meta-Data。
+%    \begin{macrocode}
+\renewcommand{\maketitle}{%
+  \GetFileInfo{seuthesis-2019.cls}
+  \hypersetup{
+    pdfauthor={\seut@var@str@titlepage@author},
+    pdfcreator={\fileversion}
+  }
+%    \end{macrocode}
+% 定义封面页。首先空出44pt（来自于Word模版内空行）的距离，放置东南大学文字Logo以及总标题。
+%    \begin{macrocode}
+  \begin{titlepage}
+    \vspace*{44pt}
+    \begin{centering}
+      \includegraphics[width=7.2cm]{resources/seu-text-logo}\\ \relax
+      \vspace{34pt}
+      {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\\ \relax
+    \end{centering}
+%    \end{macrocode}
+% 空开46pt（Word内空行），放置论文题目。
+%    \begin{macrocode}
+    \vspace{46pt}
+    {\centering
+    \heiti\zihao{2}
+    \renewcommand*{\arraystretch}{1.65}
+    \begin{tabular}{p{2.5cm}c}
+      \makebox[2.5cm][r]{\seut@field@str@titlepage@title}
+      & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@up} \\ \relax
+      \ifcsempty{seut@var@str@titlepage@title@down}{}{
+      & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@down}}
+    \end{tabular}
+    \par % to make centering work
+    }
+
+%    \end{macrocode}
+% 空开46pt（Word内空行），放置封面其他信息。
+%    \begin{macrocode}
+    \vspace{46pt}
+    {\centering
+    \zihao{-2}
+    \renewcommand*{\arraystretch}{1.4}
+    \begin{tabular}{p{3cm}c}
+      \makebox[3cm][r]{\seut@field@str@titlepage@studentnum}
+      & \seutplaceholder[8cm]{\seut@var@str@titlepage@studentnum} \\ \relax
+      \makebox[3cm][r]{\seut@field@str@titlepage@author}
+      & \seutplaceholder[8cm]{\seut@var@str@titlepage@author} \\ \relax
+      \makebox[3cm][r]{\seut@field@str@titlepage@department}
+      & \seutplaceholder[8cm]{\seut@var@str@titlepage@department} \\ \relax
+      \makebox[3cm][r]{\seut@field@str@titlepage@major}
+      & \seutplaceholder[8cm]{\seut@var@str@titlepage@major} \\ \relax
+      \makebox[3cm][r]{\seut@field@str@titlepage@supervisor}
+      & \seutplaceholder[8cm]{\seut@var@str@titlepage@supervisor} \\ \relax
+      \makebox[3cm][r]{\seut@field@str@titlepage@period}
+      & \seutplaceholder[8cm]{\seut@var@str@titlepage@period}
+    \end{tabular}
+    \par % to make centering work
+    }
+  \end{titlepage}
+}
+%    \end{macrocode}
+% \subsection{声明页}
+
+% \subsection{特殊章节}
+
+%</cls>
+% \Finale
+
+% \iffalse
+% TODO: style
+%<*doc>
+\ProvidesPackage{seuthesisdoc}
+%</doc>
+% \fi
+\endinput
