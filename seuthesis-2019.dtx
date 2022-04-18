@@ -73,7 +73,7 @@
 %    \end{macrocode}
 % 定义封面页字段。
 %    \begin{macrocode}
-\newcommand*{\seut@const@str@titlepage@logotitle}     {毕业设计(论文)报告}
+\newcommand*{\seut@const@str@titlepage@logotitle}     {毕业设计\seut@space{-0.5}（论文）\seut@space{-0.5}报告}
 \newcommand*{\seut@field@str@titlepage@title}         {题\seut@space{0.5}目：}
 \newcommand*{\seut@field@str@titlepage@studentnum}    {学\seut@space{2}号：}
 \newcommand*{\seut@field@str@titlepage@author}        {姓\seut@space{2}名：}
@@ -118,7 +118,12 @@
 \newcommand*{\seut@const@str@abstractname@zh}{摘\seut@space{2}要}
 \newcommand*{\seut@const@str@abstractname@en}{ABSTRACT}
 \newcommand*{\seut@const@str@keywords@zh}{关键词：}
-\newcommand*{\seut@const@str@keywords@en}{KEY WORDS: }
+\newcommand*{\seut@const@str@keywords@en}{KEY WORDS:\ }
+\newcommand*{\seut@const@str@abstractsep@zh}{，}
+\newcommand*{\seut@const@str@abstractsep@en}{,\ }
+\newcommand*{\seut@var@str@abstractname}{}
+\newcommand*{\seut@var@str@keywords}{}
+\newcommand*{\seut@var@str@abstractsep}{}
 \newcommand*{\seut@const@str@contentsname}{目\seut@space{2}录}
 \newcommand*{\seut@const@str@appendixsname}{附录}
 \newcommand*{\seut@const@str@bibname}{参考文献}
@@ -146,6 +151,11 @@
 %    \begin{macrocode}
 \newif\ifseut@font@win\seut@font@wintrue
 \newif\ifseut@font@mac\seut@font@macfalse
+%    \end{macrocode}
+% 定义行间距常量，数值的确定参见\ref{sec:implement-paragraph}节。
+%    \begin{macrocode}
+\newcommand*{\seut@const@num@linespread@main}{1.698}
+\newcommand*{\seut@const@num@linespread@delaration}{1.4}
 %    \end{macrocode}
 %</cfg>
 
@@ -234,6 +244,7 @@
 \urlstyle{same}
 \RequirePackage[sort&compress]{gbt7714}
 \RequirePackage{hypernat}
+\RequirePackage{tocloft}
 %    \end{macrocode}
 % 导入一些杂项宏包。其中部分宏包必须在前述宏包后导入。
 %    \begin{macrocode}
@@ -350,12 +361,12 @@
 }
 %    \end{macrocode}
 
-% \subsection{段落设置}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{linespread}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{linespread}为1.7以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{linespread}$=$1.41）。由于生成声明页需要切换行间距，此处定义为文档命令。
+% \subsection{段落设置}\label{sec:implement-paragraph}
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.7以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.4）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
 %    \begin{macrocode}
-\newcommand*{\seut@control@mainlinespread}{\linespread{1.3}}
-\newcommand*{\seut@control@declarelinespread}{\linespread{1.13}}
-\seut@control@mainlinespread
+\newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
+\newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
+\linespread{\seut@const@num@linespread@main}
 %    \end{macrocode}
 
 % \subsection{章节格式设置}
@@ -363,7 +374,6 @@
 %    \begin{macrocode}
 \ctexset{
   contentsname = \seut@const@str@contentsname,
-  abstractname = \seut@const@str@abstractname,
   appendixname = \seut@const@str@appendixname,
   bibname      = \seut@const@str@bibname,
 %    \end{macrocode}
@@ -376,8 +386,8 @@
     },
     aftername = \seut@space{0.5},
     pagestyle = main,
-    beforeskip = 0pt,
-    afterskip = 0pt,
+    beforeskip = 8.3pt,
+    afterskip = 14.525pt,
     fixskip = true,
   },
   section = {
@@ -385,8 +395,8 @@
       \zihao{4}\heiti%
     },
     hang = false,
-    beforeskip = 0pt,
-    afterskip = 0pt,
+    beforeskip = 9.3pt,
+    afterskip = 15.525pt,
     fixskip = true,
   },
   subsection = {%
@@ -394,23 +404,31 @@
       \zihao{-4}\bfseries\songti
     },
     hang = false,
-    beforeskip = 0pt,
-    afterskip = 0pt,
+    beforeskip = 6.225pt,
+    afterskip = 12.45pt,
     fixskip = true,
   },
+  appendix = {%
+    name = {\appendixname},
+  },
 %    \end{macrocode}
-% 指定目录格式。
+% 指定章节和目录深度。
 %    \begin{macrocode}
   secnumdepth = subsection,
   tocdepth    = subsection,
-  
-%    \end{macrocode}
-
-%    \begin{macrocode}
 }
 %    \end{macrocode}
 
-
+% \subsection{目录格式设置}
+% 设置目录的字体格式。
+%    \begin{macrocode}
+\renewcommand{\cftchapfont}{\normalfont}
+%    \end{macrocode}
+% 设置目录引导线。
+%    \begin{macrocode}
+\renewcommand{\cftdot}{.}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+%    \end{macrocode}
 
 % \subsection{浮动体设置}
 
@@ -451,9 +469,9 @@
   \begin{titlepage}
     \vspace*{44pt}
     \begin{centering}
-      \includegraphics[width=7.2cm]{resources/seu-text-logo}\\ \relax
-      \vspace{34pt}
-      {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\\ \relax
+      \includegraphics[width=7.2cm]{resources/seu-text-logo}\par
+      \vspace{34pt}\par
+      {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\par
     \end{centering}
 %    \end{macrocode}
 % 空开46pt（Word内空行），放置论文题目。
@@ -461,12 +479,15 @@
     \vspace{46pt}
     {\centering
     \heiti\zihao{2}
-    \renewcommand*{\arraystretch}{1.65}
+    \renewcommand*{\arraystretch}{1.025}
+    \setlength{\tabcolsep}{0pt}
     \begin{tabular}{p{2.5cm}c}
       \makebox[2.5cm][r]{\seut@field@str@titlepage@title}
       & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@up} \\ \relax
-      \ifcsempty{seut@var@str@titlepage@title@down}{}{
-      & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@down}}
+      \ifcsempty{seut@var@str@titlepage@title@down}{%
+        &
+      }{%
+        & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@down}}
     \end{tabular}
     \par % to make centering work
     }
@@ -477,7 +498,8 @@
     \vspace{46pt}
     {\centering
     \zihao{-2}
-    \renewcommand*{\arraystretch}{1.4}
+    \renewcommand*{\arraystretch}{1.08}
+    \setlength{\tabcolsep}{0pt}
     \begin{tabular}{p{3cm}c}
       \makebox[3cm][r]{\seut@field@str@titlepage@studentnum}
       & \seutplaceholder[8cm]{\seut@var@str@titlepage@studentnum} \\ \relax
@@ -497,45 +519,75 @@
   \end{titlepage}
 }
 %    \end{macrocode}
-% \subsection{声明页}
 
+% \subsection{声明页}
 % 定义声明页，包括独创性声明以及使用授权声明。此页是静止的，没有需要用户填写的内容。
 %    \begin{macrocode}
 \newcommand{\makedeclaration}{%
   \begin{titlepage}
-    \vspace*{62pt}
+    \vspace*{62pt - 5pt}
     \seut@control@declarelinespread
     {\centering
     \heiti\zihao{-2}
     \seut@const@str@declare@origin@title
     \par
     }
-    \vspace{32pt}\par
+    \vspace{32pt - 5pt}\par
     \seut@const@str@declare@origin@content\par
     \hspace*{\fill}\par
     \hangafter 0
     \hangindent 4\ccwd
     \noindent \seut@const@str@declare@authorsign\seutplaceholder[8\ccwd]{}\seut@space{1.5}%
     \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[2.5\ccwd]{}月\seutplaceholder[2.5\ccwd]{}日\par
-    \vspace{155pt}\par
+    \vspace{155pt - 5pt}\par
     {\centering
     \heiti\zihao{-2}
     \seut@const@str@declare@usage@title
     \par % to make centering work
     }
-    \vspace{20pt}\par
+    \vspace{20pt - 5pt}\par
     \seut@const@str@declare@usage@content\par
     \hspace*{\fill}\par
     \seut@const@str@declare@authorsign\seutplaceholder[9.5\ccwd]{}\seut@space{2}%
     \seut@const@str@declare@supervisorsign\seutplaceholder[11.5\ccwd]{}\par
     \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月\seutplaceholder[3\ccwd]{}日\seut@space{3}%
     \seut@const@str@declare@date\seutplaceholder[2.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月\seutplaceholder[3\ccwd]{}日\par
-    \seut@control@mainlinespread % 恢复行距
   \end{titlepage}
 }
 %    \end{macrocode}
 
-
+% \subsection{摘要页}
+% 实现关键词命令，用于生成关键词列表。用\texttt{etools}宏包的循环处理逗号隔开的参数。
+%    \begin{macrocode}
+\newcommand{\seut@control@keywords}[1]{%
+  \def\nextitem{\def\nextitem{\seut@var@str@abstractsep}}%
+  \renewcommand*{\do}[1]{\nextitem##1}%
+  \docsvlist{#1}}
+\newcommand{\keywords}{%
+    \par\hspace*{\fill}\par
+    \noindent\seut@var@str@keywords\seut@control@keywords}
+%    \end{macrocode}
+% 定义摘要页，包括中文摘要和英文摘要。首先判断环境选项，选择对应语言的预设字符串。
+%    \begin{macrocode}
+\renewenvironment{abstract}[1][zh]{%
+  \ifstrequal{#1}{zh}{%
+    \renewcommand*{\seut@var@str@abstractname}{\seut@const@str@abstractname@zh}
+    \renewcommand*{\seut@var@str@keywords}{\seut@const@str@keywords@zh}
+    \renewcommand*{\seut@var@str@abstractsep}{\seut@const@str@abstractsep@zh}
+  }{%
+    \ifstrequal{#1}{en}{%
+      \renewcommand*{\seut@var@str@abstractname}{\seut@const@str@abstractname@en}
+      \renewcommand*{\seut@var@str@keywords}{\seut@const@str@keywords@en}
+      \renewcommand*{\seut@var@str@abstractsep}{\seut@const@str@abstractsep@en}
+    }{\ClassError{seuthesis-2019}{Unknown option for abstract. Try `zh' or `en' for the abstract options.}{Try `zh' or `en' for the abstract options.}}} % Error message
+%    \end{macrocode}
+% 用无序号章实现摘要页，强制指定页面样式。
+%    \begin{macrocode}
+  \clearpage
+  \chapter*{\seut@var@str@abstractname}
+  \thispagestyle{front}
+}{}
+%    \end{macrocode}
 
 %</cls>
 % \Finale
