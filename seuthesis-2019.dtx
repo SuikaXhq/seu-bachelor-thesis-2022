@@ -332,16 +332,16 @@
 }
 \fancypagestyle{front}{%
   \fancyhf{}%
+  \fancyfoot[C]{\thepage}%
   \renewcommand{\headrulewidth}{0pt}%
   \renewcommand{\footrulewidth}{0pt}%
-  \fancyfoot[C]{\Roman{\thepage}}%
 }
 \fancypagestyle{main}{%
   \fancyhf{}%
+  \fancyhead[C]{\seut@const@str@headertext}%
+  \fancyfoot[C]{\thepage}%
   \renewcommand{\headrulewidth}{0.75pt}%
   \renewcommand{\footrulewidth}{0pt}%
-  \fancyhead[C]{\seut@const@str@headertext}%
-  \fancyfoot[C]{\arabic{\thepage}}%
 }
 \pagestyle{plain}
 %    \end{macrocode}
