@@ -102,9 +102,9 @@
   得东南大学或其它教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均%
   已在论文中作了明确的说明并表示了谢意。%
 }
-\newcommand*{\seut@field@str@declare@authorsign}{论文作者签名：}
-\newcommand*{\seut@field@str@declare@date}{日期：}
-\newcommand*{\seut@field@str@declare@supervisorsign}{导师签名：}
+\newcommand*{\seut@const@str@declare@authorsign}{论文作者签名：}
+\newcommand*{\seut@const@str@declare@date}{日期：}
+\newcommand*{\seut@const@str@declare@supervisorsign}{导师签名：}
 \newcommand*{\seut@const@str@declare@usage@title}{东南大学毕业（设计）论文使用授权声明}
 \newcommand*{\seut@const@str@declare@usage@content}{%
   东南大学有权保留本人所送交毕业（设计）论文的复印件和电子文档，可以采用影印、缩印或其他复制手段%
@@ -112,9 +112,17 @@
   借阅，可以公布（包括刊登）论文的全部或部分内容。论文的公布（包括刊登）授权东南大学教务处办理。%
 }
 %    \end{macrocode}
-% 定义字符串常量。
+% 定义章标题等字符串常量。
 %    \begin{macrocode}
 \newcommand*{\seut@const@str@headertext}{东南大学本科毕业设计（论文）}
+\newcommand*{\seut@const@str@abstractname@zh}{摘\seut@space{2}要}
+\newcommand*{\seut@const@str@abstractname@en}{ABSTRACT}
+\newcommand*{\seut@const@str@keywords@zh}{关键词：}
+\newcommand*{\seut@const@str@keywords@en}{KEY WORDS: }
+\newcommand*{\seut@const@str@contentsname}{目\seut@space{2}录}
+\newcommand*{\seut@const@str@appendixsname}{附录}
+\newcommand*{\seut@const@str@bibname}{参考文献}
+\newcommand*{\seut@const@str@acknowledgename}{致\seut@space{2}谢}
 %    \end{macrocode}
 % 定义英文字体名称，包括衬线、无衬线、等宽字体。
 %    \begin{macrocode}
@@ -246,11 +254,9 @@
   right=2cm,
   includehead=true,
   includefoot=true,
-}
 %    \end{macrocode}
 % 页眉页脚边距设置，其行距为22磅，页眉顶端距离1.5厘米，页脚底端距离1.75厘米。
 %    \begin{macrocode}
-\geometry{
   headheight=22pt,
   headsep=0pt,
   footskip=22pt,
@@ -328,6 +334,7 @@
 }
 \pagestyle{plain}
 %    \end{macrocode}
+
 % \subsection{文档结构}
 % 设置关于毕业设计（论文）的文档结构指令。包括摘要目录部分（前页部分，frontmatter）以及正文部分（mainmatter）并指定页编号和页眉页脚样式。
 %    \begin{macrocode}
@@ -342,13 +349,68 @@
   \pagestyle{main}
 }
 %    \end{macrocode}
+
 % \subsection{段落设置}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{linespread}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{linespread}为1.7以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{linespread}$=$1.4）。由于生成声明页需要切换行间距，此处定义为文档命令。
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{linespread}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{linespread}为1.7以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{linespread}$=$1.41）。由于生成声明页需要切换行间距，此处定义为文档命令。
 %    \begin{macrocode}
-\newcommand*{\seut@control@mainlinespread}{\renewcommand*{\linespread}{1.7}}
-\newcommand*{\seut@control@declarelinespread}{\renewcommand*{\linespread}{1.4}}
+\newcommand*{\seut@control@mainlinespread}{\linespread{1.3}}
+\newcommand*{\seut@control@declarelinespread}{\linespread{1.13}}
 \seut@control@mainlinespread
 %    \end{macrocode}
+
+% \subsection{章节格式设置}
+% 指定章节标题名称。
+%    \begin{macrocode}
+\ctexset{
+  contentsname = \seut@const@str@contentsname,
+  abstractname = \seut@const@str@abstractname,
+  appendixname = \seut@const@str@appendixname,
+  bibname      = \seut@const@str@bibname,
+%    \end{macrocode}
+% 指定章节标题格式。
+%    \begin{macrocode}
+  chapter = {
+    name = {第,章},
+    format = {%
+      \zihao{3}\bfseries\centering\heiti%
+    },
+    aftername = \seut@space{0.5},
+    pagestyle = main,
+    beforeskip = 0pt,
+    afterskip = 0pt,
+    fixskip = true,
+  },
+  section = {
+    format = {%
+      \zihao{4}\heiti%
+    },
+    hang = false,
+    beforeskip = 0pt,
+    afterskip = 0pt,
+    fixskip = true,
+  },
+  subsection = {%
+    format = {%
+      \zihao{-4}\bfseries\songti
+    },
+    hang = false,
+    beforeskip = 0pt,
+    afterskip = 0pt,
+    fixskip = true,
+  },
+%    \end{macrocode}
+% 指定目录格式。
+%    \begin{macrocode}
+  secnumdepth = subsection,
+  tocdepth    = subsection,
+  
+%    \end{macrocode}
+
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+
+
 
 % \subsection{浮动体设置}
 
@@ -437,7 +499,43 @@
 %    \end{macrocode}
 % \subsection{声明页}
 
-% \subsection{特殊章节}
+% 定义声明页，包括独创性声明以及使用授权声明。此页是静止的，没有需要用户填写的内容。
+%    \begin{macrocode}
+\newcommand{\makedeclaration}{%
+  \begin{titlepage}
+    \vspace*{62pt}
+    \seut@control@declarelinespread
+    {\centering
+    \heiti\zihao{-2}
+    \seut@const@str@declare@origin@title
+    \par
+    }
+    \vspace{32pt}\par
+    \seut@const@str@declare@origin@content\par
+    \hspace*{\fill}\par
+    \hangafter 0
+    \hangindent 4\ccwd
+    \noindent \seut@const@str@declare@authorsign\seutplaceholder[8\ccwd]{}\seut@space{1.5}%
+    \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[2.5\ccwd]{}月\seutplaceholder[2.5\ccwd]{}日\par
+    \vspace{155pt}\par
+    {\centering
+    \heiti\zihao{-2}
+    \seut@const@str@declare@usage@title
+    \par % to make centering work
+    }
+    \vspace{20pt}\par
+    \seut@const@str@declare@usage@content\par
+    \hspace*{\fill}\par
+    \seut@const@str@declare@authorsign\seutplaceholder[9.5\ccwd]{}\seut@space{2}%
+    \seut@const@str@declare@supervisorsign\seutplaceholder[11.5\ccwd]{}\par
+    \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月\seutplaceholder[3\ccwd]{}日\seut@space{3}%
+    \seut@const@str@declare@date\seutplaceholder[2.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月\seutplaceholder[3\ccwd]{}日\par
+    \seut@control@mainlinespread % 恢复行距
+  \end{titlepage}
+}
+%    \end{macrocode}
+
+
 
 %</cls>
 % \Finale
