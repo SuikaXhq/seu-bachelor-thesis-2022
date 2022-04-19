@@ -11,3 +11,4 @@ del *.listing
 del *.synctex.gz
 xelatex seuthesis-2019.ins
 xelatex -interaction=nonstopmode -file-line-error -shell-escape test
+xelatex -interaction=nonstopmode -file-line-error -shell-escape test

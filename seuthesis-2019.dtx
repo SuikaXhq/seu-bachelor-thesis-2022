@@ -156,6 +156,7 @@
 %    \begin{macrocode}
 \newcommand*{\seut@const@num@linespread@main}{1.698}
 \newcommand*{\seut@const@num@linespread@delaration}{1.41}
+\newcommand*{\seut@const@num@linespread@toc}{1.528}
 \newlength{\seut@const@length@skipbetweenword}
 \setlength{\seut@const@length@skipbetweenword}{6.22pt}
 %    \end{macrocode}
@@ -202,9 +203,9 @@
 % 导入页面设置宏包。
 %    \begin{macrocode}
 \RequirePackage{geometry}
-\RequirePackage{titlesec}
 \RequirePackage{setspace}
 \RequirePackage{fancyhdr}
+\RequirePackage[titles]{tocloft}
 %    \end{macrocode}
 % 导入图片、表格设置宏包。
 %    \begin{macrocode}
@@ -246,7 +247,6 @@
 \urlstyle{same}
 \RequirePackage[sort&compress]{gbt7714}
 \RequirePackage{hypernat}
-\RequirePackage{tocloft}
 %    \end{macrocode}
 % 导入一些杂项宏包。其中部分宏包必须在前述宏包后导入。
 %    \begin{macrocode}
@@ -334,14 +334,14 @@
 }
 \fancypagestyle{front}{%
   \fancyhf{}%
-  \fancyfoot[C]{\thepage}%
+  \fancyfoot[C]{\zihao{-5}\thepage}%
   \renewcommand{\headrulewidth}{0pt}%
   \renewcommand{\footrulewidth}{0pt}%
 }
 \fancypagestyle{main}{%
   \fancyhf{}%
-  \fancyhead[C]{\seut@const@str@headertext}%
-  \fancyfoot[C]{\thepage}%
+  \fancyhead[C]{\zihao{-5}\seut@const@str@headertext}%
+  \fancyfoot[C]{\zihao{-5}\thepage}%
   \renewcommand{\headrulewidth}{0.75pt}%
   \renewcommand{\footrulewidth}{0pt}%
 }
@@ -355,24 +355,42 @@
   \clearpage
   \pagenumbering{Roman}
   \pagestyle{front}
+%    \end{macrocode}
+% 修改编号深度，抑制摘要和目录页的编号。
+%    \begin{macrocode}
+  \ctexset{
+    secnumdepth = -2,
+%    \end{macrocode}
+% 修改章首页页面样式。
+%    \begin{macrocode}
+    chapter/pagestyle = front,
+  }
 }
+%    \end{macrocode}
+% 设置正文部分结构指令，恢复编号深度。
+%    \begin{macrocode}
 \newcommand{\mainmatter}{%
   \clearpage
   \pagenumbering{arabic}
   \pagestyle{main}
+  \ctexset{
+    secnumdepth = subsection,
+    chapter/pagestyle = main,
+  }
 }
 %    \end{macrocode}
 
 % \subsection{段落设置}\label{sec:implement-paragraph}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
 %    \begin{macrocode}
 \newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
 \newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
+\newcommand*{\seut@control@toclinespread}{\setstretch{\seut@const@num@linespread@toc}}
 \linespread{\seut@const@num@linespread@main}
 %    \end{macrocode}
 % 修复章节标题过大间距的指令，仅推荐在连续出现章节标题时使用。
 %    \begin{macrocode}
-\newcommand*{\fixtitlespread}{\vspace*{-\seut@const@length@skipbetweenword}}
+\newcommand*{\fixtitlespread}{\vspace*{-2\seut@const@length@skipbetweenword}}
 %    \end{macrocode}
 
 % \subsection{章节格式设置}
@@ -383,27 +401,32 @@
   appendixname = \seut@const@str@appendixname,
   bibname      = \seut@const@str@bibname,
 %    \end{macrocode}
-% 指定章节标题格式。
+% 指定章标题格式。
 %    \begin{macrocode}
   chapter = {
-    name = {第,章},
     format = {%
       \zihao{3}\bfseries\centering\heiti%
     },
     aftername = \seut@space{0.5},
     pagestyle = main,
-    beforeskip = 8.3pt + 1.5pt,
+%    \end{macrocode}
+% 手动控制章标题前后间距，在Word中，不同于正文字号的字符所属行间距通常为2倍文档网络间距，在参考模版中即32.6pt，标题三号字的高度为16pt，因此此处$8.3\mathrm{pt}=(32.6\mathrm{pt}-16\mathrm{pt})/2$。另外，\cs{seut@const@length@skipbetweenword}为正文汉字上下距离的一半。
+%    \begin{macrocode}
+    beforeskip = 8.3pt,
     afterskip = 8.3pt + \seut@const@length@skipbetweenword,
     fixskip = true,
   },
+%    \end{macrocode}
+% 设置节、二级节标题，间距数值的计算同上。
+%    \begin{macrocode}
   section = {
     format = {%
       \zihao{4}\heiti%
     },
     hang = false,
     aftername = \ ,
-    beforeskip = 9.3pt,
-    afterskip = 9.3pt,
+    beforeskip = 9.3pt + \seut@const@length@skipbetweenword,
+    afterskip = 9.3pt + \seut@const@length@skipbetweenword,
     fixskip = true,
   },
   subsection = {%
@@ -412,8 +435,8 @@
     },
     hang = false,
     aftername = \ ,
-    beforeskip = 6.225pt,
-    afterskip = 12.45pt,
+    beforeskip = \seut@const@length@skipbetweenword,
+    afterskip = 2\seut@const@length@skipbetweenword,
     fixskip = true,
   },
   appendix = {%
@@ -428,14 +451,51 @@
 %    \end{macrocode}
 
 % \subsection{目录格式设置}
+% 首先，重新定义目录页。
+%    \begin{macrocode}
+\renewcommand{\tableofcontents}{%
+  \if@twocolumn
+    \@restonecoltrue\onecolumn
+  \else
+    \@restonecolfalse
+  \fi
+  % \chapter*{\contentsname
+  \chapter{\contentsname
+    \@mkboth{%
+      \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+  \seut@control@toclinespread
+  \@starttoc{toc}%
+  \seut@control@mainlinespread
+  \if@restonecol\twocolumn\fi
+}
+%    \end{macrocode}
 % 设置目录的字体格式。
 %    \begin{macrocode}
 \renewcommand{\cftchapfont}{\normalfont}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+%    \end{macrocode}
+% 设置目录段落格式。
+%    \begin{macrocode}
+\cftsetindents{chapter}{\parindent}{3.5\ccwd}
+\cftsetindents{section}{2\parindent}{1.33em}
+\cftsetindents{subsection}{3\parindent}{2em}
+\setlength{\cftparskip}{0pt}
+\setlength{\cftbeforechapskip}{0pt}
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
 %    \end{macrocode}
 % 设置目录引导线。
 %    \begin{macrocode}
 \renewcommand{\cftdot}{.}
-\renewcommand{\cftchapleader}{\cftdotfill{\cftchapdotsep}}
+\renewcommand{\cftdotsep}{0}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\cftsetpnumwidth{1em}
 %    \end{macrocode}
 
 % \subsection{浮动体设置}
@@ -589,14 +649,20 @@
       \renewcommand*{\seut@var@str@abstractsep}{\seut@const@str@abstractsep@en}
     }{\ClassError{seuthesis-2019}{Unknown option for abstract. Try `zh' or `en' for the abstract options.}{Try `zh' or `en' for the abstract options.}}} % Error message
 %    \end{macrocode}
-% 用无序号章实现摘要页，强制指定页面样式。
+% 用章实现摘要页。
 %    \begin{macrocode}
-  \clearpage
-  \chapter*{\seut@var@str@abstractname}
-  \thispagestyle{front}
+  \chapter{\seut@var@str@abstractname}
 }{}
 %    \end{macrocode}
 
+% \subsection{致谢页}
+% 类似摘要页，将致谢定义为章，但是需要抑制编号。
+%    \begin{macrocode}
+\newenvironment{acknowledgement}{%
+  \ctexset{secnumdepth = -2}
+  \chapter{\seut@const@str@acknowledgename}
+}{\ctexset{secnumdepth = subsection}}
+%    \end{macrocode}
 %</cls>
 % \Finale
 
