@@ -155,7 +155,9 @@
 % 定义行间距常量，数值的确定参见\ref{sec:implement-paragraph}节。
 %    \begin{macrocode}
 \newcommand*{\seut@const@num@linespread@main}{1.698}
-\newcommand*{\seut@const@num@linespread@delaration}{1.4}
+\newcommand*{\seut@const@num@linespread@delaration}{1.41}
+\newlength{\seut@const@length@skipbetweenword}
+\setlength{\seut@const@length@skipbetweenword}{6.22pt}
 %    \end{macrocode}
 %</cfg>
 
@@ -362,11 +364,15 @@
 %    \end{macrocode}
 
 % \subsection{段落设置}\label{sec:implement-paragraph}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.7以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.4）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
 %    \begin{macrocode}
 \newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
 \newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
 \linespread{\seut@const@num@linespread@main}
+%    \end{macrocode}
+% 修复章节标题过大间距的指令，仅推荐在连续出现章节标题时使用。
+%    \begin{macrocode}
+\newcommand*{\fixtitlespread}{\vspace*{-\seut@const@length@skipbetweenword}}
 %    \end{macrocode}
 
 % \subsection{章节格式设置}
@@ -386,8 +392,8 @@
     },
     aftername = \seut@space{0.5},
     pagestyle = main,
-    beforeskip = 8.3pt,
-    afterskip = 14.525pt,
+    beforeskip = 8.3pt + 1.5pt,
+    afterskip = 8.3pt + \seut@const@length@skipbetweenword,
     fixskip = true,
   },
   section = {
@@ -395,8 +401,9 @@
       \zihao{4}\heiti%
     },
     hang = false,
+    aftername = \ ,
     beforeskip = 9.3pt,
-    afterskip = 15.525pt,
+    afterskip = 9.3pt,
     fixskip = true,
   },
   subsection = {%
@@ -404,6 +411,7 @@
       \zihao{-4}\bfseries\songti
     },
     hang = false,
+    aftername = \ ,
     beforeskip = 6.225pt,
     afterskip = 12.45pt,
     fixskip = true,
