@@ -17,16 +17,16 @@
 % This work has the LPPL maintenance status `maintained'.
 % The Current Maintainer of this work is Haoqing Xu.
 %
-% Home Page of the Project: https://github.com/SuikaXhq/seu-bachelor-thesis-2019
+% Home Page of the Project: https://github.com/SuikaXhq/seu-bachelor-thesis-2022
 %
 % \fi
 % \iffalse
 %<*driver>
-\ProvidesFile{seuthesis-2019.dtx}
+\ProvidesFile{seuthesis-2022.dtx}
 %</driver>
 %<cls>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
-%<cls>\ProvidesClass{seuthesis-2019}
-%<cfg>\ProvidesFile{seuthesis-2019.cfg}
+%<cls>\ProvidesClass{seuthesis-2022}
+%<cfg>\ProvidesFile{seuthesis-2022.cfg}
 %<*cls>
   [2022/04/16 v0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls>
@@ -37,7 +37,7 @@
 \CodelineIndex
 \RecordChanges
 \begin{document}
-  \DocInput{seuthesis-2019.dtx}
+  \DocInput{seuthesis-2022.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -195,7 +195,7 @@
 % \subsection{文档类选项处理}
 % 导入配置文件。
 %    \begin{macrocode}
-\input{seuthesis-2019.cfg}
+\input{seuthesis-2022.cfg}
 %    \end{macrocode}
 % 处理字体设置。
 %    \begin{macrocode}
@@ -668,7 +668,7 @@
 % 制作标题页，首先定义一些PDF Meta-Data。
 %    \begin{macrocode}
 \renewcommand{\maketitle}{%
-  \GetFileInfo{seuthesis-2019.cls}
+  \GetFileInfo{seuthesis-2022.cls}
   \hypersetup{
     pdfauthor={\seut@var@str@titlepage@author},
     pdfcreator={\fileversion}
@@ -789,7 +789,7 @@
       \renewcommand*{\seut@var@str@abstractname}{\seut@const@str@abstractname@en}
       \renewcommand*{\seut@var@str@keywords}{\seut@const@str@keywords@en}
       \renewcommand*{\seut@var@str@abstractsep}{\seut@const@str@abstractsep@en}
-    }{\ClassError{seuthesis-2019}{Unknown option for abstract. Try `zh' or `en' for the abstract options.}{Try `zh' or `en' for the abstract options.}}} % Error message
+    }{\ClassError{seuthesis-2022}{Unknown option for abstract. Try `zh' or `en' for the abstract options.}{Try `zh' or `en' for the abstract options.}}} % Error message
 %    \end{macrocode}
 % 用章实现摘要页。
 %    \begin{macrocode}

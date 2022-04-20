@@ -1,5 +1,5 @@
 # 东南大学本科毕业设计（论文）LaTeX模版
-本项目包含东南大学本科毕业设计（论文）LaTeX模版（2019版规范）。
+本项目包含东南大学本科毕业设计（论文）LaTeX模版（2022届，2019年9月版规范）。
 
 ## 依赖环境
 
@@ -13,7 +13,7 @@
   1. 运行
 
      ```cmd
-     xelatex seuthesis-2019.ins
+     xelatex seuthesis-2022.ins
      ```
 
      以生成cls、cfg文件。
@@ -31,7 +31,7 @@
   1. 运行
 
      ```shell
-     xelatex seuthesis-2019.ins
+     xelatex seuthesis-2022.ins
      ```
 
      以生成cls、cfg文件。
