@@ -28,7 +28,7 @@
 %<cls>\ProvidesClass{seuthesis-2019}
 %<cfg>\ProvidesFile{seuthesis-2019.cfg}
 %<*cls>
-  [2022.4.16 v0.1 LaTeX Template for SEU Bachelor Thesis ver2019]
+  [2022/04/16 v0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
@@ -125,7 +125,7 @@
 \newcommand*{\seut@var@str@keywords}{}
 \newcommand*{\seut@var@str@abstractsep}{}
 \newcommand*{\seut@const@str@contentsname}{目\seut@space{2}录}
-\newcommand*{\seut@const@str@appendixsname}{附录}
+\newcommand*{\seut@const@str@appendixname}{附录}
 \newcommand*{\seut@const@str@bibname}{参考文献}
 \newcommand*{\seut@const@str@acknowledgename}{致\seut@space{2}谢}
 %    \end{macrocode}
@@ -164,6 +164,7 @@
 % 定义字体选项布尔值，默认为Windows字体。
 %    \begin{macrocode}
 \newif\ifseut@font@win\seut@font@wintrue
+\newif\ifseut@font@FZ\seut@font@FZfalse
 \newif\ifseut@font@mac\seut@font@macfalse
 %    \end{macrocode}
 % 定义行间距常量，数值的确定参见\ref{sec:implement-paragraph}节。
@@ -234,7 +235,7 @@
 % \subsection{宏包}
 % 调用底层文档类，此处指定默认字号为小四号。
 %    \begin{macrocode}
-\LoadClass[UTF8,zihao=-4]{ctexrep}
+\LoadClass[UTF8,zihao=-4]{ctexrep}[2020/05/05]
 %    \end{macrocode}
 % 导入页面设置宏包。
 %    \begin{macrocode}
@@ -338,10 +339,10 @@
 \fi
 
 \ifseut@font@FZ
-\newcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@FZ}
-\newcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@FZ}
-\newcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@FZ}
-\newcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@FZ}
+\renewcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@FZ}
+\renewcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@FZ}
+\renewcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@FZ}
+\renewcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@FZ}
 \fi
 %    \end{macrocode}
 % 设置中文字体。启用伪粗体和伪斜体，设置主要中文字体为宋体、无衬线中文字体为黑体、等宽中文字体为仿宋。
@@ -403,8 +404,9 @@
 %    \end{macrocode}
 % 修改编号深度，抑制摘要和目录页的编号。
 %    \begin{macrocode}
+  \setcounter{secnumdepth}{-2}
   \ctexset{
-    secnumdepth = -2,
+    %secnumdepth = -2,
 %    \end{macrocode}
 % 修改章首页页面样式。
 %    \begin{macrocode}
@@ -418,8 +420,9 @@
   \clearpage
   \pagenumbering{arabic}
   \pagestyle{main}
+  \setcounter{secnumdepth}{2}
   \ctexset{
-    secnumdepth = subsection,
+    %secnumdepth = subsection,
     chapter/pagestyle = main,
   }
 }
@@ -490,9 +493,10 @@
 %    \end{macrocode}
 % 指定章节和目录深度。
 %    \begin{macrocode}
-  secnumdepth = subsection,
-  tocdepth    = subsection,
+  %secnumdepth = subsection,
+  %tocdepth    = subsection,
 }
+\setcounter{tocdepth}{2}
 %    \end{macrocode}
 
 % \subsection{目录格式设置}
@@ -679,27 +683,27 @@
 %    \begin{macrocode}
 \newcommand{\makedeclaration}{%
   \begin{titlepage}
-    \vspace*{62pt - 5pt}
+    \vspace*{57pt}
     \seut@control@declarelinespread
     {\centering
     \heiti\zihao{-2}
     \seut@const@str@declare@origin@title
     \par
     }
-    \vspace{32pt - 5pt}\par
+    \vspace{32pt}\par
     \seut@const@str@declare@origin@content\par
     \hspace*{\fill}\par
     \hangafter 0
     \hangindent 4\ccwd
     \noindent \seut@const@str@declare@authorsign\seutplaceholder[8\ccwd]{}\seut@space{1.5}%
     \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[2.5\ccwd]{}月\seutplaceholder[2.5\ccwd]{}日\par
-    \vspace{155pt - 5pt}\par
+    \vspace{150pt}\par
     {\centering
     \heiti\zihao{-2}
     \seut@const@str@declare@usage@title
     \par % to make centering work
     }
-    \vspace{20pt - 5pt}\par
+    \vspace{20pt}\par
     \seut@const@str@declare@usage@content\par
     \hspace*{\fill}\par
     \seut@const@str@declare@authorsign\seutplaceholder[9.5\ccwd]{}\seut@space{2}%
@@ -745,9 +749,12 @@
 % 类似摘要页，将致谢定义为章，但是需要抑制编号。
 %    \begin{macrocode}
 \newenvironment{acknowledgement}{%
-  \ctexset{secnumdepth = -2}
+  %\ctexset{secnumdepth = -2}
+  \setcounter{secnumdepth}{-2}
   \chapter{\seut@const@str@acknowledgename}
-}{\ctexset{secnumdepth = subsection}}
+}{%
+  %\ctexset{secnumdepth = subsection}
+  \setcounter{secnumdepth}{2}}
 %    \end{macrocode}
 %</cls>
 % \Finale
