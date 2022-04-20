@@ -134,19 +134,33 @@
 \newcommand*{\seut@const@str@font@serif@win}        {Times New Roman}
 \newcommand*{\seut@const@str@font@sans@win}         {Arial}
 \newcommand*{\seut@const@str@font@mono@win}         {Courier New}
+
+\newcommand*{\seut@const@str@font@serif@mac}        {Times}
+\newcommand*{\seut@const@str@font@sans@mac}         {Arial}
+\newcommand*{\seut@const@str@font@mono@mac}         {Courier}
 %    \end{macrocode}
 % 定义中文字体名称，包括宋体、黑体、仿宋、楷体四种常用字体。
+% 
+% 定义方正字体名。
 %    \begin{macrocode}
 \newcommand*{\seut@const@str@font@songti@FZ}        {FZShuSong-Z01}
 \newcommand*{\seut@const@str@font@heiti@FZ}         {FZHei-B01}
 \newcommand*{\seut@const@str@font@fangsong@FZ}      {FZFangSong-Z02}
 \newcommand*{\seut@const@str@font@kaiti@FZ}         {FZKai-Z03}
-
+%    \end{macrocode}
+% 定义Windows字体名。
+%    \begin{macrocode}
 \newcommand*{\seut@const@str@font@songti@win}       {SimSun}
 \newcommand*{\seut@const@str@font@heiti@win}        {SimHei}
 \newcommand*{\seut@const@str@font@fangsong@win}     {FangSong}
 \newcommand*{\seut@const@str@font@kaiti@win}        {KaiTi}
 %    \end{macrocode}
+% 定义Mac字体名。
+%    \begin{macrocode}
+\newcommand*{\seut@const@str@font@songti@mac}       {Songti SC}
+\newcommand*{\seut@const@str@font@heiti@mac}        {Heiti SC}
+%    \end{macrocode}
+
 % 定义字体选项布尔值，默认为Windows字体。
 %    \begin{macrocode}
 \newif\ifseut@font@win\seut@font@wintrue
@@ -158,7 +172,13 @@
 \newcommand*{\seut@const@num@linespread@delaration}{1.41}
 \newcommand*{\seut@const@num@linespread@toc}{1.528}
 \newlength{\seut@const@length@skipbetweenword}
-\setlength{\seut@const@length@skipbetweenword}{6.22pt}
+\setlength{\seut@const@length@skipbetweenword}{12.45pt}
+%    \end{macrocode}
+% 定义关于图、表、公式编号相关变量。
+%    \begin{macrocode}
+\newif\ifseut@caption@figure@global\seut@caption@figure@globalfalse
+\newif\ifseut@caption@table@global\seut@caption@table@globalfalse
+\newif\ifseut@caption@equation@global\seut@caption@equation@globalfalse
 %    \end{macrocode}
 %</cfg>
 
@@ -177,13 +197,29 @@
 %    \end{macrocode}
 % 处理字体设置。
 %    \begin{macrocode}
-\DeclareOption{winfonts}{%
+\DeclareOption{win}{%
   \seut@font@wintrue
   \seut@font@macfalse
 }
-\DeclareOption{macfonts}{%
+\DeclareOption{mac}{%
   \seut@font@winfalse
   \seut@font@mactrue
+}
+%    \end{macrocode}
+% 处理图、表、公式编号选项。
+%    \begin{macrocode}
+\DeclareOption{globalcaption}{%
+  \seut@caption@figure@globaltrue
+  \seut@caption@table@globaltrue
+}
+\DeclareOption{globaleq}{%
+  \seut@caption@equation@globaltrue
+}
+\DeclareOption{globalfigure}{%
+  \seut@caption@figure@globaltrue
+}
+\DeclareOption{globaltable}{%
+  \seut@caption@table@globaltrue
 }
 %    \end{macrocode}
 % 传递剩余选项给底层文档类。
@@ -271,7 +307,7 @@
 % 页眉页脚边距设置，其行距为22磅，页眉顶端距离1.5厘米，页脚底端距离1.75厘米。
 %    \begin{macrocode}
   headheight=22pt,
-  headsep=0pt,
+  headsep=0.5\seut@const@length@skipbetweenword,
   footskip=22pt,
   top=1.5cm,
   bottom=1.75cm,
@@ -299,8 +335,13 @@
 
 \newcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@mac}
 \newcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@mac}
-\newcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@mac}
-\newcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@mac}
+\fi
+
+\ifseut@font@FZ
+\newcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@FZ}
+\newcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@FZ}
+\newcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@FZ}
+\newcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@FZ}
 \fi
 %    \end{macrocode}
 % 设置中文字体。启用伪粗体和伪斜体，设置主要中文字体为宋体、无衬线中文字体为黑体、等宽中文字体为仿宋。
@@ -311,11 +352,15 @@
 }
 \setCJKfamilyfont{zhsong}{\seut@var@str@font@songti}
 \setCJKfamilyfont{zhhei}{\seut@var@str@font@heiti}
+\ifseut@font@mac\else
 \setCJKfamilyfont{zhfs}{\seut@var@str@font@fangsong}
 \setCJKfamilyfont{zhkai}{\seut@var@str@font@kaiti}
+\fi
 \setCJKmainfont{\seut@var@str@font@songti}
 \setCJKsansfont{\seut@var@str@font@heiti}
+\ifseut@font@mac\else
 \setCJKmonofont{\seut@var@str@font@fangsong}
+\fi
 %    \end{macrocode}
 % 设置英文字体。
 %    \begin{macrocode}
@@ -410,10 +455,10 @@
     aftername = \seut@space{0.5},
     pagestyle = main,
 %    \end{macrocode}
-% 手动控制章标题前后间距，在Word中，不同于正文字号的字符所属行间距通常为2倍文档网络间距，在参考模版中即32.6pt，标题三号字的高度为16pt，因此此处$8.3\mathrm{pt}=(32.6\mathrm{pt}-16\mathrm{pt})/2$。另外，\cs{seut@const@length@skipbetweenword}为正文汉字上下距离的一半。
+% 手动控制章标题前后间距，在Word中，不同于正文字号的字符所属行间距通常为2倍文档网络间距，在参考模版中即32.6pt，标题三号字的高度为16pt，因此此处$8.3\mathrm{pt}=(32.6\mathrm{pt}-16\mathrm{pt})/2$。另外，\cs{seut@const@length@skipbetweenword}为正文汉字两行间的空白距离。
 %    \begin{macrocode}
-    beforeskip = 8.3pt,
-    afterskip = 8.3pt + \seut@const@length@skipbetweenword,
+    beforeskip = 8.3pt - 0.5\seut@const@length@skipbetweenword,
+    afterskip = 8.3pt + 0.5\seut@const@length@skipbetweenword,
     fixskip = true,
   },
 %    \end{macrocode}
@@ -425,8 +470,8 @@
     },
     hang = false,
     aftername = \ ,
-    beforeskip = 9.3pt + \seut@const@length@skipbetweenword,
-    afterskip = 9.3pt + \seut@const@length@skipbetweenword,
+    beforeskip = 9.3pt + 0.5\seut@const@length@skipbetweenword,
+    afterskip = 9.3pt + 0.5\seut@const@length@skipbetweenword,
     fixskip = true,
   },
   subsection = {%
@@ -436,7 +481,7 @@
     hang = false,
     aftername = \ ,
     beforeskip = \seut@const@length@skipbetweenword,
-    afterskip = 2\seut@const@length@skipbetweenword,
+    afterskip = \seut@const@length@skipbetweenword,
     fixskip = true,
   },
   appendix = {%
@@ -499,10 +544,51 @@
 %    \end{macrocode}
 
 % \subsection{浮动体设置}
+% 根据用户选项设置不同的标题编号方式。首先设置图标题的全局编号方式。
+%    \begin{macrocode}
+\newcounter{globalcaption}
+\ifseut@caption@figure@global
+  \numberwithin{figure}{globalcaption}
+  \renewcommand{\thefigure}{\arabic{figure}}
+%    \end{macrocode}
+% 若用户没有指定全局编号选项，则按章编号。
+%    \begin{macrocode}
+\else
+  \numberwithin{figure}{chapter}
+  \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
+\fi
+%    \end{macrocode}
+% 类似地定义表编号方式。
+%    \begin{macrocode}
+\ifseut@caption@table@global
+  \numberwithin{table}{globalcaption}
+  \renewcommand{\thetable}{\arabic{table}}
+\else
+  \numberwithin{table}{chapter}
+  \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
+\fi
+%    \end{macrocode}
+% 定义子图编号设置。
+%    \begin{macrocode}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\captionsetup[subfigure]{labelformat=simple}
+\captionsetup[figure]{labelsep=space}
+\captionsetup[table]{labelsep=space}
+%    \end{macrocode}
 
 % \subsection{注释脚注}
 
 % \subsection{数学环境}
+% 定义数学公式编号方式。
+%    \begin{macrocode}
+\ifseut@caption@equation@global
+  \numberwithin{equation}{globalcaption}
+  \renewcommand{\theequation}{\arabic{equation}}
+\else
+  \numberwithin{equation}{chapter}
+  \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
+\fi
+%    \end{macrocode}
 
 % \subsection{封面页}
 % 定义封面表单的填写命令，包括标题（上/下）、学号、姓名、专业、学院、导师、起止时间等。
