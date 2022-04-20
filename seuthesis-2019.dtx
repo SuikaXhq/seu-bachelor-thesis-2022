@@ -438,7 +438,7 @@
 %    \end{macrocode}
 % 修复章节标题过大间距的指令，仅推荐在连续出现章节标题时使用。
 %    \begin{macrocode}
-\newcommand*{\fixtitlespread}{\vspace*{-2\seut@const@length@skipbetweenword}}
+\newcommand*{\fixtitlespread}{\vspace*{-\seut@const@length@skipbetweenword}}
 %    \end{macrocode}
 
 % \subsection{章节格式设置}
@@ -579,6 +579,28 @@
 \captionsetup[figure]{labelsep=space}
 \captionsetup[table]{labelsep=space}
 %    \end{macrocode}
+% 设置标题字体格式。
+%    \begin{macrocode}
+\captionsetup{font=small}
+\captionsetup[subfigure]{font=small}
+%    \end{macrocode}
+% 设置标题位置关系，图片的标题在下方，表格的标题在上方。
+%    \begin{macrocode}
+\captionsetup[table]{position=above}
+\captionsetup[figure]{position=below}
+%    \end{macrocode}
+% 设置浮动体间距。
+%    \begin{macrocode}
+\captionsetup{skip=7pt}
+\setlength{\intextsep}{0.5\seut@const@length@skipbetweenword}
+\setlength{\textfloatsep}{0.5\seut@const@length@skipbetweenword}
+\setlength{\floatsep}{\seut@const@length@skipbetweenword}
+%    \end{macrocode}
+% 设置线宽。
+%    \begin{macrocode}
+\setlength\heavyrulewidth{1pt}
+\setlength\lightrulewidth{1pt}
+%    \end{macrocode}
 
 % \subsection{注释脚注}
 
@@ -593,6 +615,8 @@
   \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 \fi
 %    \end{macrocode}
+
+% \subsection{参考文献格式}
 
 % \subsection{封面页}
 % 定义封面表单的填写命令，包括标题（上/下）、学号、姓名、专业、学院、导师、起止时间等。
@@ -636,9 +660,9 @@
 %    \begin{macrocode}
     \vspace{46pt}
     {\centering
-    \heiti\zihao{2}
     \renewcommand*{\arraystretch}{1.025}
     \setlength{\tabcolsep}{0pt}
+    \heiti\zihao{2}
     \begin{tabular}{p{2.5cm}c}
       \makebox[2.5cm][r]{\seut@field@str@titlepage@title}
       & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@up} \\ \relax
@@ -655,9 +679,9 @@
 %    \begin{macrocode}
     \vspace{46pt}
     {\centering
-    \zihao{-2}
     \renewcommand*{\arraystretch}{1.08}
     \setlength{\tabcolsep}{0pt}
+    \zihao{-2}
     \begin{tabular}{p{3cm}c}
       \makebox[3cm][r]{\seut@field@str@titlepage@studentnum}
       & \seutplaceholder[8cm]{\seut@var@str@titlepage@studentnum} \\ \relax

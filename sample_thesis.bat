@@ -10,5 +10,5 @@ del *.blg
 del *.listing
 del *.synctex.gz
 xelatex seuthesis-2019.ins
-xelatex -interaction=nonstopmode -file-line-error -shell-escape sample_thesis
-xelatex -interaction=nonstopmode -file-line-error -shell-escape sample_thesis
+xelatex -file-line-error -shell-escape sample_thesis
+xelatex -file-line-error -shell-escape sample_thesis
