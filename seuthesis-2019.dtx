@@ -172,6 +172,7 @@
 \newcommand*{\seut@const@num@linespread@main}{1.698}
 \newcommand*{\seut@const@num@linespread@delaration}{1.41}
 \newcommand*{\seut@const@num@linespread@toc}{1.528}
+\newcommand*{\seut@const@num@linespread@bib}{1.94}
 \newlength{\seut@const@length@skipbetweenword}
 \setlength{\seut@const@length@skipbetweenword}{12.45pt}
 %    \end{macrocode}
@@ -243,9 +244,11 @@
 \RequirePackage{setspace}
 \RequirePackage{fancyhdr}
 \RequirePackage[titles]{tocloft}
+\RequirePackage[perpage]{footmisc}
 %    \end{macrocode}
 % 导入图片、表格设置宏包。
 %    \begin{macrocode}
+\RequirePackage{tikz}
 \RequirePackage{graphicx}
 \RequirePackage{caption}
 \RequirePackage{subcaption}
@@ -262,7 +265,7 @@
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
 %    \end{macrocode}
-% 导入引用设置宏包并添加hyperref设置。
+% 导入引用和参考文献设置宏包并添加hyperref设置。
 %    \begin{macrocode}
 \RequirePackage[hyphens]{url}
 \RequirePackage{hyperref}
@@ -283,7 +286,9 @@
 }
 \urlstyle{same}
 \RequirePackage[sort&compress]{gbt7714}
+\RequirePackage{natbib}
 \RequirePackage{hypernat}
+\RequirePackage{tocbibind}
 %    \end{macrocode}
 % 导入一些杂项宏包。其中部分宏包必须在前述宏包后导入。
 %    \begin{macrocode}
@@ -388,7 +393,7 @@
   \fancyhf{}%
   \fancyhead[C]{\zihao{-5}\seut@const@str@headertext}%
   \fancyfoot[C]{\zihao{-5}\thepage}%
-  \renewcommand{\headrulewidth}{0.75pt}%
+  \renewcommand{\headrulewidth}{1pt}%
   \renewcommand{\footrulewidth}{0pt}%
 }
 \pagestyle{plain}
@@ -402,7 +407,7 @@
   \pagenumbering{Roman}
   \pagestyle{front}
 %    \end{macrocode}
-% 修改编号深度，抑制摘要和目录页的编号。
+% 修改编号深度，抑制摘要页的编号。这样做是为了能使摘要在无编号的情况下被加入目录和书签，目录中其他无编号的章也采用类似做法，参见致谢页（\ref{sec:implement-acknowledgement}节）。目录和参考文献章加入目录项的方式是使用了\texttt{tocbibind}宏包。
 %    \begin{macrocode}
   \setcounter{secnumdepth}{-2}
   \ctexset{
@@ -414,7 +419,7 @@
   }
 }
 %    \end{macrocode}
-% 设置正文部分结构指令，恢复编号深度。
+% 设置正文部分结构指令，恢复编号深度。深度2在\texttt{report}中表示\texttt{subsection}。
 %    \begin{macrocode}
 \newcommand{\mainmatter}{%
   \clearpage
@@ -429,11 +434,12 @@
 %    \end{macrocode}
 
 % \subsection{段落设置}\label{sec:implement-paragraph}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
 %    \begin{macrocode}
 \newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
 \newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
 \newcommand*{\seut@control@toclinespread}{\setstretch{\seut@const@num@linespread@toc}}
+\newcommand*{\seut@control@biblinespread}{\setstretch{\seut@const@num@linespread@bib}}
 \linespread{\seut@const@num@linespread@main}
 %    \end{macrocode}
 % 修复章节标题过大间距的指令，仅推荐在连续出现章节标题时使用。
@@ -460,7 +466,7 @@
 %    \end{macrocode}
 % 手动控制章标题前后间距，在Word中，不同于正文字号的字符所属行间距通常为2倍文档网络间距，在参考模版中即32.6pt，标题三号字的高度为16pt，因此此处$8.3\mathrm{pt}=(32.6\mathrm{pt}-16\mathrm{pt})/2$。另外，\cs{seut@const@length@skipbetweenword}为正文汉字两行间的空白距离。
 %    \begin{macrocode}
-    beforeskip = 8.3pt - 0.5\seut@const@length@skipbetweenword,
+    beforeskip = 8.3pt - 0.5\seut@const@length@skipbetweenword + 0.05cm,
     afterskip = 8.3pt + 0.5\seut@const@length@skipbetweenword,
     fixskip = true,
   },
@@ -500,24 +506,6 @@
 %    \end{macrocode}
 
 % \subsection{目录格式设置}
-% 首先，重新定义目录页。
-%    \begin{macrocode}
-\renewcommand{\tableofcontents}{%
-  \if@twocolumn
-    \@restonecoltrue\onecolumn
-  \else
-    \@restonecolfalse
-  \fi
-  % \chapter*{\contentsname
-  \chapter{\contentsname
-    \@mkboth{%
-      \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
-  \seut@control@toclinespread
-  \@starttoc{toc}%
-  \seut@control@mainlinespread
-  \if@restonecol\twocolumn\fi
-}
-%    \end{macrocode}
 % 设置目录的字体格式。
 %    \begin{macrocode}
 \renewcommand{\cftchapfont}{\normalfont}
@@ -591,9 +579,9 @@
 %    \end{macrocode}
 % 设置浮动体间距。
 %    \begin{macrocode}
-\captionsetup{skip=7pt}
-\setlength{\intextsep}{0.5\seut@const@length@skipbetweenword}
-\setlength{\textfloatsep}{0.5\seut@const@length@skipbetweenword}
+\captionsetup{skip=10pt}
+\setlength{\intextsep}{\seut@const@length@skipbetweenword}
+\setlength{\textfloatsep}{\seut@const@length@skipbetweenword}
 \setlength{\floatsep}{\seut@const@length@skipbetweenword}
 %    \end{macrocode}
 % 设置线宽。
@@ -603,6 +591,35 @@
 %    \end{macrocode}
 
 % \subsection{注释脚注}
+% 设置注释的圆圈编号方式，这里的解决方案参考自\url{https://tex.stackexchange.com/questions/639370/how-to-enumerate-footnotes-with-circled-numbers}。首先使用\texttt{tikz}宏包定义圆圈。
+%    \begin{macrocode}
+\tikzset{circlednode/.style={
+    circle,
+    draw,
+    inner sep=0.05ex,
+    text depth=0ex,
+    font=\normalfont,
+    minimum size=1ex
+    }
+}
+\newcommand*\circled[1]{%
+    \ifnumcomp{#1}{>}{9}{% 
+    % if > 9:
+    \tikz[baseline=(char.base)]\node[circlednode] (char) {\addfontfeature{LetterSpace=-9.0}\scalebox{0.5}[1]{\bfseries#1}};}{%
+    % if <= 9: 
+    \tikz[baseline=(char.base)]\node[circlednode] (char) {#1};}%
+}
+%    \end{macrocode}
+% 之后，修改脚标的定义。
+%    \begin{macrocode}
+\renewcommand{\thefootnote}{%
+    \raisebox{0.25ex}{%
+    \scalebox{0.7}{\protect\circled{%
+            \arabic{footnote}}%
+        }%
+    }%
+}
+%    \end{macrocode}
 
 % \subsection{数学环境}
 % 定义数学公式编号方式。
@@ -616,7 +633,18 @@
 \fi
 %    \end{macrocode}
 
-% \subsection{参考文献格式}
+% \subsection{参考文献格式}\label{sec:implement-references}
+% 修改行间距并指定使用五号字。
+%    \begin{macrocode}
+\AtBeginEnvironment{thebibliography}{%
+  \seut@control@biblinespread
+  \zihao{5}
+}
+%    \end{macrocode} 
+% 修改参考文献项之间的距离。
+%    \begin{macrocode}
+\setlength{\bibsep}{0pt}
+%    \end{macrocode}
 
 % \subsection{封面页}
 % 定义封面表单的填写命令，包括标题（上/下）、学号、姓名、专业、学院、导师、起止时间等。
@@ -646,19 +674,19 @@
     pdfcreator={\fileversion}
   }
 %    \end{macrocode}
-% 定义封面页。首先空出44pt（来自于Word模版内空行）的距离，放置东南大学文字Logo以及总标题。
+% 定义封面页。首先空出30pt（来自于Word模版内空行）的距离，放置东南大学文字Logo以及总标题。
 %    \begin{macrocode}
   \begin{titlepage}
-    \vspace*{44pt}
+    \vspace*{30pt}
     \begin{centering}
       \includegraphics[width=7.2cm]{resources/seu-text-logo}\par
       \vspace{34pt}\par
       {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\par
     \end{centering}
 %    \end{macrocode}
-% 空开46pt（Word内空行），放置论文题目。
+% 空开60pt（Word内空行），放置论文题目。
 %    \begin{macrocode}
-    \vspace{46pt}
+    \vspace{60pt}
     {\centering
     \renewcommand*{\arraystretch}{1.025}
     \setlength{\tabcolsep}{0pt}
@@ -707,27 +735,27 @@
 %    \begin{macrocode}
 \newcommand{\makedeclaration}{%
   \begin{titlepage}
-    \vspace*{57pt}
+    \vspace*{52pt}
     \seut@control@declarelinespread
     {\centering
     \heiti\zihao{-2}
     \seut@const@str@declare@origin@title
     \par
     }
-    \vspace{32pt}\par
+    \vspace{39pt}\par
     \seut@const@str@declare@origin@content\par
     \hspace*{\fill}\par
     \hangafter 0
     \hangindent 4\ccwd
     \noindent \seut@const@str@declare@authorsign\seutplaceholder[8\ccwd]{}\seut@space{1.5}%
     \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[2.5\ccwd]{}月\seutplaceholder[2.5\ccwd]{}日\par
-    \vspace{150pt}\par
+    \vspace{155pt}\par
     {\centering
     \heiti\zihao{-2}
     \seut@const@str@declare@usage@title
     \par % to make centering work
     }
-    \vspace{20pt}\par
+    \vspace{22pt}\par
     \seut@const@str@declare@usage@content\par
     \hspace*{\fill}\par
     \seut@const@str@declare@authorsign\seutplaceholder[9.5\ccwd]{}\seut@space{2}%
@@ -769,7 +797,7 @@
 }{}
 %    \end{macrocode}
 
-% \subsection{致谢页}
+% \subsection{致谢页}\label{sec:implement-acknowledgement}
 % 类似摘要页，将致谢定义为章，但是需要抑制编号。
 %    \begin{macrocode}
 \newenvironment{acknowledgement}{%
