@@ -661,6 +661,7 @@
 %    \end{macrocode}
 
 % \subsection{注释脚注}
+% \begin{macro}{\circled}
 % 设置注释的圆圈编号方式，这里的解决方案参考自\url{https://tex.stackexchange.com/questions/639370/how-to-enumerate-footnotes-with-circled-numbers}。首先使用\texttt{tikz}宏包定义圆圈。
 %    \begin{macrocode}
 \tikzset{seut@circled@node/.style={
@@ -672,7 +673,7 @@
     minimum size=1ex
     }
 }
-\newcommand*\seut@control@circled[1]{%
+\newcommand*\circled[1]{%
     \ifnumcomp{#1}{>}{9}{% 
     % if > 9:
     \tikz[baseline=(char.base)]\node[seut@circled@node] (char) {\addfontfeature{LetterSpace=-9.0}\scalebox{0.5}[1]{\bfseries#1}};}{%
@@ -680,11 +681,12 @@
     \tikz[baseline=(char.base)]\node[seut@circled@node] (char) {#1};}%
 }
 %    \end{macrocode}
+% \end{macro}
 % 之后，修改脚标的定义。
 %    \begin{macrocode}
 \renewcommand{\thefootnote}{%
     \raisebox{0.25ex}{%
-    \scalebox{0.7}{\protect\seut@control@circled{%
+    \scalebox{0.7}{\protect\circled{%
             \arabic{footnote}}%
         }%
     }%
