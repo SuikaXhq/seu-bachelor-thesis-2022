@@ -129,17 +129,7 @@
 \newcommand*{\seut@const@str@bibname}{参考文献}
 \newcommand*{\seut@const@str@acknowledgename}{致\seut@space{2}谢}
 %    \end{macrocode}
-% 定义英文字体名称，包括衬线、无衬线、等宽字体。
-%    \begin{macrocode}
-\newcommand*{\seut@const@str@font@serif@win}        {Times New Roman}
-\newcommand*{\seut@const@str@font@sans@win}         {Arial}
-\newcommand*{\seut@const@str@font@mono@win}         {Courier New}
-
-\newcommand*{\seut@const@str@font@serif@mac}        {Times}
-\newcommand*{\seut@const@str@font@sans@mac}         {Arial}
-\newcommand*{\seut@const@str@font@mono@mac}         {Courier}
-%    \end{macrocode}
-% 定义中文字体名称，包括宋体、黑体、仿宋、楷体四种常用字体。
+% 定义字体名称，包括宋体、黑体、仿宋、楷体四种中文字体以及衬线、无衬线、等宽三种英文字体。
 % 
 % 定义方正字体名。
 %    \begin{macrocode}
@@ -148,24 +138,45 @@
 \newcommand*{\seut@const@str@font@fangsong@FZ}      {FZFangSong-Z02}
 \newcommand*{\seut@const@str@font@kaiti@FZ}         {FZKai-Z03}
 %    \end{macrocode}
+% 定义Fandol字体名。
+%    \begin{macrocode}
+\newcommand*{\seut@const@str@font@songti@fandol}    {FandolSong}
+\newcommand*{\seut@const@str@font@heiti@fandol}     {FandolHei}
+\newcommand*{\seut@const@str@font@fangsong@fandol}  {FandolFang}
+\newcommand*{\seut@const@str@font@kaiti@fandol}     {FandolKai}
+%    \end{macrocode}
+% 定义华文字体名。
+%    \begin{macrocode}
+\newcommand*{\seut@const@str@font@songti@ST}    {STSong}
+\newcommand*{\seut@const@str@font@heiti@ST}     {STHeiti}
+\newcommand*{\seut@const@str@font@fangsong@ST}  {STFangsong}
+\newcommand*{\seut@const@str@font@kaiti@ST}     {STKaiti}
+%    \end{macrocode}
 % 定义Windows字体名。
 %    \begin{macrocode}
 \newcommand*{\seut@const@str@font@songti@win}       {SimSun}
 \newcommand*{\seut@const@str@font@heiti@win}        {SimHei}
 \newcommand*{\seut@const@str@font@fangsong@win}     {FangSong}
 \newcommand*{\seut@const@str@font@kaiti@win}        {KaiTi}
+\newcommand*{\seut@const@str@font@serif@win}        {Times New Roman}
+\newcommand*{\seut@const@str@font@sans@win}         {Arial}
+\newcommand*{\seut@const@str@font@mono@win}         {Courier New}
 %    \end{macrocode}
 % 定义Mac字体名。
 %    \begin{macrocode}
 \newcommand*{\seut@const@str@font@songti@mac}       {Songti SC}
 \newcommand*{\seut@const@str@font@heiti@mac}        {Heiti SC}
+\newcommand*{\seut@const@str@font@serif@mac}        {Times}
+\newcommand*{\seut@const@str@font@sans@mac}         {Arial}
+\newcommand*{\seut@const@str@font@mono@mac}         {Courier}
 %    \end{macrocode}
-
 % 定义字体选项布尔值，默认为Windows字体。
 %    \begin{macrocode}
 \newif\ifseut@font@win\seut@font@wintrue
-\newif\ifseut@font@FZ\seut@font@FZfalse
 \newif\ifseut@font@mac\seut@font@macfalse
+\newif\ifseut@font@FZ\seut@font@FZfalse
+\newif\ifseut@font@ST\seut@font@STfalse
+\newif\ifseut@font@fandol\seut@font@fandolfalse
 %    \end{macrocode}
 % 定义行间距常量，数值的确定参见\ref{sec:implement-paragraph}节。
 %    \begin{macrocode}
@@ -185,7 +196,7 @@
 %</cfg>
 
 % \subsection{启动前检查}
-% 检查\XeLaTeX引擎。
+% 检查\XeLaTeX{}引擎。
 %    \begin{macrocode}
 %<*cls>
 \RequirePackage{ifxetex}
@@ -206,6 +217,21 @@
 \DeclareOption{mac}{%
   \seut@font@winfalse
   \seut@font@mactrue
+}
+\DeclareOption{STfonts}{%
+  \seut@font@STtrue
+  \seut@font@FZfalse
+  \seut@font@fandolfalse
+}
+\DeclareOption{FZfonts}{%
+  \seut@font@STfalse
+  \seut@font@FZtrue
+  \seut@font@fandolfalse
+}
+\DeclareOption{fandol}{%
+  \seut@font@STfalse
+  \seut@font@FZfalse
+  \seut@font@fandoltrue
 }
 %    \end{macrocode}
 % 处理图、表、公式编号选项。
@@ -327,27 +353,35 @@
 \newcommand*{\seut@var@str@font@serif}      {\seut@const@str@font@serif@win}
 \newcommand*{\seut@var@str@font@sans}       {\seut@const@str@font@sans@win}
 \newcommand*{\seut@var@str@font@mono}       {\seut@const@str@font@mono@win}
-
 \newcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@win}
 \newcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@win}
 \newcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@win}
 \newcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@win}
 \fi
-
 \ifseut@font@mac
 \newcommand*{\seut@var@str@font@serif}      {\seut@const@str@font@serif@mac}
 \newcommand*{\seut@var@str@font@sans}       {\seut@const@str@font@sans@mac}
 \newcommand*{\seut@var@str@font@mono}       {\seut@const@str@font@mono@mac}
-
 \newcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@mac}
 \newcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@mac}
 \fi
-
 \ifseut@font@FZ
 \renewcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@FZ}
 \renewcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@FZ}
 \renewcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@FZ}
 \renewcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@FZ}
+\fi
+\ifseut@font@ST
+\renewcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@ST}
+\renewcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@ST}
+\renewcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@ST}
+\renewcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@ST}
+\fi
+\ifseut@font@fandol
+\renewcommand*{\seut@var@str@font@songti}     {\seut@const@str@font@songti@fandol}
+\renewcommand*{\seut@var@str@font@heiti}      {\seut@const@str@font@heiti@fandol}
+\renewcommand*{\seut@var@str@font@fangsong}   {\seut@const@str@font@fangsong@fandol}
+\renewcommand*{\seut@var@str@font@kaiti}      {\seut@const@str@font@kaiti@fandol}
 \fi
 %    \end{macrocode}
 % 设置中文字体。启用伪粗体和伪斜体，设置主要中文字体为宋体、无衬线中文字体为黑体、等宽中文字体为仿宋。
@@ -434,7 +468,7 @@
 %    \end{macrocode}
 
 % \subsection{段落设置}\label{sec:implement-paragraph}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX{}中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
 %    \begin{macrocode}
 \newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
 \newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
@@ -812,9 +846,10 @@
 % \Finale
 
 % \iffalse
-% TODO: style
 %<*doc>
 \ProvidesPackage{seuthesisdoc}
+\RequirePackage{ctex}
+\RequirePackage{xltxtra}
 %</doc>
 % \fi
 \endinput
