@@ -27,9 +27,10 @@
 %<cls>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
 %<cls>\ProvidesClass{seuthesis-2022}
 %<cfg>\ProvidesFile{seuthesis-2022.cfg}
-%<*cls>
-  [2022/04/16 v0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
-%</cls>
+%<doc>\ProvidesPackage{seuthesisdoc}
+%<*cls|cfg|doc>
+  [2022/04/22 v1.0 LaTeX Template for SEU Bachelor Thesis Class 2022]
+%</cls|cfg|doc>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
 \usepackage{seuthesisdoc}
@@ -61,7 +62,38 @@
 %   Right brace   \}     Tilde         \~}
 % 
 % \StopEventually{\PrintIndex}
-
+% \GetFileInfo{seuthesisdoc.sty}
+% \title{\seuthesis\\东南大学本科毕业设计（论文）\XeLaTeX{}模版\\（2022届，2019年9月版规范）}
+% \author{SuikaXhq\\haoqing\_xu@outlook.com}
+% \date{\fileversion\ (\filedate)}
+% \maketitle
+% \thispagestyle{empty}
+% \tableofcontents
+% \clearpage
+% \section{简介}
+% 文档类\seuthesis{}实现了基于东南大学本科毕业设计（论文）2019年9月版规范的\XeLaTeX{}模版。本文档将尽可能介绍\seuthesis{}的使用方式以及代码文档，具体论文范例可以参考\texttt{sample\_thesis.tex}。
+% 
+% 本文档类的编写过程中参考了以下项目与文档，在此对这些作者表示感谢：
+% \begin{itemize}
+%   \item 胡海星. 南京大学学位论文\XeLaTeX{}模版. \url{https://github.com/Haixing-Hu/nju-thesis}
+%   \item 在\LaTeX{}中进行文学编程. \url{https://liam.page/2015/01/23/literate-programming-in-latex/}
+%   \item \CTeX{}宏包. \url{https://github.com/CTeX-org/ctex-kit}
+%   \item StackExchange TeX版内的各问题及回答者. \url{https://tex.stackexchange.com/}
+% \end{itemize}
+% 
+% \section{安装文档类}
+% 
+% \section{样例论文}
+% 
+% \section{文档选项}
+% 
+% \section{文档结构命令与环境}
+% \section{插入图片}
+% \section{插入表格}
+% \section{交叉引用}
+% \section{参考文献}
+% \section{其他}
+% 
 % \section{实现细节}
 % \subsection{字段定义}
 % 定义模版内常用字段，包括章节标题、固定项名称等。该部分保存于文档配置文件（*.cfg）。变量命名规则为seut@功能@类型@名称，功能包含预设字段（field）、变量（var）等，类型包括字符串（str）、数值（num）、布尔（bool）等，名称可能包含所属页面等辅助信息。
@@ -434,6 +466,7 @@
 %    \end{macrocode}
 
 % \subsection{文档结构}
+% \begin{macro}{\frontmatter}
 % 设置关于毕业设计（论文）的文档结构指令。包括摘要目录部分（前页部分，frontmatter）以及正文部分（mainmatter）并指定页编号和页眉页脚样式。
 %    \begin{macrocode}
 \newcommand{\frontmatter}{%
@@ -453,6 +486,8 @@
   }
 }
 %    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\mainmatter}
 % 设置正文部分结构指令，恢复编号深度。深度2在\texttt{report}中表示\texttt{subsection}。
 %    \begin{macrocode}
 \newcommand{\mainmatter}{%
@@ -466,6 +501,7 @@
   }
 }
 %    \end{macrocode}
+% \end{macro}
 
 % \subsection{段落设置}\label{sec:implement-paragraph}
 % 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX{}中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
@@ -627,7 +663,7 @@
 % \subsection{注释脚注}
 % 设置注释的圆圈编号方式，这里的解决方案参考自\url{https://tex.stackexchange.com/questions/639370/how-to-enumerate-footnotes-with-circled-numbers}。首先使用\texttt{tikz}宏包定义圆圈。
 %    \begin{macrocode}
-\tikzset{circlednode/.style={
+\tikzset{seut@circled@node/.style={
     circle,
     draw,
     inner sep=0.05ex,
@@ -636,19 +672,19 @@
     minimum size=1ex
     }
 }
-\newcommand*\circled[1]{%
+\newcommand*\seut@control@circled[1]{%
     \ifnumcomp{#1}{>}{9}{% 
     % if > 9:
-    \tikz[baseline=(char.base)]\node[circlednode] (char) {\addfontfeature{LetterSpace=-9.0}\scalebox{0.5}[1]{\bfseries#1}};}{%
+    \tikz[baseline=(char.base)]\node[seut@circled@node] (char) {\addfontfeature{LetterSpace=-9.0}\scalebox{0.5}[1]{\bfseries#1}};}{%
     % if <= 9: 
-    \tikz[baseline=(char.base)]\node[circlednode] (char) {#1};}%
+    \tikz[baseline=(char.base)]\node[seut@circled@node] (char) {#1};}%
 }
 %    \end{macrocode}
 % 之后，修改脚标的定义。
 %    \begin{macrocode}
 \renewcommand{\thefootnote}{%
     \raisebox{0.25ex}{%
-    \scalebox{0.7}{\protect\circled{%
+    \scalebox{0.7}{\protect\seut@control@circled{%
             \arabic{footnote}}%
         }%
     }%
@@ -681,6 +717,7 @@
 %    \end{macrocode}
 
 % \subsection{封面页}
+% \begin{macro}{\title,\studentnum,\author,\department,\major,\supervisor,\period}
 % 定义封面表单的填写命令，包括标题（上/下）、学号、姓名、专业、学院、导师、起止时间等。
 %    \begin{macrocode}
 \renewcommand{\title}[2]{%
@@ -699,6 +736,8 @@
 \newcommand{\seut@control@placeholder}[2][\linewidth]{\CJKunderline{\makebox[#1]{#2}}}
 \def\seutplaceholder{\@ifnextchar[\seut@control@placeholder\CJKunderline}
 %    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\maketitle}
 % 制作标题页，首先定义一些PDF Meta-Data。
 %    \begin{macrocode}
 \renewcommand{\maketitle}{%
@@ -763,8 +802,10 @@
   \end{titlepage}
 }
 %    \end{macrocode}
+% \end{macro}
 
 % \subsection{声明页}
+% \begin{macro}{\makedeclaration}
 % 定义声明页，包括独创性声明以及使用授权声明。此页是静止的，没有需要用户填写的内容。
 %    \begin{macrocode}
 \newcommand{\makedeclaration}{%
@@ -799,8 +840,10 @@
   \end{titlepage}
 }
 %    \end{macrocode}
+% \end{macro}
 
 % \subsection{摘要页}
+% \begin{macro}{\keywords}
 % 实现关键词命令，用于生成关键词列表。用\texttt{etools}宏包的循环处理逗号隔开的参数。
 %    \begin{macrocode}
 \newcommand{\seut@control@keywords}[1]{%
@@ -811,6 +854,8 @@
     \par\hspace*{\fill}\par
     \noindent\seut@var@str@keywords\seut@control@keywords}
 %    \end{macrocode}
+% \end{macro}
+% \begin{macro}{abstract}
 % 定义摘要页，包括中文摘要和英文摘要。首先判断环境选项，选择对应语言的预设字符串。
 %    \begin{macrocode}
 \renewenvironment{abstract}[1][zh]{%
@@ -830,8 +875,10 @@
   \chapter{\seut@var@str@abstractname}
 }{}
 %    \end{macrocode}
+% \end{macro}
 
 % \subsection{致谢页}\label{sec:implement-acknowledgement}
+% \begin{macro}{\acknowledgement}
 % 类似摘要页，将致谢定义为章，但是需要抑制编号。
 %    \begin{macrocode}
 \newenvironment{acknowledgement}{%
@@ -842,14 +889,39 @@
   %\ctexset{secnumdepth = subsection}
   \setcounter{secnumdepth}{2}}
 %    \end{macrocode}
+% \end{macro}
 %</cls>
 % \Finale
 
 % \iffalse
 %<*doc>
-\ProvidesPackage{seuthesisdoc}
-\RequirePackage{ctex}
-\RequirePackage{xltxtra}
+\RequirePackage[zihao=5]{ctex}
+\RequirePackage{doc}
+\RequirePackage{metalogo}
+\RequirePackage[hyphens]{url}
+\RequirePackage{hyperref}
+\RequirePackage{geometry}
+\geometry{
+  a4paper,
+  right=2cm,
+}
+\hypersetup{
+    unicode=false,
+    hyperfootnotes=true,
+    hyperindex=true,
+    pageanchor=true,
+    CJKbookmarks=true,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    bookmarksopenlevel=0,
+    breaklinks=true,
+    colorlinks=false,
+    plainpages=false,
+    pdfpagelabels,
+    pdfborder=0 0 0,
+}
+\urlstyle{same}
+\newcommand*{\seuthesis}{\texttt{seuthesis-2022}}
 %</doc>
 % \fi
 \endinput
