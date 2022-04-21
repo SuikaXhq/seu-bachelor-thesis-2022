@@ -36,13 +36,45 @@
 
      以生成cls、cfg文件。
 
-  2. 运行
-
+  2. 为sample_thesis.tex添加文档类选项“mac”，如
+  
+   ```latex
+     \documentclass[mac]{seuthesis-2022}
+     ```
+  
+   以支持mac字体。
+  
+  3. 运行
+  
      ```shell
      ./sample_thesis.sh
      ```
-
+  
      以编译样例论文。
+
+- Overleaf下：
+
+  1. 上传以下内容至Overleaf项目：
+
+     - resources文件夹及其中文件
+     - seuthesis-2022.cfg
+     - seuthesis-2022.cls
+     - sample_thesis.tex
+     - reference.bib
+
+  2. 选择Overleaf项目选项：
+
+     - 编译器（Compiler）：XeLaTeX
+     - TeX Live版本（TeX Live Version）：2021
+     - 主文档（main document）：sample_thesis.tex
+
+  3. 为sample_thesis.tex添加文档类选项“fandol”，如
+
+     ```latex
+     \documentclass[fandol]{seuthesis-2022}
+     ```
+
+  4. 编译sample_thesis.tex。
 
 
 
