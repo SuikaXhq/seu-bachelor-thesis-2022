@@ -1,6 +1,3 @@
-rm seuthesis-2019.cls
-rm seuthesis-2019.cfg
-rm seuthesisdoc.sty
 rm *.log
 rm *.aux
 rm *.toc
