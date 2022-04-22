@@ -42,7 +42,7 @@
 \end{document}
 %</driver>
 % \fi
-
+% 
 % \CheckSum{0}
 %
 % \CharacterTable
@@ -78,21 +78,310 @@
 %   \item 胡海星. 南京大学学位论文\XeLaTeX{}模版. \url{https://github.com/Haixing-Hu/nju-thesis}
 %   \item 在\LaTeX{}中进行文学编程. \url{https://liam.page/2015/01/23/literate-programming-in-latex/}
 %   \item \CTeX{}宏包. \url{https://github.com/CTeX-org/ctex-kit}
+%   \item \textsf{doc}宏包. \url{https://ctan.org/pkg/doc}
 %   \item StackExchange TeX版内的各问题及回答者. \url{https://tex.stackexchange.com/}
 % \end{itemize}
 % 
-% \section{安装文档类}
+% \section{本文档类使用的宏包}
+% 本文档类的底层实现为\texttt{ctexrep}，并调用了以下宏包：
+% \begin{table}[H]
+%   \centering
+%   \ttfamily
+%   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}*{6}{l}}
+%     \toprule
+%     ifxetex & geometry & setspace & fancyhdr & array & [perpage]footmisc \\
+%     tikz & graphicx & caption & subcaption & float & [titles]tocloft \\
+%     longtable & booktabs & multirow & amsmath & amsthm & [hyphens]{url} \\
+%     amssymb & hyperref & natbib & hypernat & amsfonts & [sort\&compress]gbt7714 \\
+%     tocbibind & ifthen & calc & etoolbox & xeCJKfntef & doc \\
+%     \bottomrule
+%   \end{tabular*}
+% \end{table}
 % 
-% \section{样例论文}
+% \section{使用文档类}
+% \subsection{项目内容}
+% 本文档类的维护项目为\url{https://github.com/SuikaXhq/seu-bachelor-thesis-2022}，用户可以在其中下载\texttt{main}分支的项目源码或Release版本。
+% 
+% 项目内含有下列主要文件与目录：
+% \begin{longtable}{lp{8cm}}
+%   \toprule
+%   文件/目录名 & 功能 \\
+%   \midrule
+%   \texttt{resources/} & 文档类资源文件夹。\\
+%   \texttt{resources/seu-text-logo.eps} & 东南大学文字Logo，用于生成封面页。\\
+%   \texttt{gbt7714.sty} & GBT7714-2015版参考文献规范宏包，用户可以在\url{https://github.com/zepinglee/gbt7714-bibtex-style}中自行下载最新版本。\\
+%   \texttt{gbt7714-numerical.bst} & GBT7714-2015规范中的数字编号式样式。\\
+%   \texttt{seuthesis-2022.dtx} & 文档类项目源文件。\\
+%   \texttt{seuthesis-2022.ins} & 文档类安装文件。\\
+%   \texttt{seuthesis-2022.pdf} & 本说明文档。\\
+%   \midrule
+%   \texttt{seuthesis-2022.cls} & 文档类，由源文件生成得到。为了用户使用方便，此处一并包含在项目中。\\
+%   \texttt{seuthesis-2022.cfg} & 文档类配置文件，主要包含预定义字段等变量。\\
+%   \midrule
+%   \texttt{fig/} & 样例论文图片文件夹。\\
+%   \texttt{fig/*.png} & 样例论文中使用的图片。\\
+%   \texttt{sample\_thesis.tex} & 样例论文源代码，仅作参考。\\
+%   \texttt{reference.bib} & 样例论文的参考文献文件。\\
+%   \bottomrule
+% \end{longtable}
+% 
+% \subsection{生成与安装}
+% 通常而言，用户使用预生成的文档类文件即可。如果用户对\texttt{dtx}及\textsf{DocStrip}感兴趣，可以遵循下列步骤生成文档类文件。
+% \begin{enumerate}
+%   \item 在命令行中切换到项目根目录。
+%   \item 运行\texttt{xelatex seuthesis-2022.ins}。
+%   \item 运行\texttt{xelatex seuthesis-2022.dtx}两次。
+% \end{enumerate}
+% 
+% 由于本文档类是专为毕业设计排版使用，一般不需要将其安装至\TeX{}目录中，如有需要可以自行将上述生成的文件移至\texttt{tex/latex/seuthesis-2022/}下并更新索引。
+% 
+% \subsection{快速使用}
+% 文档类的核心文件包括
+% \begin{itemize}
+%   \item \texttt{seuthesis-2022.cls}
+%   \item \texttt{seuthesis-2022.cfg}
+%   \item \texttt{gbt7714.sty}
+%   \item \texttt{gbt7714-numerical.bst}
+%   \item \texttt{resources}文件夹
+%   \item \texttt{resources/seu-text-logo.eps}
+% \end{itemize}
+% 用户在编写\texttt{tex}文件前需要确认这些文件均与\texttt{tex}文件放置于同一目录。
+% 
+% 对于Windows用户，在\texttt{tex}文件中指定\seuthesis{}文档类即可：
+% \begin{example}
+%   \documentclass{seuthesis-2022}
+% \end{example}
+% 
+% 对于Mac用户，需要指定\texttt{mac}选项以匹配Mac系统字体名称：
+% \begin{example}
+%   \documentclass[mac]{seuthesis-2022}
+% \end{example}
+% 
+% 如果要在Overleaf上使用本文档类，需要上传\texttt{seuthesis-2022.cls}、\texttt{seuthesis-2022.cfg}、\texttt{gbt7714.sty}、\texttt{gbt7714-numerical.bst}和\texttt{resources}文件夹及内部的\texttt{seu-text-logo.eps}，并且指定\texttt{fandol}选项以匹配字体。
+% \begin{example}
+%   \documentclass[fandol]{seuthesis-2022}
+% \end{example}
+% 
+% 编写好\texttt{tex}文件后，使用\XeLaTeX{}编译文件。
+% 
+% \subsection{样例论文}
+% 文档类项目中提供了一个样例论文\texttt{sample\_thesis.tex}，包含原Word模版内的大部分内容，用户可以参考其中的命令调用方式。编译该论文需要确认\texttt{reference.bib}和\texttt{fig}文件夹及其内部的图片文件均放置于根目录，并且\seuthesis{}文档类的核心文件也在同一目录，之后运行
+% \begin{itemize}
+%   \item Windows下：
+%   
+%   \hspace{2em}\verb|./sample_thesis.bat|
+%   
+%   \item Mac下：
+% 
+%   \hspace{2em}\verb|./sample_thesis.bat|
+% \end{itemize}
 % 
 % \section{文档选项}
+% 本文档类提供了一些选项用于进行简单的自定义设置。文档选项可以通过调用文档类时在方括号内添加来启用，多个选项间用逗号隔开。如启用\texttt{mac}选项和\texttt{globalcaption}选项：
+% \begin{example}
+%   \documentclass[mac,globalcaption]{seuthesis-2022}
+% \end{example}
+% 如果启用了一个本文档类并没有的选项，它会被传递至底层\texttt{ctexrep}文档类进行处理。
 % 
-% \section{文档结构命令与环境}
-% \section{插入图片}
-% \section{插入表格}
+% \subsection{字体选项}
+% 本文档类主要涉及四种常用中文字体（宋体、黑体、仿宋、楷体）以及三种西文字体（衬线、无衬线、等宽）。默认情况下，衬线字体为Times New Roman或者Times，无衬线字体为\textsf{Arial}，等宽字体为\texttt{Courier New}或\texttt{Courier}。中文字体则会根据不同选项调整具体字体名称。
+% 
+% \texttt{win}选项是默认启用选项，并不需要特地启用。它的作用是修改文档类中的字体名以匹配Windows系统字体名。在文档选项中启用该项不会发生实质的变化，仅作为声明使用。
+% 
+% \texttt{mac}选项会匹配Mac系统字体名。由于Mac系统并不自带仿宋及楷体字体，该选项并不会设置相关的字体族，若想要使用这两种字体，需要额外指定后续的一种字体选项。
+% 
+% \texttt{STfonts}、\texttt{FZfonts}和\texttt{fandol}选项分别启用华文字体、方正字体和Fandol字体，系统内需要安装所启用选项对应的四种字体。
+% 
+% \subsection{编号选项}
+% 默认情况下，图、表以及公式按章编号，即会显示为“图1-1”、“公式(2.4)”等。编号选项可以将它们的编号改为全局编号，即“图5”、“表3”等。
+% 
+% \texttt{globalfigure}选项启用图的全局编号模式。
+% 
+% \texttt{globaltable}选项启用表的全局编号模式。
+% 
+% \texttt{globaleq}选项启用公式的全局编号模式。
+% 
+% \texttt{globalcaption}选项可以同时启用\texttt{globalfigure}、\texttt{globaltable}和\texttt{globaleq}。
+% 
+% \section{文档命令与环境}
+% 为了完整呈现论文，需要用户在\texttt{tex}文件中加入部分必要的命令代码，一个典型的论文结构示例为
+% \begin{example}
+%   \documentclass{seuthesis-2022}
+% 
+%   \title{}{}
+%   \studentnum{}
+%   \author{}
+%   \department{}
+%   \major{}
+%   \supervisor{}
+%   \period{}
+% 
+%   \begin{document}
+%     \maketitle
+%     \makedeclaration
+% 
+%     \frontmatter
+%     \begin{abstract}
+%       \keywords{}
+%     \end{abstract}
+% 
+%     \begin{abstract}[en]
+%       \keywords{}
+%     \end{abstract}
+% 
+%     \tableofcontents
+% 
+%     \mainmatter
+%     \chapter{}
+%     \section{}
+% 
+%     \bibliographystyle{gbt7714-numerical}
+%     \bibliography{}
+%     
+%     \appendix
+%     \chapter{}
+%     
+%     \acknowledgement
+%   \end{document}
+% \end{example}
+% 本节之后的部分将会详细介绍涉及到的命令和用法。
+% 
+% \subsection{封面页}
+% 首先，用户需要填写封面页信息，包含论文题目、学号、姓名、学院、专业、指导教师、起止时间。需要注意的是下列命令只能调用一次，否则会发生编译错误。
+% 
+% \DescribeMacro{\title}
+% \cs{title}命令可用于设定论文题目，语法为
+% \begin{center}
+%   \cs{title}\marg{题目第一行}\marg{题目第二行}
+% \end{center}
+% 其中第二行可以为空，但必须留下花括号，如
+% \begin{example}
+%   \title{基于潜艇狼群的破交战术}{}
+% \end{example}
+% 第二行为空时，封面页的题目处不会显示第二条横线。
+% 
+% \DescribeMacro{\studentnum}
+% \cs{studentnum}命令可用于设定学号，语法为
+% \begin{center}
+%   \cs{studentnum}\marg{学号}
+% \end{center}
+% \begin{example}
+%   \studentnum{12345678}
+% \end{example}
+% 
+% \DescribeMacro{\author}
+% \cs{author}命令用于设定作者姓名，语法为
+% \begin{center}
+%   \cs{author}\marg{姓名}
+% \end{center}
+% \begin{example}
+%   \author{时雨}
+% \end{example}
+% 
+% \DescribeMacro{\major}
+% \cs{major}命令用于设定专业，语法为
+% \begin{center}
+%   \cs{major}\marg{专业}
+% \end{center}
+% \begin{example}
+%   \major{理论海军学}
+% \end{example}
+% 
+% \DescribeMacro{\department}
+% \cs{department}命令用于设定学院，语法为
+% \begin{center}
+%   \cs{department}\marg{学院}
+% \end{center}
+% \begin{example}
+%   \department{海军学院}
+% \end{example}
+% 
+% \DescribeMacro{\supervisor}
+% \cs{supervisor}命令用于设定指导教师，语法为
+% \begin{center}
+%   \cs{supervisor}\marg{指导教师}
+% \end{center}
+% \begin{example}
+%   \supervisor{弗莱彻}
+% \end{example}
+% 
+% \DescribeMacro{\period}
+% \cs{period}命令用于设定起止时间，语法为
+% \begin{center}
+%   \cs{period}\marg{日期}
+% \end{center}
+% \begin{example}
+%   \period{2077.2.30--2077.9.31}
+% \end{example}
+% 
+% 以上命令需放置在导言区，在\texttt{document}环境中构建封面页（见下）时会利用到上述设定的信息。
+% 
+% \subsection{论文结构指令}
+% 本节将介绍各必要的结构指令及其作用。
+% 
+% \DescribeMacro{\maketitle}
+% \cs{maketitle}命令用于生成封面页，没有参数。用户可以将其放在\texttt{document}环境的第一行。
+% 
+% \DescribeMacro{\makedeclaration}
+% \cs{makedeclaration}命令用于生成声明页，该页没有需要填写的内容，因此用户只需将其放在\cs{maketitle}后即可。
+% 
+% 按照毕业设计模版的要求，本文档类将论文文档分为三个主要部分：前页、正文和附录。用户需要在文档中使用下述的命令指定这三个部分的开始位置，帮助文档类定位章节。
+% 
+% \DescribeMacro{\frontmatter}
+% \cs{frontmatter}命令用于指定前页部分的开始位置，没有参数。前页部分包括摘要和目录，特点是无页眉、页码使用大写罗马数字编号，并且章标题无编号。因此，用户需要在摘要前加入这条命令。创建摘要的指令见\ref{sec:control-abstract}节。
+% 
+% \DescribeMacro{\tableofcontents}
+% \cs{tableofcontents}命令用于生成目录，没有参数。
+% 
+% \DescribeMacro{\mainmatter}
+% \cs{mainmatter}命令用于指定正文部分的开始位置，没有参数。正文部分包括论文的主要带编号章节，例如绪论、方法、总结与展望等。用户需要在目录指令\cs{tableofcontents}后加入本命令。
+% 
+% \DescribeMacro{\bibliography}
+% \cs{bibliography}命令用于指定参考文献的来源文件，语法为
+% \begin{center}
+%   \cs{bibliography}\marg{文件名}
+% \end{center}
+% 参考文献使用GBT7714-2015规范，因此在调用该命令前需要指定使用的参考文献样式（已包含在项目文件中，用户也可以自行下载最新的样式文件），如
+% \begin{example}
+%   \bibliographystyle{gbt7714-numerical}
+%   \bibliography{reference.bib}
+% \end{example}
+% 在上面的例子中，\XeLaTeX{}会找到当前目录下的\texttt{gbt7714-numerical.bst}文件作为样式文件，并将当前目录下的\texttt{reference.bib}作为参考文献项文件。
+% 
+% \DescribeMacro{\appendix}
+% \cs{appendix}命令用于指定附录的开始位置，没有参数。若论文中没有附录，可以不使用。一般添加在参考文献指令的后面。
+% 
+% \DescribeMacro{\acknowledgement}
+% \cs{acknowledgement}命令用于致谢页。该指令实际上是创建一个新的无编号的章，标题为“致谢”。该命令可以放置于文档的最后。
+% 
+% \subsection{摘要}\label{sec:control-abstract}
+% \DescribeEnv{abstract}
+% \texttt{abstract}环境生成摘要，语法为
+% \begin{center}
+%   \cs{begin}\{abstract\}\oarg{zh,en}
+% \end{center}
+% 摘要环境的选项可以为\texttt{zh}或\texttt{en}，分别对应中文摘要和英文摘要，默认为\texttt{zh}。
+% 
+% \DescribeMacro{\keywords}
+% 在摘要环境中，可以使用\cs{keywords}来指定关键词，语法为
+% \begin{center}
+%   \cs{keywords}\marg{关键词1,关键词2,...}
+% \end{center}
+% 各关键词之间用半角逗号隔开，逗号后不加空格，如
+% \begin{example}
+%   \begin{abstract}
+%     中文摘要实例。
+%     \keywords{关键词1{,}关键词2{,}关键词3}
+%   \end{abstract}
+%   \begin{abstract}[en]
+%     Example for English abstract.
+%     \keywords{Keyword 1,Keyword 2,Keyword 3}
+%   \end{abstract}
+% \end{example}
+% 
+% \section{插入浮动体}
 % \section{交叉引用}
 % \section{参考文献}
-% \section{其他}
 % 
 % \section{实现细节}
 % \subsection{字段定义}
@@ -348,10 +637,9 @@
 \RequirePackage{hypernat}
 \RequirePackage{tocbibind}
 %    \end{macrocode}
-% 导入一些杂项宏包。其中部分宏包必须在前述宏包后导入。
+% 导入一些杂项宏包。
 %    \begin{macrocode}
 \RequirePackage{ifthen}
-\RequirePackage{tabularx}
 \RequirePackage{calc}
 \RequirePackage{etoolbox}
 \RequirePackage{xeCJKfntef}
@@ -719,7 +1007,13 @@
 %    \end{macrocode}
 
 % \subsection{封面页}
-% \begin{macro}{\title,\studentnum,\author,\department,\major,\supervisor,\period}
+% \begin{macro}{\title}
+% \begin{macro}{\studentnum}
+% \begin{macro}{\author}
+% \begin{macro}{\department}
+% \begin{macro}{\major}
+% \begin{macro}{\supervisor}
+% \begin{macro}{\period}
 % 定义封面表单的填写命令，包括标题（上/下）、学号、姓名、专业、学院、导师、起止时间等。
 %    \begin{macrocode}
 \renewcommand{\title}[2]{%
@@ -738,6 +1032,12 @@
 \newcommand{\seut@control@placeholder}[2][\linewidth]{\CJKunderline{\makebox[#1]{#2}}}
 \def\seutplaceholder{\@ifnextchar[\seut@control@placeholder\CJKunderline}
 %    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
 % \end{macro}
 % \begin{macro}{\maketitle}
 % 制作标题页，首先定义一些PDF Meta-Data。
@@ -894,6 +1194,8 @@
 % \end{macro}
 %</cls>
 % \Finale
+% \PrintChanges
+% \PrintIndex
 
 % \iffalse
 %<*doc>
@@ -903,6 +1205,11 @@
 \RequirePackage[hyphens]{url}
 \RequirePackage{hyperref}
 \RequirePackage{geometry}
+\RequirePackage{booktabs}
+\RequirePackage{float}
+\RequirePackage{xcolor}
+\RequirePackage{longtable}
+\RequirePackage{fancyvrb}
 \geometry{
   a4paper,
   right=2cm,
@@ -921,9 +1228,14 @@
     plainpages=false,
     pdfpagelabels,
     pdfborder=0 0 0,
+    colorlinks=true,
+    urlcolor=blue,
 }
 \urlstyle{same}
 \newcommand*{\seuthesis}{\texttt{seuthesis-2022}}
+\DefineVerbatimEnvironment{example}{Verbatim}%
+  {frame=single,framerule=1pt,rulecolor=\color{black},%
+   framesep=2mm,baselinestretch=1.2,fontsize=\small,gobble=1}
 %</doc>
 % \fi
 \endinput
