@@ -1,6 +1,3 @@
-del seuthesis-2019.cls
-del seuthesis-2019.cfg
-del seuthesisdoc.sty
 del *.log
 del *.aux
 del *.toc

@@ -23,13 +23,11 @@
 %% This work has the LPPL maintenance status `maintained'.
 %% The Current Maintainer of this work is Haoqing Xu.
 %% 
-%% Home Page of the Project: https://github.com/SuikaXhq/seu-bachelor-thesis-2019
+%% Home Page of the Project: https://github.com/SuikaXhq/seu-bachelor-thesis-2022
 %% --------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{seuthesis-2022}
-  [2022/04/16 v0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
-
-
+  [2022/04/22 1.0.0 LaTeX Template for SEU Bachelor Thesis Class 2022]
 
 \RequirePackage{ifxetex}
 \RequireXeTeX
@@ -96,7 +94,6 @@
 \RequirePackage[hyphens]{url}
 \RequirePackage{hyperref}
 \hypersetup{
-    unicode=false,
     hyperfootnotes=true,
     hyperindex=true,
     pageanchor=true,
@@ -107,7 +104,7 @@
     breaklinks=true,
     colorlinks=false,
     plainpages=false,
-    pdfpagelabels,
+    pdfpagelabels=true,
     pdfborder=0 0 0,
 }
 \urlstyle{same}
@@ -116,7 +113,6 @@
 \RequirePackage{hypernat}
 \RequirePackage{tocbibind}
 \RequirePackage{ifthen}
-\RequirePackage{tabularx}
 \RequirePackage{calc}
 \RequirePackage{etoolbox}
 \RequirePackage{xeCJKfntef}
@@ -212,9 +208,9 @@
   \clearpage
   \pagenumbering{Roman}
   \pagestyle{front}
-  \setcounter{secnumdepth}{-2}
+  % \setcounter{secnumdepth}{-2}
   \ctexset{
-    %secnumdepth = -2,
+    chapter/numbering = false,
     chapter/pagestyle = front,
   }
 }
@@ -222,9 +218,9 @@
   \clearpage
   \pagenumbering{arabic}
   \pagestyle{main}
-  \setcounter{secnumdepth}{2}
   \ctexset{
     %secnumdepth = subsection,
+    chapter/numbering = true,
     chapter/pagestyle = main,
   }
 }
@@ -321,14 +317,15 @@
 \captionsetup[subfigure]{font=small}
 \captionsetup[table]{position=above}
 \captionsetup[figure]{position=below}
-\captionsetup{skip=10pt}
 \setlength{\intextsep}{\seut@const@length@skipbetweenword}
 \setlength{\textfloatsep}{\seut@const@length@skipbetweenword}
 \setlength{\floatsep}{\seut@const@length@skipbetweenword}
+\setlength{\abovecaptionskip}{7pt}
+\setlength{\belowcaptionskip}{7pt}
 \setlength\heavyrulewidth{1pt}
 \setlength\lightrulewidth{1pt}
 
-\tikzset{circlednode/.style={
+\tikzset{seut@circled@node/.style={
     circle,
     draw,
     inner sep=0.05ex,
@@ -340,9 +337,10 @@
 \newcommand*\circled[1]{%
     \ifnumcomp{#1}{>}{9}{%
     % if > 9:
-    \tikz[baseline=(char.base)]\node[circlednode] (char) {\addfontfeature{LetterSpace=-9.0}\scalebox{0.5}[1]{\bfseries#1}};}{%
+    \tikz[baseline=(char.base)]\node[seut@circled@node]
+      (char) {\addfontfeature{LetterSpace=-9.0}\scalebox{0.5}[1]{\bfseries#1}};}{%
     % if <= 9:
-    \tikz[baseline=(char.base)]\node[circlednode] (char) {#1};}%
+    \tikz[baseline=(char.base)]\node[seut@circled@node] (char) {#1};}%
 }
 \renewcommand{\thefootnote}{%
     \raisebox{0.25ex}{%
@@ -404,7 +402,7 @@
       }{%
         & \seutplaceholder[12.5cm]{\seut@var@str@titlepage@title@down}}
     \end{tabular}
-    \par % to make centering work
+    \par
     }
 
     \vspace{46pt}
@@ -426,7 +424,7 @@
       \makebox[3cm][r]{\seut@field@str@titlepage@period}
       & \seutplaceholder[8cm]{\seut@var@str@titlepage@period}
     \end{tabular}
-    \par % to make centering work
+    \par
     }
   \end{titlepage}
 }
@@ -446,20 +444,23 @@
     \hangafter 0
     \hangindent 4\ccwd
     \noindent \seut@const@str@declare@authorsign\seutplaceholder[8\ccwd]{}\seut@space{1.5}%
-    \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[2.5\ccwd]{}月\seutplaceholder[2.5\ccwd]{}日\par
+    \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[2.5\ccwd]{}月%
+      \seutplaceholder[2.5\ccwd]{}日\par
     \vspace{155pt}\par
     {\centering
     \heiti\zihao{-2}
     \seut@const@str@declare@usage@title
-    \par % to make centering work
+    \par
     }
     \vspace{22pt}\par
     \seut@const@str@declare@usage@content\par
     \hspace*{\fill}\par
     \seut@const@str@declare@authorsign\seutplaceholder[9.5\ccwd]{}\seut@space{2}%
-    \seut@const@str@declare@supervisorsign\seutplaceholder[11.5\ccwd]{}\par
-    \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月\seutplaceholder[3\ccwd]{}日\seut@space{3}%
-    \seut@const@str@declare@date\seutplaceholder[2.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月\seutplaceholder[3\ccwd]{}日\par
+      \seut@const@str@declare@supervisorsign\seutplaceholder[11.5\ccwd]{}\par
+    \seut@const@str@declare@date\seutplaceholder[3.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月%
+      \seutplaceholder[3\ccwd]{}日\seut@space{3}%
+    \seut@const@str@declare@date\seutplaceholder[2.5\ccwd]{}年\seutplaceholder[3\ccwd]{}月%
+      \seutplaceholder[3\ccwd]{}日\par
   \end{titlepage}
 }
 
@@ -480,18 +481,20 @@
       \renewcommand*{\seut@var@str@abstractname}{\seut@const@str@abstractname@en}
       \renewcommand*{\seut@var@str@keywords}{\seut@const@str@keywords@en}
       \renewcommand*{\seut@var@str@abstractsep}{\seut@const@str@abstractsep@en}
-    }{\ClassError{seuthesis-2022}{Unknown option for abstract. Try `zh' or `en' for the abstract options.}{Try `zh' or `en' for the abstract options.}}} % Error message
+    }{\ClassError{seuthesis-2022}%
+      {Unknown option for abstract. Try `zh' or `en' for the abstract options.}%
+      {Try `zh' or `en' for the abstract options.}}}
   \chapter{\seut@var@str@abstractname}
 }{}
 
 \newenvironment{acknowledgement}{%
-  %\ctexset{secnumdepth = -2}
-  \setcounter{secnumdepth}{-2}
+  \ctexset{chapter/numbering=false}
+  % \setcounter{secnumdepth}{-2}
   \chapter{\seut@const@str@acknowledgename}
 }{%
-  %\ctexset{secnumdepth = subsection}
-  \setcounter{secnumdepth}{2}}
-
+  \ctexset{chapter/numbering=true}
+  % \setcounter{secnumdepth}{2}
+}
 \endinput
 %%
 %% End of file `seuthesis-2022.cls'.
