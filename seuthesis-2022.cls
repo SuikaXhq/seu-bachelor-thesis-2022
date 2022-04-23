@@ -27,7 +27,7 @@
 %% --------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{seuthesis-2022}
-  [2022/04/22 1.0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/04/23 1.0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
 
 \RequirePackage{ifxetex}
 \RequireXeTeX
