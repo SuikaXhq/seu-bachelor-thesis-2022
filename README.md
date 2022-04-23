@@ -13,7 +13,7 @@
 
 ## 使用方法
 
-文档使用方法的详细介绍请参见[样例论文](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/sample_thesis.pdf)和[用户手册](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/seuthesis-2022.pdf)。
+文档使用方法的详细介绍请参见[样例论文](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/sample_thesis.pdf)和[使用手册](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/使用手册/seuthesis-2022使用手册.pdf)。
 
 - Windows下：
 
