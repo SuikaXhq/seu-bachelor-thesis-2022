@@ -29,7 +29,7 @@
 %<cfg>\ProvidesFile{seuthesis-2022.cfg}
 %<doc>\ProvidesPackage{seuthesisdoc}
 %<*cls|cfg|doc>
-  [2022/04/22 1.0.0 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/04/22 1.0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls|cfg|doc>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
@@ -82,15 +82,21 @@
 % \DoNotIndex{\ClassError}
 % 
 % \changes{1.0.0}{2022/4/22}{实现模版并撰写了文档。}
+% \changes{1.0.1}{2022/4/23}{为使用手册添加关于表的章节。}
 % 
 % \StopEventually{}
 % 
 % \GetFileInfo{seuthesisdoc.sty}
-% \title{\bfseries \seuthesis\\东南大学本科毕业设计（论文）\XeLaTeX{}模版\\（2022届/2019年9月版规范）}
+% \title{\bfseries \seuthesis\\东南大学本科毕业设计（论文）\XeLaTeX{}模版\\（2022届/2019年9月版规范）\\使用手册}
 % \author{SuikaXhq\\\texttt{haoqing\_xu@outlook.com}}
 % \date{\fileversion\ (\filedate)}
 % \maketitle
 % \thispagestyle{empty}
+% \begin{abstract}
+%   \seuthesis{}提供了一个东南大学本科毕业设计（论文）的\XeLaTeX{}模版文档类，参考规范为教务处2019年9月版规范。本使用手册旨在介绍本文档类的使用方式以及注意事项，用户可以阅读本手册的第1至6节了解本文档类的主要实现方式和使用方法。
+% 
+% 如果对本文档类的实现细节感兴趣，可以参考第7节。文末所附的代码索引可以帮助用户快速找到特定命令和环境的解释与定义在本文档中所在的位置。如有问题可以在项目中提出Issue。
+% \end{abstract}
 % \tableofcontents
 % \clearpage
 % \section{简介}
@@ -105,6 +111,7 @@
 %   \item Scott Pakin. An introduction to writing .ins and .dtx files. \url{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
 %   \item StackExchange TeX版内的各问题及回答者. \url{https://tex.stackexchange.com/}
 % \end{itemize}
+% 同时在此对帮助本人对本文档类进行测试的同学和朋友表示感谢。
 % 
 % \section{本文档类使用的宏包}
 % 本文档类的底层实现为 |ctexrep|，并调用了以下宏包：
@@ -192,7 +199,7 @@
 % 编写好 |tex|文件后，使用\XeLaTeX{}编译文件。
 % 
 % \subsection{样例论文}
-% 文档类项目中提供了一个样例论文 |sample_thesis.tex|，包含原Word模版内的大部分内容，用户可以参考其中的命令调用方式。编译该论文需要确认 |reference.bib|和 |fig|文件夹及其内部的图片文件均放置于根目录，并且\seuthesis{}文档类的核心文件也在同一目录，之后运行
+% 文档类项目中提供了一个样例论文 |sample_thesis.tex|，包含原Word模版内的大部分内容，用户可以参考其中的命令调用方式。编译该论文需要确认 |reference.bib|和 |fig|文件夹及其内部的图片文件均放置于根目录，并且\seuthesis{}文档类的核心文件也在同一目录。编译前，确认启用了对应于系统的文档类选项（如Mac系统上编译需启用 |mac|选项），之后运行
 % \begin{itemize}
 %   \item Windows下：
 %   
@@ -200,7 +207,7 @@
 %   
 %   \item Mac下：
 % 
-%   \hspace{2em}|./sample_thesis.bat|
+%   \hspace{2em}|./sample_thesis.sh|
 % \end{itemize}
 % 
 % \section{文档选项}
@@ -208,7 +215,7 @@
 % \begin{example}
 %   \documentclass[mac,globalcaption]{seuthesis-2022}
 % \end{example}
-% 如果启用了一个本文档类并没有的选项，它会被传递至底层 |ctexrep|文档类进行处理。
+% 如果启用了一个本节并没有提到的选项，它会被传递至底层 |ctexrep|文档类进行处理。
 % 
 % \subsection{字体选项}
 % 本文档类主要涉及四种常用中文字体（宋体、黑体、仿宋、楷体）以及三种西文字体（衬线、无衬线、等宽）。默认情况下，衬线字体为Times New Roman或者Times，无衬线字体为\textsf{Arial}，等宽字体为\texttt{Courier New}或\texttt{Courier}。中文字体则会根据不同选项调整具体字体名称。
@@ -349,7 +356,7 @@
 % \cs{maketitle}命令用于生成封面页，没有参数。用户可以将其放在 |document|环境的第一行。
 % 
 % \DescribeMacro{\makedeclaration}
-% \cs{makedeclaration}命令用于生成声明页，该页没有需要填写的内容，因此用户只需将其放在\cs{maketitle}后即可。
+% \cs{makedeclaration}命令用于生成声明页，该页没有需要填写的内容，因此用户只需将其放在 \cs{maketitle}后即可。
 % 
 % 按照毕业设计模版的要求，本文档类将论文文档分为三个主要部分：前页、正文和附录。用户需要在文档中使用下述的命令指定这三个部分的开始位置，帮助文档类定位章节。
 % 
@@ -360,7 +367,7 @@
 % \cs{tableofcontents}命令用于生成目录，没有参数。
 % 
 % \DescribeMacro{\mainmatter}
-% \cs{mainmatter}命令用于指定正文部分的开始位置，没有参数。正文部分包括论文的主要带编号章节，例如绪论、方法、总结与展望等。用户需要在目录指令\cs{tableofcontents}后加入本命令。
+% \cs{mainmatter}命令用于指定正文部分的开始位置，没有参数。正文部分包括论文的主要带编号章节，例如绪论、方法、总结与展望等。用户需要在目录指令 \cs{tableofcontents}后加入本命令。
 % 
 % \DescribeMacro{\bibliography}
 % \cs{bibliography}命令用于指定参考文献的来源文件，语法为
@@ -389,7 +396,7 @@
 % 摘要环境的选项可以为 |zh|或 |en|，分别对应中文摘要和英文摘要，默认为 |zh|。
 % 
 % \DescribeMacro{\keywords}
-% 在摘要环境中，可以使用\cs{keywords}来指定关键词，语法为
+% 在摘要环境中，可以使用 \cs{keywords}来指定关键词，语法为
 % \begin{center}
 %   \cs{keywords}\marg{Word 1,Word 2,...}
 % \end{center}
@@ -437,10 +444,60 @@
 %   \caption{测试分图插入}
 %   \label{fig:1}
 % \end{figure}
-% 需要注意的是，由于\LaTeX{}实现 |caption|的方法细节问题，分图标题和总标题之间的间距在视觉上会偏大（实际值为标题与图之间间距的两倍），这一问题暂时无法从设置上解决，如果你觉得不够好看，可以在总标题的\cs{caption}前插入一个 |\vspace*{-7pt}|命令减小间距。
+% 需要注意的是，由于\LaTeX{}实现 |caption|的方法细节问题，分图标题和总标题之间的间距在视觉上会偏大（实际值为标题与图之间间距的两倍），这一问题暂时无法从设置上解决，如果你觉得不够好看，可以在总标题的 \cs{caption}前插入一个 |\vspace*{-7pt}|命令减小间距。
+% 
+% 
+% \subsection{表格字号}
+% 由于\LaTeX{}对表格的实现方式问题，本文档类没有设置表格的默认字号（实际上为小四号字）。根据毕业设计（论文）规范，表格内文字需要使用五号字，用户可以在 |tabular|环境前手动指定字号（插入一个 \cs{small}或者 |\zihao{5}|），如
+% \begin{example}
+%   \begin{table}
+%     \centering
+%     \caption{Test Table}
+%     \label{tab:test}
+%     \zihao{5} % 手动指定字号
+%     \begin{tabular}{cc}
+%       \toprule
+%       Test & test \\
+%       \midrule
+%       Test line 2 & test \\
+%       \bottomrule
+%     \end{tabular}
+%   \end{table}
+% \end{example}
+% 下面两个表格展示了设置字号与不设置的区别。
+% 
+% \begin{minipage}{0.45\textwidth}
+%   \begin{table}[H]
+%     \centering
+%     \caption{不手动指定字号的表格，标题为五号字}
+%     \label{tab:test1}
+%     \begin{tabular}{cc}
+%       \toprule
+%       列标题 & 列标题2 \\
+%       \midrule
+%       表格内正文 & 为小四号字 \\
+%       \bottomrule
+%     \end{tabular}
+%   \end{table}
+% \end{minipage}%
+% \begin{minipage}{0.45\textwidth}
+%   \begin{table}[H]
+%     \centering
+%     \caption{手动指定五号字的表格，标题为五号字}
+%     \label{tab:test1}
+%     \small
+%     \begin{tabular}{cc}
+%       \toprule
+%       列标题 & 列标题2 \\
+%       \midrule
+%       表格内正文 & 为五号字 \\
+%       \bottomrule
+%     \end{tabular}
+%   \end{table}
+% \end{minipage}
 % 
 % \subsection{交叉引用}
-% \LaTeX{}中的交叉引用通常使用\cs{label}来定义标签，使用\cs{ref}来引用标签。这样做没有问题，此处将讨论一些细节。在引用公式时，使用\cs{eqref}可以自动加上两侧的半角括号，如果你需要全角括号，则只能使用\cs{ref}并在两侧手动加上括号。此外，|xeCJK|无法自动处理引用产生的西文字母，如果你需要“图”和图编号之间的间距，要手动在“图”、\cs{ref}以及后续文字之间添加空格（\cs{ref}和后面的标点符号之间不需要添加），如
+% \LaTeX{}中的交叉引用通常使用 \cs{label}来定义标签，使用 \cs{ref}来引用标签。这样做没有问题，此处将讨论一些细节。在引用公式时，使用 \cs{eqref}可以自动加上两侧的半角括号，如果你需要全角括号，则只能使用 \cs{ref}并在两侧手动加上括号。此外，|xeCJK|无法自动处理引用产生的西文字母，如果你需要“图”和图编号之间的间距，要手动在“图”、\cs{ref}以及后续文字之间添加空格（\cs{ref}和后面的标点符号之间不需要添加），如
 % \begin{example}
 %   引用图1时使用图\ref{fig:1}的引用方式不会加上空格。
 %   引用图1(a)时图 \ref{fig:1a} 的引用方式会加上空格。
@@ -481,6 +538,7 @@
 %    \begin{macrocode}
 \newcommand*{\seut@const@str@titlepage@logotitle}%
   {毕业设计\seut@space{-0.5}（论文）\seut@space{-0.5}报告}
+\newcommand*{\seut@const@path@titlepage@logo}{resources/seu-text-logo}
 \newcommand*{\seut@field@str@titlepage@title}         {题\seut@space{0.5}目：}
 \newcommand*{\seut@field@str@titlepage@studentnum}    {学\seut@space{2}号：}
 \newcommand*{\seut@field@str@titlepage@author}        {姓\seut@space{2}名：}
@@ -877,7 +935,7 @@
 % \end{macro}
 
 % \subsection{段落设置}\label{sec:implement-paragraph}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX{}中的基线距离（即Word行间距）为\cs{baselineskip}与\cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置\cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应\cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的\cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX{}中的基线距离（即Word行间距）为 \cs{baselineskip}与 \cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置 \cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应 \cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的 \cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
 %    \begin{macrocode}
 \newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
 \newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
@@ -1144,12 +1202,12 @@
   \begin{titlepage}
     \vspace*{30pt}
     \begin{centering}
-      \includegraphics[width=7.2cm]{resources/seu-text-logo}\par
+      \includegraphics[width=7.2cm]{\seut@const@path@titlepage@logo}\par
       \vspace{34pt}\par
       {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\par
     \end{centering}
 %    \end{macrocode}
-% 空开60pt（Word内空行），放置论文题目。末尾的\cs{par}是为了使\cs{centering}能在 |group|内生效。
+% 空开60pt（Word内空行），放置论文题目。末尾的 \cs{par}是为了使 \cs{centering}能在 |group|内生效。
 %    \begin{macrocode}
     \vspace{60pt}
     {\centering

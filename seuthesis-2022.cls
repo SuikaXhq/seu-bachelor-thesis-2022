@@ -27,7 +27,7 @@
 %% --------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{seuthesis-2022}
-  [2022/04/22 1.0.0 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/04/22 1.0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
 
 \RequirePackage{ifxetex}
 \RequireXeTeX
@@ -385,7 +385,7 @@
   \begin{titlepage}
     \vspace*{30pt}
     \begin{centering}
-      \includegraphics[width=7.2cm]{resources/seu-text-logo}\par
+      \includegraphics[width=7.2cm]{\seut@const@path@titlepage@logo}\par
       \vspace{34pt}\par
       {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\par
     \end{centering}
