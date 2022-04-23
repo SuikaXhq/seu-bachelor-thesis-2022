@@ -79,7 +79,7 @@
 
 插图居中排列，与上文文本之间空一行。图序图名设置为五号宋体居中，图序与图名之间空一格。
 
-引用：图\ref{fig:1}、图\ref{fig:2}、图\ref{fig:2a}、图\ref{fig:2b}。
+引用：图 \ref{fig:1}、图 \ref{fig:2}、图 \ref{fig:2a}、图 \ref{fig:2b} 的引用示例（见tex文件）。
 
 \begin{figure}[H]
     \centering
@@ -103,14 +103,15 @@
 
 表格无法在同一页排版时，可以用续表的形式另页书写，续表需在表格右上角表序前加“续”字，如“续表2.1”，并重复表头。
 
-表格居中，边框为黑色直线1磅，中文为五号宋体，英文及数字为五号Times New Roman字体，表序与表名之间空一格，表格与下文之间空一行。
+表格居中，边框为黑色直线1磅，中文为五号宋体，英文及数字为五号Times New Roman字体，表序与表名之间空一格，表格与下文之间空一行。需要注意必须在tabular环境前手动指定字号（见tex文件）。
 
-引用：表\ref{tab:1}。
+引用：表 \ref{tab:1} 的引用示例（见tex文件）。
 
 \begin{table}
   \centering
   \caption{降水率分级统计}
   \label{tab:1}
+  \small
   \begin{tabular}{ccc}
     \toprule
     降水率(mm/h)分级 & 该等级所占比例(\%) & 降水等级描述\\
@@ -132,7 +133,7 @@
 
 公式排版时可选中模板中的“公式式样”，先将光标移至公式前，按“Tab”键，公式居中；再将光标移至编号前，按“Tab”键移动一个制表符位置，使公式编号右对齐。
 
-引用：公式\eqref{eq:1}。
+引用：公式 \eqref{eq:1} 的引用示例（见tex文件）。
 
 \begin{equation}\label{eq:1}
 V_{cell}=E_{OCV}-V_{oct}-V_{ohm}-V_{conc}
