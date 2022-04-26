@@ -6,6 +6,8 @@
 ## 项目主页
 本项目主页为https://github.com/SuikaXhq/seu-bachelor-thesis-2022
 
+一个参考[Overleaf模版](https://www.overleaf.com/latex/templates/seu-bachelor-thesis-for-class-2022/zsysjvjqzhgx)可供用户快速上手使用。
+
 ## 依赖环境
 
 - TeX Live 2020及以上或MikTeX2020及以上
