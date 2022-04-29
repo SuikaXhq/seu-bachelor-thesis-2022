@@ -20,7 +20,7 @@
 
 - Windows下：
 
-  2. 运行
+  1. 运行
 
      ```cmd
      ./sample_thesis.bat
@@ -28,7 +28,7 @@
      以编译样例论文。
 - Mac下：
 
-  2. 为sample_thesis.tex添加文档类选项“mac”，如
+  1. 为sample_thesis.tex添加文档类选项“mac”，如
 
      ```latex
      \documentclass[mac]{seuthesis-2022}
@@ -36,7 +36,7 @@
 
   以支持mac字体。
 
-  3. 运行
+  2. 运行
 
      ```shell
      ./sample_thesis.sh
@@ -63,8 +63,13 @@
      \documentclass[fandol]{seuthesis-2022}
      ```
   4. 编译sample_thesis.tex。
-- VSCODE下：
+- VSCODE下：（贡献者：[haoruilee](https://github.com/haoruilee)、[SuikaXhq](https://github.com/SuikaXhq)，代码文档请见.vscode/README.md）
 
   1. 安装插件[LaTeX WorkShop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
-  2. 使用vscode打开本项目根目录
-  3. 打开sample_thesis.tex，左侧会出现花写的$TeX$插件，文件右上角会出现 *▶︎（Build LaTeX Project）*，一键build，等待build文件夹中输出编译结果
+  2. 需要安装[Perl](https://strawberryperl.com/)才能使用LaTeXmk；若没有Perl，可以使用MikTeX的TeXify进行编译。
+  3. 使用vscode打开本项目根目录
+  4. 打开sample_thesis.tex，左侧会出现花写的TeX插件，文件右上角会出现 *▶︎（Build LaTeX Project）*
+     - TeX Live用户：请点击下拉菜单中的Recipe: LaTeXmk
+     - MikTeX用户：请点击下拉菜单中的Recipe: TeXify
+  5. 一键build，等待build文件夹中输出编译结果
+     - TeXify输出在根目录下

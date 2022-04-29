@@ -36,6 +36,17 @@
             "args": [
                 "%DOCFILE%" 
             ]
+        },
+        {
+            "name": "texify",
+            "command": "texify",
+            "args": [
+                "--pdf",
+                "--engine=xetex",
+                "--synctex=1",
+                "--batch",
+                "%DOCFILE%.tex"
+            ]
         }
     ],
     "latex-workshop.latex.recipes": [
@@ -43,6 +54,12 @@
             "name": "LaTeXmk",
             "tools": [
                 "latexmk"
+            ]
+        },
+        {
+            "name": "TeXify",
+            "tools": [
+                "texify"
             ]
         }
     ],
