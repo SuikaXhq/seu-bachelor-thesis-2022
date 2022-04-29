@@ -1,0 +1,65 @@
+{
+    "latex-workshop.latex.outDir": "%DIR%/build",
+    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.showContextMenu":true,
+    "latex-workshop.intellisense.package.enabled": true,
+    "latex-workshop.message.error.show": true,
+    "latex-workshop.message.warning.show": false,
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "--output-directory=%OUTDIR%",
+                "-shell-escape",
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-xelatex",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-outdir=%OUTDIR%",
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%" 
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "LaTeXmk",
+            "tools": [
+                "latexmk"
+            ]
+        }
+    ],
+    "latex-workshop.latex.autoClean.run": "onFailed",
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.log",
+        "*.aux",
+        "*.toc",
+        "*.bbl",
+        "*.out",
+        "*.blg",
+        "*.listing",
+        "*.synctex.gz",
+        "*.fdb_latexmk",
+        "*.fls",
+        "*.xdv"
+    ],
+    "latex-workshop.latex.recipe.default": "lastUsed",
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click"
+}
