@@ -29,7 +29,7 @@
 %<cfg>\ProvidesFile{seuthesis-2022.cfg}
 %<doc>\ProvidesPackage{seuthesisdoc}
 %<*cls|cfg|doc>
-  [2022/04/23 1.0.1 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/05/06 1.0.2 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls|cfg|doc>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
@@ -513,14 +513,18 @@
 % 本文档类使用的参考文献样式宏包为 |gbt7714|，其实现基于GBT7714-2015标准。具体的参考文献项填写方式请参考 |gbt7714|的文档 \url{https://mirrors.hit.edu.cn/CTAN/biblio/bibtex/contrib/gbt7714/gbt7714.pdf}。
 % 
 % \subsection{字体设置}
-% 如果你希望使用自定义的字体，请参考 |xeCJK|的文档 \url{http://mirrors.ibiblio.org/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf} 进行自定义更改。具体而言，可以参考如下的例子：
+% \changes{1.0.2}{2022/5/6}{修正关于自定义字体的例子。}
+% 如果你希望使用自定义的字体，请参考 |xeCJK|的文档 \url{http://mirrors.ibiblio.org/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf} 进行自定义更改。通常的使用情况是你的文档中包含一些文档类默认字体不支持的生僻字（常出现在使用fandol字体时），这时需要下载支持这些字的字体（如方正字体）放置在项目的根目录下，然后在导言区加入：
 % \begin{example}
 %   \setCJKfamilyfont{zhsong}{FZSSK.TTF}
 %   \setCJKfamilyfont{zhhei}{FZHTK.TTF}
 %   \setCJKfamilyfont{zhfs}{FZFSK.TTF}
 %   \setCJKfamilyfont{zhkai}{FZKTK.TTF}
+%   \setCJKmainfont{FZSSK.TTF}
+%   \setCJKsansfont{FZHTK.TTF}
+%   \setCJKmonofont{FZFSK.TTF}
 % \end{example}
-% 上例会使用根目录下的 |FZSSK.TTF|、|FZHTK.TTF|、|FZFSK.TTF|和 |FZKTK.TTF|作为宋体、黑体、仿宋与楷体的字体。
+% 上例会使用根目录下的 |FZSSK.TTF|、|FZHTK.TTF|、|FZFSK.TTF|和 |FZKTK.TTF|作为宋体、黑体、仿宋与楷体的字体，并且设置对应的文档主要、无衬线以及等宽字体。
 % 
 % \subsection{自定义设置}
 % |seuthesis-2022.cfg|内包含了绝大部分文档类中用到的常量，如有需要可以自行修改。请不要随意修改其中的变量，有可能会导致编译错误。
