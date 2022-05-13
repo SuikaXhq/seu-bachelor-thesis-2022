@@ -27,7 +27,7 @@
 %% --------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{seuthesis-2022}
-  [2022/05/06 1.0.2 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/05/13 1.0.3 LaTeX Template for SEU Bachelor Thesis Class 2022]
 
 \RequirePackage{ifxetex}
 \RequireXeTeX
@@ -78,6 +78,7 @@
 \RequirePackage{fancyhdr}
 \RequirePackage[titles]{tocloft}
 \RequirePackage[perpage]{footmisc}
+\RequirePackage{enumitem}
 \RequirePackage{tikz}
 \RequirePackage{graphicx}
 \RequirePackage{caption}
@@ -117,6 +118,7 @@
 \RequirePackage{etoolbox}
 \RequirePackage{xeCJKfntef}
 \RequirePackage{doc}
+\RequirePackage{pdfpages}
 
 \geometry{
   a4paper,
@@ -273,6 +275,11 @@
   %tocdepth    = subsection,
 }
 \setcounter{tocdepth}{2}
+\setlist{
+  itemsep = 0pt,
+  topsep = 0pt,
+  parsep = 0pt,
+}
 
 \renewcommand{\cftchapfont}{\normalfont}
 \renewcommand{\cftsecfont}{\normalfont}
