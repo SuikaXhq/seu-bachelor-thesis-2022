@@ -16,7 +16,7 @@
 
 ## 使用方法
 
-文档使用方法的详细介绍请参见[样例论文](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/sample_thesis.pdf)和[使用手册](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/使用手册/seuthesis-2022使用手册.pdf)。
+文档使用方法的详细介绍请参见[样例论文](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/sample_thesis.pdf)和[使用手册](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/使用手册/seuthesis-2022-manual-1.0.4.pdf)。
 
 - Windows下：
 
@@ -63,7 +63,7 @@
      \documentclass[fandol]{seuthesis-2022}
      ```
   4. 编译sample_thesis.tex。
-- VSCODE下：（贡献者：[haoruilee](https://github.com/haoruilee)、[SuikaXhq](https://github.com/SuikaXhq)，代码文档请见.vscode/README.md）
+- VS Code下：（贡献者：[haoruilee](https://github.com/haoruilee)、[SuikaXhq](https://github.com/SuikaXhq)，代码文档请见.vscode/README.md）
 
   1. 安装插件[LaTeX WorkShop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
   2. 需要安装[Perl](https://strawberryperl.com/)才能使用LaTeXmk；若没有Perl，可以使用MikTeX的TeXify进行编译。
