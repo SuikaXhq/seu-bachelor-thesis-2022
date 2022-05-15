@@ -27,7 +27,7 @@
 %% --------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{seuthesis-2022}
-  [2022/05/13 1.0.3 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/05/15 1.0.4 LaTeX Template for SEU Bachelor Thesis Class 2022]
 
 \RequirePackage{ifxetex}
 \RequireXeTeX
@@ -92,6 +92,7 @@
 \RequirePackage{amsthm}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
+\RequirePackage{algorithm2e}
 \RequirePackage[hyphens]{url}
 \RequirePackage{hyperref}
 \hypersetup{
@@ -364,6 +365,7 @@
   \numberwithin{equation}{chapter}
   \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 \fi
+\renewcommand{\algorithmcfname}{\algorithmname}
 
 \AtBeginEnvironment{thebibliography}{%
   \seut@control@biblinespread

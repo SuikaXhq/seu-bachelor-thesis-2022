@@ -29,7 +29,7 @@
 %<cfg>\ProvidesFile{seuthesis-2022.cfg}
 %<doc>\ProvidesPackage{seuthesisdoc}
 %<*cls|cfg|doc>
-  [2022/05/13 1.0.3 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/05/15 1.0.4 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls|cfg|doc>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
@@ -93,9 +93,9 @@
 % \maketitle
 % \thispagestyle{empty}
 % \begin{abstract}
-%   \seuthesis{}提供了一个东南大学本科毕业设计（论文）的\XeLaTeX{}模版文档类，参考规范为教务处2019年9月版规范。本使用手册旨在介绍本文档类的使用方式以及注意事项，用户可以阅读本手册的第1至6节了解本文档类的主要实现方式和使用方法。
+%   \seuthesis{}提供了一个东南大学本科毕业设计（论文）的\XeLaTeX{}模版文档类，参考规范为教务处2019年9月版规范。本使用手册旨在介绍本文档类的使用方式以及注意事项，用户可以阅读本手册的第1至9节了解本文档类的主要使用方法和帮助。
 % 
-% 如果对本文档类的实现细节感兴趣，可以参考第7节。文末所附的代码索引可以帮助用户快速找到特定命令和环境的解释与定义在本文档中所在的位置。如有问题可以在项目中提出Issue。
+% 如果对本文档类的实现细节感兴趣，可以参考第 \ref{sec:implement} 节。文末所附的代码索引可以帮助用户快速找到特定命令和环境的解释与定义在本文档中所在的位置。如有问题可以在项目中提出Issue。
 % \end{abstract}
 % \tableofcontents
 % \clearpage
@@ -125,7 +125,7 @@
 %     longtable & booktabs & multirow & amsmath & amsthm & [hyphens]{url} \\
 %     amssymb & hyperref & natbib & hypernat & amsfonts & [sort\&compress]gbt7714 \\
 %     tocbibind & ifthen & calc & etoolbox & xeCJKfntef & doc \\
-%     enumitem & pdfpages & & & & \\
+%     enumitem & pdfpages & algorithm2e & & & \\
 %     \bottomrule
 %   \end{tabular*}
 % \end{table}
@@ -411,7 +411,7 @@
 %   \end{abstract}
 % \end{example}
 % 
-% \section{文档使用帮助}
+% \section{图表使用帮助}
 % \subsection{取消浮动}
 % 有时为了内容的连续性，需要取消 |figure|和 |table|等环境的浮动效果，本文档使用了 |float|宏包，其提供了 |[H]|选项用于取消浮动，如
 % \begin{example}
@@ -499,6 +499,74 @@
 %   \end{table}
 % \end{minipage}
 % 
+% \section{数学环境帮助}
+% \changes{1.0.4}{2022/5/15}{增加数学环境帮助小节。}
+% \subsection{定理环境}
+% 本文档类已经引入了 |amsthm|宏包，使用定理只需在导言区定义需要的环境，语法为
+% \begin{center}
+%   \cs{newtheorem}\marg{环境名}\marg{环境标题}\oarg{chapter,section,...}
+% \end{center}
+% 最后的选项可以设置该环境的编号方式，不指定则为全局编号。下面展示了一个简单的例子：
+% \begin{example}
+%   \newtheorem{theorem}{定理}
+%   \newtheorem{lemma}{引理}
+%   \newtheorem{proposition}{命题}[chapter]
+% \end{example}
+% 之后即可如下使用定理环境：
+% \begin{example}
+%   \begin{theorem}
+%     测试定理
+%   \end{theorem}
+%   \begin{proposition}
+%     测试命题
+%   \end{proposition}
+% \end{example}
+% \begin{theorem}
+%   测试定理
+% \end{theorem}
+% \begin{proposition}
+%   测试命题
+% \end{proposition}
+% 
+% \subsection{算法伪代码}
+% 本文档类引入了 |algorithm2e|宏包，使用方法可参考说明文档（\url{https://mirrors.hit.edu.cn/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf}）或网上的相关介绍文章。下面给出了一个简单的例子：
+% \begin{example}
+%   \begin{algorithm}[H]
+%     \caption{如何使用seuthesis-2022文档类}
+%     \KwData{本使用手册}
+%     \KwResult{如何使用seuthesis-2022文档类撰写毕业论文}
+% 
+%     初始化\;
+%     \While{未读完整篇使用手册}{
+%       读当前小节\;
+%       \eIf{读懂了}{
+%         移至下一小节\;
+%         当前小节变为此小节\;
+%         }{
+%         返回当前小节的开头\;
+%         }
+%       }
+%   \end{algorithm}
+% \end{example}
+% \begin{algorithm}[H]
+%   \caption{如何使用seuthesis-2022文档类}
+%   \KwData{本使用手册}
+%   \KwResult{如何使用seuthesis-2022文档类撰写毕业论文}
+% 
+%   初始化\;
+%   \While{未读完使用手册}{
+%     读当前小节\;
+%     \eIf{读懂了}{
+%       移至下一小节\;
+%       当前小节变为此小节\;
+%       }{
+%       返回当前小节的开头\;
+%       }
+%     }
+% \end{algorithm}
+% 请注意算法环境也是浮动体，如果不需要浮动请指定 |[H]|选项。
+% 
+% \section{引用与参考文献}
 % \subsection{交叉引用}
 % \LaTeX{}中的交叉引用通常使用 \cs{label}来定义标签，使用 \cs{ref}来引用标签。这样做没有问题，此处将讨论一些细节。在引用公式时，使用 \cs{eqref}可以自动加上两侧的半角括号，如果你需要全角括号，则只能使用 \cs{ref}并在两侧手动加上括号。此外，|xeCJK|无法自动处理引用产生的西文字母，如果你需要“图”和图编号之间的间距，要手动在“图”、\cs{ref}以及后续文字之间添加空格（\cs{ref}和后面的标点符号之间不需要添加），如
 % \begin{example}
@@ -515,6 +583,7 @@
 % \subsection{参考文献}
 % 本文档类使用的参考文献样式宏包为 |gbt7714|，其实现基于GBT7714-2015标准。具体的参考文献项填写方式请参考 |gbt7714|的文档 \url{https://mirrors.hit.edu.cn/CTAN/biblio/bibtex/contrib/gbt7714/gbt7714.pdf}。
 % 
+% \section{其他使用帮助}
 % \subsection{字体设置}
 % \changes{1.0.2}{2022/5/6}{修正关于自定义字体的例子。}
 % 如果你希望使用自定义的字体，请参考 |xeCJK|的文档 \url{http://mirrors.ibiblio.org/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf} 进行自定义更改。通常的使用情况是你的文档中包含一些文档类默认字体不支持的生僻字（常出现在使用fandol字体时），这时需要下载支持这些字的字体（如方正字体）放置在项目的根目录下，然后在导言区加入：
@@ -529,6 +598,9 @@
 % \end{example}
 % 上例会使用根目录下的 |FZSSK.TTF|、|FZHTK.TTF|、|FZFSK.TTF|和 |FZKTK.TTF|作为宋体、黑体、仿宋与楷体的字体，并且设置对应的文档主要、无衬线以及等宽字体。
 % 
+% \subsection{自定义设置}
+% |seuthesis-2022.cfg|内包含了绝大部分文档类中用到的常量，如有需要可以自行修改。请不要随意修改其中的变量，有可能会导致编译错误。
+% 
 % \subsection{导入PDF}
 % \changes{1.0.3}{2022/5/13}{加入导入PDF的帮助章节。}
 % 有时封面页内的填写项可能过长，默认的横线无法容纳，或是需要导入一些已有的PDF页面等情况下，可以使用 \cs{includepdf}命令导入这些页面。具体用法为：
@@ -537,10 +609,8 @@
 % \end{example}
 % 上面的例子会把根目录下 |abcd.pdf|的第1、2、5--8页导入到当前位置。
 % 
-% \subsection{自定义设置}
-% |seuthesis-2022.cfg|内包含了绝大部分文档类中用到的常量，如有需要可以自行修改。请不要随意修改其中的变量，有可能会导致编译错误。
 % 
-% \section{实现细节}
+% \section{实现细节}\label{sec:implement}
 % \subsection{字段定义}
 % 定义模版内常用字段，包括章节标题、固定项名称等。该部分保存于文档配置文件（*.cfg）。变量命名规则为seut@功能@类型@名称，功能包含预设字段（field）、变量（var）等，类型包括字符串（str）、数值（num）、布尔（bool）等，名称可能包含所属页面等辅助信息。
 % 
@@ -770,11 +840,13 @@
 \RequirePackage{multirow}
 %    \end{macrocode}
 % 导入数学环境宏包。
+% \changes{1.0.4}{2022/5/15}{新增宏包algorithm2e。}
 %    \begin{macrocode}
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
+\RequirePackage{algorithm2e}
 %    \end{macrocode}
 % 导入引用和参考文献设置宏包并添加hyperref设置。
 %    \begin{macrocode}
@@ -1171,6 +1243,11 @@
   \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 \fi
 %    \end{macrocode}
+% 修改算法环境标题。
+% \changes{1.0.4}{2022/5/15}{中文化算法环境标题。}
+%    \begin{macrocode}
+\renewcommand{\algorithmcfname}{\algorithmname}
+%    \end{macrocode}
 
 % \subsection{参考文献格式}\label{sec:implement-references}
 % 修改行间距并指定使用五号字。
@@ -1389,6 +1466,8 @@
 \RequirePackage[zihao=5,heading=true]{ctex}
 %\RequirePackage{doc}
 \RequirePackage{metalogo}
+\RequirePackage{amsmath, amssymb, amsthm}
+\RequirePackage[ruled,linesnumbered]{algorithm2e}
 \RequirePackage[hyphens]{url}
 \RequirePackage{hypdoc}
 \RequirePackage{geometry}
@@ -1452,6 +1531,11 @@
   \newgeometry{hmargin=15mm,vmargin={25mm,15mm},footskip=7mm}%
   \setlength\IndexMin{.5\textheight}%
   \ctexset{section/numbering=false}}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{引理}
+\newtheorem{proposition}{命题}[section]
+\def\vec{\boldsymbol}
+\renewcommand{\algorithmcfname}{算法}
 %</doc>
 % \fi
 \endinput
