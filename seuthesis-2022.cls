@@ -92,7 +92,7 @@
 \RequirePackage{amsthm}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
-\RequirePackage{algorithm2e}
+\RequirePackage[ruled,linesnumbered]{algorithm2e}
 \RequirePackage[hyphens]{url}
 \RequirePackage{hyperref}
 \hypersetup{
