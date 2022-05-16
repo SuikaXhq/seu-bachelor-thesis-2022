@@ -365,7 +365,7 @@
   \numberwithin{equation}{chapter}
   \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 \fi
-\renewcommand{\algorithmcfname}{\algorithmname}
+\renewcommand{\algorithmcfname}{算法}
 
 \AtBeginEnvironment{thebibliography}{%
   \seut@control@biblinespread
