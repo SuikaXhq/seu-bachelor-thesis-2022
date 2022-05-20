@@ -27,7 +27,7 @@
 %% --------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{seuthesis-2022}
-  [2022/05/15 1.0.4 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/05/20 1.0.5 LaTeX Template for SEU Bachelor Thesis Class 2022]
 
 \RequirePackage{ifxetex}
 \RequireXeTeX
@@ -234,6 +234,7 @@
 \newcommand*{\seut@control@biblinespread}{\setstretch{\seut@const@num@linespread@bib}}
 \linespread{\seut@const@num@linespread@main}
 \newcommand*{\fixtitlespread}{\vspace*{-\seut@const@length@skipbetweenword}}
+\setdisplayskipstretch{0}
 
 \ctexset{
   contentsname = \seut@const@str@contentsname,
