@@ -234,7 +234,7 @@
 \newcommand*{\seut@control@biblinespread}{\setstretch{\seut@const@num@linespread@bib}}
 \linespread{\seut@const@num@linespread@main}
 \newcommand*{\fixtitlespread}{\vspace*{-\seut@const@length@skipbetweenword}}
-\setdisplayskipstretch{0}
+\setdisplayskipstretch{0.5}
 
 \ctexset{
   contentsname = \seut@const@str@contentsname,
