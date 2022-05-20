@@ -29,7 +29,7 @@
 %<cfg>\ProvidesFile{seuthesis-2022.cfg}
 %<doc>\ProvidesPackage{seuthesisdoc}
 %<*cls|cfg|doc>
-  [2022/05/15 1.0.4 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2022/05/20 1.0.5 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls|cfg|doc>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
@@ -412,7 +412,7 @@
 % \end{example}
 % 
 % \section{图表使用帮助}
-% \subsection{取消浮动}
+% \subsection{取消浮动}\label{sec:float-help-cancel-float}
 % 有时为了内容的连续性，需要取消 |figure|和 |table|等环境的浮动效果，本文档使用了 |float|宏包，其提供了 |[H]|选项用于取消浮动，如
 % \begin{example}
 %   \begin{figure}[H]
@@ -423,32 +423,6 @@
 %   \end{figure}
 % \end{example}
 % 这样生成的图片就一定会出现在前文的下方，不会发生浮动。
-% 
-% \subsection{插入分图}
-% 本文档类使用了 |subcaption|宏包，因此插入分图时需遵循 |subcaption|宏包的语法，如
-% \begin{example}
-%   \begin{figure}
-%     \centering
-%     \subcaptionbox{分图a\label{fig:1a}}
-%       {\includegraphics[width=0.3\linewidth]{fig1.pdf}}
-%     \subcaptionbox{分图b\label{fig:1b}}
-%       {\includegraphics[width=0.3\linewidth]{fig2.pdf}}
-%     \caption{测试分图插入}
-%     \label{fig:1}
-%   \end{figure}
-% \end{example}
-% 效果如下。
-% \begin{figure}[H]
-%   \centering
-%   \subcaptionbox{分图a\label{fig:1a}}
-%     {\begin{tikzpicture}\node[examplebox]{Subfigure (a)};\end{tikzpicture}}
-%   \subcaptionbox{分图b\label{fig:1b}}
-%     {\begin{tikzpicture}\node[examplebox]{Subfigure (b)};\end{tikzpicture}}
-%   \caption{测试分图插入}
-%   \label{fig:1}
-% \end{figure}
-% 需要注意的是，由于\LaTeX{}实现 |caption|的方法细节问题，分图标题和总标题之间的间距在视觉上会偏大（实际值为标题与图之间间距的两倍），这一问题暂时无法从设置上解决，如果你觉得不够好看，可以在总标题的 \cs{caption}前插入一个 |\vspace*{-7pt}|命令减小间距。
-% 
 % 
 % \subsection{表格字号}
 % 由于\LaTeX{}对表格的实现方式问题，本文档类没有设置表格的默认字号（实际上为小四号字）。根据毕业设计（论文）规范，表格内文字需要使用五号字，用户可以在 |tabular|环境前手动指定字号（插入一个 \cs{small}或者 |\zihao{5}|），如
@@ -498,6 +472,88 @@
 %     \end{tabular}
 %   \end{table}
 % \end{minipage}
+% 
+% \subsection{表格行距}
+% \changes{1.0.5}{2022/5/20}{加入关于表格行距的说明。}
+% 在浮动体里（若使用取消浮动选项 |[H]|则不会出现这一问题），行距由于不明原因会被重置为1，因此若使用 |table|、|figure|等环境时，内部文字行距会比正文窄。一个解决办法是在环境中再次指定一次行距：
+% \begin{example}
+%   \begin{table}[ht]
+%     \setstretch{1.698} % Word内1.5倍行距对应LaTeX行距为1.698
+%     \zihao{5} % 修改字号
+%     \centering
+%     \caption{修改行距后的表格}
+%     \begin{tabular}{c}
+%       \toprule
+%       表头文字示例 \\
+%       \midrule
+%       表内文字第一行 \\
+%       表内文字第二行 \\
+%       表内文字第三行 \\
+%       \bottomrule
+%     \end{tabular}
+%   \end{table}
+% \end{example}
+% \begin{minipage}{0.45\textwidth}
+%   \begin{table}[H]
+%     \setstretch{1}
+%     \centering
+%     \small
+%     \caption{未修改行距的表格}
+%     \begin{tabular}{c}
+%       \toprule
+%       表头文字示例 \\
+%       \midrule
+%       表内文字第一行 \\
+%       表内文字第二行 \\
+%       表内文字第三行 \\
+%       \bottomrule
+%     \end{tabular}
+%   \end{table}
+% \end{minipage}%
+% \begin{minipage}{0.45\textwidth}
+%   \begin{table}[H]
+%     \setstretch{1.698}
+%     \centering
+%     \small
+%     \caption{修改行距后的表格}
+%     \begin{tabular}{c}
+%       \toprule
+%       表头文字示例 \\
+%       \midrule
+%       表内文字第一行 \\
+%       表内文字第二行 \\
+%       表内文字第三行 \\
+%       \bottomrule
+%     \end{tabular}
+%   \end{table}
+% \end{minipage}
+% 
+% 此外，正如前文提到的，使用第 \ref{sec:float-help-cancel-float} 节中的 |[H]|选项也可以得到正确的行距，同时使用 \cs{setstretch}和 |[H]|也不会出现问题。
+% 
+% \subsection{插入分图}
+% 本文档类使用了 |subcaption|宏包，因此插入分图时需遵循 |subcaption|宏包的语法，如
+% \begin{example}
+%   \begin{figure}
+%     \centering
+%     \subcaptionbox{分图a\label{fig:1a}}
+%       {\includegraphics[width=0.3\linewidth]{fig1.pdf}}
+%     \subcaptionbox{分图b\label{fig:1b}}
+%       {\includegraphics[width=0.3\linewidth]{fig2.pdf}}
+%     \caption{测试分图插入}
+%     \label{fig:1}
+%   \end{figure}
+% \end{example}
+% 效果如下。
+% \begin{figure}[H]
+%   \centering
+%   \subcaptionbox{分图a\label{fig:1a}}
+%     {\begin{tikzpicture}\node[examplebox]{Subfigure (a)};\end{tikzpicture}}
+%   \subcaptionbox{分图b\label{fig:1b}}
+%     {\begin{tikzpicture}\node[examplebox]{Subfigure (b)};\end{tikzpicture}}
+%   \caption{测试分图插入}
+%   \label{fig:1}
+% \end{figure}
+% 需要注意的是，由于\LaTeX{}实现 |caption|的方法细节问题，分图标题和总标题之间的间距在视觉上会偏大（实际值为标题与图之间间距的两倍），这一问题暂时无法从设置上解决，如果你觉得不够好看，可以在总标题的 \cs{caption}前插入一个 |\vspace*{-7pt}|命令减小间距。
 % 
 % \section{数学环境帮助}
 % \changes{1.0.4}{2022/5/15}{增加数学环境帮助小节。}
@@ -1029,7 +1085,8 @@
 % \end{macro}
 
 % \subsection{段落设置}\label{sec:implement-paragraph}
-% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX{}中的基线距离（即Word行间距）为 \cs{baselineskip}与 \cs{baselinestretch}的乘积，\cs{baselineskip}为字号的1.2倍，则需设置 \cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应 \cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的 \cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
+% \changes{1.0.5}{2022/5/17}{修改了段落设置里的一些细节描述。}
+% 正文行间距设置。注意到Word中倍率行间距取决于文档行网络，而Word模版中行网络间距定为16.3pt，约为小四号字体（12pt）的1.35倍，其对应1.5倍行间距为24.45pt，即约2.04倍字体高度。\LaTeX{}中的基线距离\cs{baselineskip}（即Word行间距）为 \cs{f@baselineskip}与 \cs{baselinestretch}的乘积，\cs{f@baselineskip}为字号的1.2倍，则需设置 \cs{baselinestretch}为1.698以匹配Word设置。声明页Word行间距为1.25倍（对应 \cs{baselinestretch}$=$1.41），目录页的行间距为22pt（对应约1.528），参考文献页字体大小为五号（10.5pt，对应约1.94）。此外，表格中的 \cs{arraystretch}的作用为在基线距离的基础上倍增，因此调整时需要考虑到此处的行距设置。
 %    \begin{macrocode}
 \newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
 \newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
@@ -1037,9 +1094,14 @@
 \newcommand*{\seut@control@biblinespread}{\setstretch{\seut@const@num@linespread@bib}}
 \linespread{\seut@const@num@linespread@main}
 %    \end{macrocode}
-% 修复章节标题过大间距的指令，仅推荐在连续出现章节标题时使用。
+% 修复章节标题过大间距的指令，仅推荐在连续出现章节标题时使用。（已弃用）
 %    \begin{macrocode}
 \newcommand*{\fixtitlespread}{\vspace*{-\seut@const@length@skipbetweenword}}
+%    \end{macrocode}
+% 删去行间公式的上下空白。
+% \changes{1.0.5}{2022/5/17}{修正行间公式上下间距。}
+%    \begin{macrocode}
+\setdisplayskipstretch{0}
 %    \end{macrocode}
 
 % \subsection{章节格式设置}
@@ -1471,6 +1533,7 @@
 \RequirePackage[hyphens]{url}
 \RequirePackage{hypdoc}
 \RequirePackage{geometry}
+\RequirePackage{setspace}
 \RequirePackage{booktabs}
 \RequirePackage{float}
 \RequirePackage{tikz}
