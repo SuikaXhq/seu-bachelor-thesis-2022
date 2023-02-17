@@ -27,7 +27,7 @@
 %% --------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{seuthesis-2022}
-  [2022/05/20 1.0.5 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2023/02/17 1.0.6 LaTeX Template for SEU Bachelor Thesis Class 2022]
 
 \RequirePackage{ifxetex}
 \RequireXeTeX
@@ -59,6 +59,7 @@
 \DeclareOption{globalcaption}{%
   \seut@caption@figure@globaltrue
   \seut@caption@table@globaltrue
+  \seut@caption@equation@globaltrue
 }
 \DeclareOption{globaleq}{%
   \seut@caption@equation@globaltrue
@@ -303,19 +304,18 @@
 \renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
 \cftsetpnumwidth{1em}
 
-\newcounter{globalcaption}
 \ifseut@caption@figure@global
-  \numberwithin{figure}{globalcaption}
+  \counterwithout{figure}{chapter}
   \renewcommand{\thefigure}{\arabic{figure}}
 \else
-  \numberwithin{figure}{chapter}
+  \counterwithin{figure}{chapter}
   \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 \fi
 \ifseut@caption@table@global
-  \numberwithin{table}{globalcaption}
+  \counterwithout{table}{chapter}
   \renewcommand{\thetable}{\arabic{table}}
 \else
-  \numberwithin{table}{chapter}
+  \counterwithin{table}{chapter}
   \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
 \fi
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
@@ -360,10 +360,10 @@
 }
 
 \ifseut@caption@equation@global
-  \numberwithin{equation}{globalcaption}
+  \counterwithout{equation}{chapter}
   \renewcommand{\theequation}{\arabic{equation}}
 \else
-  \numberwithin{equation}{chapter}
+  \counterwithin{equation}{chapter}
   \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 \fi
 \renewcommand{\algorithmcfname}{算法}
