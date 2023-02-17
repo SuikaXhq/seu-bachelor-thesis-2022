@@ -29,7 +29,7 @@
 %<cfg>\ProvidesFile{seuthesis-2022.cfg}
 %<doc>\ProvidesPackage{seuthesisdoc}
 %<*cls|cfg|doc>
-  [2022/05/20 1.0.5 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2023/02/17 1.0.6 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls|cfg|doc>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
@@ -841,10 +841,12 @@
 }
 %    \end{macrocode}
 % 处理图、表、公式编号选项。
+% \changes{1.0.6}{2023/2/17}{将equation全局编号也并入此处。}
 %    \begin{macrocode}
 \DeclareOption{globalcaption}{%
   \seut@caption@figure@globaltrue
   \seut@caption@table@globaltrue
+  \seut@caption@equation@globaltrue
 }
 \DeclareOption{globaleq}{%
   \seut@caption@equation@globaltrue
@@ -1203,26 +1205,26 @@
 
 % \subsection{浮动体设置}
 % 根据用户选项设置不同的标题编号方式。首先设置图标题的全局编号方式。
+% \changes{1.0.6}{2023/2/17}{删除globalcaption计数器，改为使用counterwithin/counterwithout修改编号方式，使其能够正常进行全局编号。}
 %    \begin{macrocode}
-\newcounter{globalcaption}
 \ifseut@caption@figure@global
-  \numberwithin{figure}{globalcaption}
+  \counterwithout{figure}{chapter}
   \renewcommand{\thefigure}{\arabic{figure}}
 %    \end{macrocode}
 % 若用户没有指定全局编号选项，则按章编号。
 %    \begin{macrocode}
 \else
-  \numberwithin{figure}{chapter}
+  \counterwithin{figure}{chapter}
   \renewcommand{\thefigure}{\arabic{chapter}-\arabic{figure}}
 \fi
 %    \end{macrocode}
 % 类似地定义表编号方式。
 %    \begin{macrocode}
 \ifseut@caption@table@global
-  \numberwithin{table}{globalcaption}
+  \counterwithout{table}{chapter}
   \renewcommand{\thetable}{\arabic{table}}
 \else
-  \numberwithin{table}{chapter}
+  \counterwithin{table}{chapter}
   \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
 \fi
 %    \end{macrocode}
@@ -1298,10 +1300,10 @@
 % 定义数学公式编号方式。
 %    \begin{macrocode}
 \ifseut@caption@equation@global
-  \numberwithin{equation}{globalcaption}
+  \counterwithout{equation}{chapter}
   \renewcommand{\theequation}{\arabic{equation}}
 \else
-  \numberwithin{equation}{chapter}
+  \counterwithin{equation}{chapter}
   \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
 \fi
 %    \end{macrocode}
