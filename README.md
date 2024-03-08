@@ -1,6 +1,6 @@
 # 东南大学本科毕业设计（论文）XeLaTeX模版
 
-本项目包含东南大学本科毕业设计（论文）XeLaTeX模版（2022届），参考规范为教务处发布的2019年9月版毕业设计（论文）规范。
+本项目包含东南大学本科毕业设计（论文）XeLaTeX模版（2022-2024届），参考规范为教务处发布的2024年1月版毕业设计（论文）规范。
 
 若发现问题，请提交Issue进行讨论，欢迎合理的Pull Request。
 
@@ -16,7 +16,7 @@
 
 ## 使用方法
 
-文档使用方法的详细介绍请参见[样例论文](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/sample_thesis.pdf)和[使用手册](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/使用手册/seuthesis-2022-manual-1.0.6.pdf)。
+文档使用方法的详细介绍请参见[样例论文](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/sample_thesis.pdf)和[使用手册](https://raw.github.com/SuikaXhq/seu-bachelor-thesis-2022/master/使用手册/seuthesis-2022-manual-1.1.0.pdf)。
 
 - Windows下：
 

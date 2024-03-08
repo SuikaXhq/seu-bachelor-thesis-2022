@@ -29,7 +29,7 @@
 %<cfg>\ProvidesFile{seuthesis-2022.cfg}
 %<doc>\ProvidesPackage{seuthesisdoc}
 %<*cls|cfg|doc>
-  [2023/02/17 1.0.6 LaTeX Template for SEU Bachelor Thesis Class 2022]
+  [2024/03/08 1.1.0 LaTeX Template for SEU Bachelor Thesis Class 2022]
 %</cls|cfg|doc>
 %<*driver>
 \documentclass[10pt,a4paper,oneside]{ltxdoc}
@@ -87,20 +87,20 @@
 % \StopEventually{}
 % 
 % \GetFileInfo{seuthesisdoc.sty}
-% \title{\bfseries \seuthesis\\东南大学本科毕业设计（论文）\XeLaTeX{}模版\\（2022届/2019年9月版规范）\\使用手册}
+% \title{\bfseries \seuthesis\\东南大学本科毕业设计（论文）\XeLaTeX{}模版\\（2022--2024届/2024年1月版规范）\\使用手册}
 % \author{SuikaXhq\\\texttt{haoqing\_xu@outlook.com}}
 % \date{\fileversion\ (\filedate)}
 % \maketitle
 % \thispagestyle{empty}
 % \begin{abstract}
-%   \seuthesis{}提供了一个东南大学本科毕业设计（论文）的\XeLaTeX{}模版文档类，参考规范为教务处2019年9月版规范。本使用手册旨在介绍本文档类的使用方式以及注意事项，用户可以阅读本手册的第1至9节了解本文档类的主要使用方法和帮助。
+%   \seuthesis{}提供了一个东南大学本科毕业设计（论文）的\XeLaTeX{}模版文档类，参考规范为教务处2024年1月版规范。本使用手册旨在介绍本文档类的使用方式以及注意事项，用户可以阅读本手册的第1至9节了解本文档类的主要使用方法和帮助。
 % 
 % 如果对本文档类的实现细节感兴趣，可以参考第 \ref{sec:implement} 节。文末所附的代码索引可以帮助用户快速找到特定命令和环境的解释与定义在本文档中所在的位置。如有问题可以在项目中提出Issue。
 % \end{abstract}
 % \tableofcontents
 % \clearpage
 % \section{简介}
-% 文档类\seuthesis{}实现了基于东南大学本科毕业设计（论文）2019年9月版规范的\XeLaTeX{}模版。本文档将尽可能介绍\seuthesis{}的使用方式，在末尾处附有代码文档和命令索引可供参考，具体论文范例可以参考 |sample_thesis.tex|。
+% 文档类\seuthesis{}实现了基于东南大学本科毕业设计（论文）2024年1月版规范的\XeLaTeX{}模版。本文档将尽可能介绍\seuthesis{}的使用方式，在末尾处附有代码文档和命令索引可供参考，具体论文范例可以参考 |sample_thesis.tex|。
 % 
 % 本文档类的编写过程中参考了以下项目与文档，在此对这些作者表示感谢：
 % \begin{itemize}
@@ -132,7 +132,7 @@
 % 
 % \section{使用文档类}
 % \subsection{项目内容}
-% 本文档类的维护项目为 \url{https://github.com/SuikaXhq/seu-bachelor-thesis-2022}，用户可以在其中下载 |main|分支的项目源码或Release版本。
+% 本文档类的维护项目为 \url{https://github.com/SuikaXhq/seu-bachelor-thesis-2022}，用户可以在其中下载 |main| 分支的项目源码或Release版本。
 % 
 % 项目内含有下列主要文件与目录：
 % \begin{longtable}{lp{8cm}}
@@ -140,9 +140,9 @@
 %   文件/目录名 & 功能 \\
 %   \midrule
 %   |resources/| & 文档类资源文件夹。\\
-%   |resources/seu-text-logo.eps| & 东南大学文字Logo，用于生成封面页。\\
+%   |resources/seu-text-logo.png| & 东南大学文字Logo，用于生成封面页。\\
 %   |gbt7714.sty| & GBT7714-2015版参考文献规范宏包，用户可以在 \url{https://github.com/zepinglee/gbt7714-bibtex-style} 中自行下载最新版本。\\
-%   |gbt7714-numerical.bst| & GBT7714-2015规范中的数字编号式样式，来自 |gbt7714|宏包。\\
+%   |gbt7714-numerical.bst| & GBT7714-2015规范中的数字编号式样式，来自 |gbt7714| 宏包。\\
 %   |seuthesis-2022.cls| & 文档类主文件，由源文件生成得到。为了用户使用方便，此处一并包含在项目中。\\
 %   |seuthesis-2022.cfg| & 文档类配置文件，由源文件生成得到。主要包含预定义字段等变量。\\
 %   \midrule
@@ -158,17 +158,17 @@
 % \end{longtable}
 % 
 % \subsection{生成与安装}
-% 通常而言，用户使用预生成的文档类文件即可。如果用户对 |dtx|文件及\textsf{DocStrip}感兴趣，可以遵循下列步骤生成文档类文件。
+% 通常而言，用户使用预生成的文档类文件即可。如果用户对 |dtx| 文件及\textsf{DocStrip}感兴趣，可以遵循下列步骤生成文档类文件。
 % \begin{enumerate}
 %   \item 在命令行中切换到项目根目录。
 %   \item 运行 |xelatex seuthesis-2022.ins|。
 %   \item 运行 |xelatex seuthesis-2022.dtx|。
 %   \item 运行 |makeindex -s gind.ist -o seuthesis-2022.ind seuthesis-2022.idx|。
 %   \item 运行 |makeindex -s gglo.ist -o seuthesis-2022.gls seuthesis-2022.glo|。
-%   \item 运行 |xelatex seuthesis-2022.dtx|两次。
+%   \item 运行 |xelatex seuthesis-2022.dtx| 两次。
 % \end{enumerate}
 % 
-% 由于本文档类是专为毕业设计排版使用，一般不需要将其安装至\TeX{}目录中，如有需要可以自行将上述生成的文件移至 |tex/latex/seuthesis-2022/|下并更新索引。
+% 由于本文档类是专为毕业设计排版使用，一般不需要将其安装至\TeX{}目录中，如有需要可以自行将上述生成的文件移至 |tex/latex/seuthesis-2022/| 下并更新索引。
 % 
 % \subsection{快速使用}
 % 文档类的核心文件包括
@@ -177,30 +177,30 @@
 %   \item |seuthesis-2022.cfg|
 %   \item |gbt7714.sty|
 %   \item |gbt7714-numerical.bst|
-%   \item |resources|文件夹
-%   \item |resources/seu-text-logo.eps|
+%   \item |resources| 文件夹
+%   \item |resources/seu-text-logo.png|
 % \end{itemize}
-% 用户在编写 |tex|文件前需要确认这些文件均与 |tex|文件放置于同一目录。
+% 用户在编写 |tex| 文件前需要确认这些文件均与 |tex| 文件放置于同一目录。
 % 
-% 对于Windows用户，在 |tex|文件中指定\seuthesis{}文档类即可：
+% 对于Windows用户，在 |tex| 文件中指定\seuthesis{}文档类即可：
 % \begin{example}
 %   \documentclass{seuthesis-2022}
 % \end{example}
 % 
-% 对于Mac用户，需要指定 |mac|选项以匹配Mac系统字体名称：
+% 对于Mac用户，需要指定 |mac| 选项以匹配Mac系统字体名称：
 % \begin{example}
 %   \documentclass[mac]{seuthesis-2022}
 % \end{example}
 % 
-% 如果要在Overleaf上使用本文档类，需要上传 |seuthesis-2022.cls|、|seuthesis-2022.cfg|、|gbt7714.sty|、|gbt7714-numerical.bst|和 |resources|文件夹及内部的 |seu-text-logo.eps|，并且指定 |fandol|选项以匹配字体。
+% 如果要在Overleaf上使用本文档类，需要上传 |seuthesis-2022.cls|、|seuthesis-2022.cfg|、|gbt7714.sty|、|gbt7714-numerical.bst| 和 |resources| 文件夹及内部的 |seu-text-logo.png|，并且指定 |fandol| 选项以匹配字体。
 % \begin{example}
 %   \documentclass[fandol]{seuthesis-2022}
 % \end{example}
 % 
-% 编写好 |tex|文件后，使用\XeLaTeX{}编译文件。
+% 编写好 |tex| 文件后，使用\XeLaTeX{}编译文件。
 % 
 % \subsection{样例论文}
-% 文档类项目中提供了一个样例论文 |sample_thesis.tex|，包含原Word模版内的大部分内容，用户可以参考其中的命令调用方式。编译该论文需要确认 |reference.bib|和 |fig|文件夹及其内部的图片文件均放置于根目录，并且\seuthesis{}文档类的核心文件也在同一目录。编译前，确认启用了对应于系统的文档类选项（如Mac系统上编译需启用 |mac|选项），之后运行
+% 文档类项目中提供了一个样例论文 |sample_thesis.tex|，包含原Word模版内的大部分内容，用户可以参考其中的命令调用方式。编译该论文需要确认 |reference.bib| 和 |fig| 文件夹及其内部的图片文件均放置于根目录，并且\seuthesis{}文档类的核心文件也在同一目录。编译前，确认启用了对应于系统的文档类选项（如Mac系统上编译需启用 |mac| 选项），之后运行
 % \begin{itemize}
 %   \item Windows下：
 %   
@@ -212,34 +212,34 @@
 % \end{itemize}
 % 
 % \section{文档选项}
-% 本文档类提供了一些选项用于进行简单的自定义设置。文档选项可以通过调用文档类时在方括号内添加来启用，多个选项间用逗号隔开。如启用 |mac|选项和 |globalcaption|选项：
+% 本文档类提供了一些选项用于进行简单的自定义设置。文档选项可以通过调用文档类时在方括号内添加来启用，多个选项间用逗号隔开。如启用 |mac| 选项和 |globalcaption| 选项：
 % \begin{example}
 %   \documentclass[mac,globalcaption]{seuthesis-2022}
 % \end{example}
-% 如果启用了一个本节并没有提到的选项，它会被传递至底层 |ctexrep|文档类进行处理。
+% 如果启用了一个本节并没有提到的选项，它会被传递至底层 |ctexrep| 文档类进行处理。
 % 
 % \subsection{字体选项}
 % 本文档类主要涉及四种常用中文字体（宋体、黑体、仿宋、楷体）以及三种西文字体（衬线、无衬线、等宽）。默认情况下，衬线字体为Times New Roman或者Times，无衬线字体为\textsf{Arial}，等宽字体为\texttt{Courier New}或\texttt{Courier}。中文字体则会根据不同选项调整具体字体名称。
 % 
-% |win|选项是默认启用选项，并不需要特地启用。它的作用是修改文档类中的字体名以匹配Windows系统字体名。在文档选项中启用该项不会发生实质的变化，仅作为声明使用。
+% |win| 选项是默认启用选项，并不需要特地启用。它的作用是修改文档类中的字体名以匹配Windows系统字体名。在文档选项中启用该项不会发生实质的变化，仅作为声明使用。
 % 
-% |mac|选项会匹配Mac系统字体名。由于Mac系统并不自带仿宋及楷体字体，该选项并不会设置相关的字体族，若想要使用这两种字体，需要额外指定后续的一种字体选项。
+% |mac| 选项会匹配Mac系统字体名。由于Mac系统并不自带仿宋及楷体字体，该选项并不会设置相关的字体族，若想要使用这两种字体，需要额外指定后续的一种字体选项。
 % 
-% |STfonts|、|FZfonts|和 |fandol|选项分别启用华文字体、方正字体和Fandol字体，系统内需要安装所启用选项对应的四种字体，否则有可能引起编译时间过长问题。
+% |STfonts|、|FZfonts| 和 |fandol| 选项分别启用华文字体、方正字体和Fandol字体，系统内需要安装所启用选项对应的四种字体，否则有可能引起编译时间过长问题。
 % 
 % \subsection{编号选项}
 % 默认情况下，图、表以及公式按章编号，即会显示为“图1-1”、“公式(2.4)”等。编号选项可以将它们的编号改为全局编号，即“图5”、“表3”等。
 % 
-% |globalfigure|选项启用图的全局编号模式。
+% |globalfigure| 选项启用图的全局编号模式。
 % 
-% |globaltable|选项启用表的全局编号模式。
+% |globaltable| 选项启用表的全局编号模式。
 % 
-% |globaleq|选项启用公式的全局编号模式。
+% |globaleq| 选项启用公式的全局编号模式。
 % 
-% |globalcaption|选项可以同时启用|globalfigure|、|globaltable|和 |globaleq|。
+% |globalcaption| 选项可以同时启用 |globalfigure|、|globaltable| 和 |globaleq|。
 % 
 % \section{文档命令与环境}
-% 为了完整呈现论文，需要用户在 |tex|文件中加入部分必要的命令代码，一个典型的论文结构示例为
+% 为了完整呈现论文，需要用户在 |tex| 文件中加入部分必要的命令代码，一个典型的论文结构示例为
 % \begin{example}
 %   \documentclass{seuthesis-2022}
 % 
@@ -348,13 +348,13 @@
 %   \period{2077.2.30--2077.9.31}
 % \end{example}
 % 
-% 以上命令需放置在导言区，在 |document|环境中构建封面页时会利用到上述设定的信息。
+% 以上命令需放置在导言区，在 |document| 环境中构建封面页时会利用到上述设定的信息。
 % 
 % \subsection{论文结构指令}
 % 本节将介绍各必要的结构指令及其作用。
 % 
 % \DescribeMacro{\maketitle}
-% \cs{maketitle}命令用于生成封面页，没有参数。用户可以将其放在 |document|环境的第一行。
+% \cs{maketitle}命令用于生成封面页，没有参数。用户可以将其放在 |document| 环境的第一行。
 % 
 % \DescribeMacro{\makedeclaration}
 % \cs{makedeclaration}命令用于生成声明页，该页没有需要填写的内容，因此用户只需将其放在 \cs{maketitle}后即可。
@@ -380,23 +380,23 @@
 %   \bibliographystyle{gbt7714-numerical}
 %   \bibliography{reference.bib}
 % \end{example}
-% 在上面的例子中，\XeLaTeX{}会找到当前目录下的 |gbt7714-numerical.bst|文件作为样式文件，并将当前目录下的 |reference.bib|作为参考文献项文件。
+% 在上面的例子中，\XeLaTeX{}会找到当前目录下的 |gbt7714-numerical.bst| 文件作为样式文件，并将当前目录下的 |reference.bib| 作为参考文献项文件。
 % 
 % \DescribeMacro{\appendix}
 % \cs{appendix}命令用于指定附录的开始位置，没有参数。若论文中没有附录，可以不使用。一般添加在参考文献指令的后面。
 % 
 % \DescribeEnv{acknowledgement}
-% |acknowledgement|环境用于致谢页。该环境实际上是创建一个新的无编号的章，标题为“致谢”，其内容会作为该章的正文输出。该环境可以放置于文档的最后。
+% |acknowledgement| 环境用于致谢页。该环境实际上是创建一个新的无编号的章，标题为“致谢”，其内容会作为该章的正文输出。该环境可以放置于文档的最后。
 % 
 % \subsection{摘要}\label{sec:control-abstract}
 % \DescribeEnv{abstract}
-% |abstract|环境生成摘要，语法为
+% |abstract| 环境生成摘要，语法为
 % \begin{center}
 %   \cs{begin}\{abstract\}\oarg{zh,en}
 % 
 %   \cs{end}\{abstract\}
 % \end{center}
-% 摘要环境的选项可以为 |zh|或 |en|，分别对应中文摘要和英文摘要，默认为 |zh|。
+% 摘要环境的选项可以为 |zh| 或 |en|，分别对应中文摘要和英文摘要，默认为 |zh|。
 % 
 % \DescribeMacro{\keywords}
 % 在摘要环境中，可以使用 \cs{keywords}来指定关键词，语法为
@@ -413,7 +413,7 @@
 % 
 % \section{图表使用帮助}
 % \subsection{取消浮动}\label{sec:float-help-cancel-float}
-% 有时为了内容的连续性，需要取消 |figure|和 |table|等环境的浮动效果，本文档使用了 |float|宏包，其提供了 |[H]|选项用于取消浮动，如
+% 有时为了内容的连续性，需要取消 |figure| 和 |table| 等环境的浮动效果，本文档使用了 |float| 宏包，其提供了 |[H]| 选项用于取消浮动，如
 % \begin{example}
 %   \begin{figure}[H]
 %     \centering
@@ -425,7 +425,7 @@
 % 这样生成的图片就一定会出现在前文的下方，不会发生浮动。
 % 
 % \subsection{表格字号}
-% 由于\LaTeX{}对表格的实现方式问题，本文档类没有设置表格的默认字号（实际上为小四号字）。根据毕业设计（论文）规范，表格内文字需要使用五号字，用户可以在 |tabular|环境前手动指定字号（插入一个 \cs{small}或者 |\zihao{5}|），如
+% 由于\LaTeX{}对表格的实现方式问题，本文档类没有设置表格的默认字号（实际上为小四号字）。根据毕业设计（论文）规范，表格内文字需要使用五号字，用户可以在 |tabular| 环境前手动指定字号（插入一个 \cs{small}或者 |\zihao{5}|），如
 % \begin{example}
 %   \begin{table}
 %     \centering
@@ -475,7 +475,7 @@
 % 
 % \subsection{表格行距}
 % \changes{1.0.5}{2022/5/20}{加入关于表格行距的说明。}
-% 在浮动体里（若使用取消浮动选项 |[H]|则不会出现这一问题），行距由于不明原因会被重置为1，因此若使用 |table|、|figure|等环境时，内部文字行距会比正文窄。一个解决办法是在环境中再次指定一次行距：
+% 在浮动体里（若使用取消浮动选项 |[H]| 则不会出现这一问题），行距由于不明原因会被重置为1，因此若使用 |table|、|figure| 等环境时，内部文字行距会比正文窄。一个解决办法是在环境中再次指定一次行距：
 % \begin{example}
 %   \begin{table}[ht]
 %     \setstretch{1.698} % Word内1.5倍行距对应LaTeX行距为1.698
@@ -528,10 +528,10 @@
 %   \end{table}
 % \end{minipage}
 % 
-% 此外，正如前文提到的，使用第 \ref{sec:float-help-cancel-float} 节中的 |[H]|选项也可以得到正确的行距，同时使用 \cs{setstretch}和 |[H]|也不会出现问题。
+% 此外，正如前文提到的，使用第 \ref{sec:float-help-cancel-float} 节中的 |[H]| 选项也可以得到正确的行距，同时使用 \cs{setstretch}和 |[H]| 也不会出现问题。
 % 
 % \subsection{插入分图}
-% 本文档类使用了 |subcaption|宏包，因此插入分图时需遵循 |subcaption|宏包的语法，如
+% 本文档类使用了 |subcaption| 宏包，因此插入分图时需遵循 |subcaption| 宏包的语法，如
 % \begin{example}
 %   \begin{figure}
 %     \centering
@@ -553,12 +553,12 @@
 %   \caption{测试分图插入}
 %   \label{fig:1}
 % \end{figure}
-% 需要注意的是，由于\LaTeX{}实现 |caption|的方法细节问题，分图标题和总标题之间的间距在视觉上会偏大（实际值为标题与图之间间距的两倍），这一问题暂时无法从设置上解决，如果你觉得不够好看，可以在总标题的 \cs{caption}前插入一个 |\vspace*{-7pt}|命令减小间距。
+% 需要注意的是，由于\LaTeX{}实现 |caption| 的方法细节问题，分图标题和总标题之间的间距在视觉上会偏大（实际值为标题与图之间间距的两倍），这一问题暂时无法从设置上解决，如果你觉得不够好看，可以在总标题的 \cs{caption}前插入一个 |\vspace*{-7pt}| 命令减小间距。
 % 
 % \section{数学环境帮助}
 % \changes{1.0.4}{2022/5/15}{增加数学环境帮助小节。}
 % \subsection{定理环境}
-% 本文档类已经引入了 |amsthm|宏包，使用定理只需在导言区定义需要的环境，语法为
+% 本文档类已经引入了 |amsthm| 宏包，使用定理只需在导言区定义需要的环境，语法为
 % \begin{center}
 %   \cs{newtheorem}\marg{环境名}\marg{环境标题}\oarg{chapter,section,...}
 % \end{center}
@@ -585,7 +585,7 @@
 % \end{proposition}
 % 
 % \subsection{算法伪代码}
-% 本文档类引入了 |algorithm2e|宏包，使用方法可参考说明文档（\url{https://mirrors.hit.edu.cn/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf}）或网上的相关介绍文章。下面给出了一个简单的例子：
+% 本文档类引入了 |algorithm2e| 宏包，使用方法可参考说明文档（\url{https://mirrors.hit.edu.cn/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf}）或网上的相关介绍文章。下面给出了一个简单的例子：
 % \begin{example}
 %   \begin{algorithm}[H]
 %     \caption{如何使用seuthesis-2022文档类}
@@ -620,11 +620,11 @@
 %       }
 %     }
 % \end{algorithm}
-% 请注意算法环境也是浮动体，如果不需要浮动请指定 |[H]|选项。
+% 请注意算法环境也是浮动体，如果不需要浮动请指定 |[H]| 选项。
 % 
 % \section{引用与参考文献}
 % \subsection{交叉引用}
-% \LaTeX{}中的交叉引用通常使用 \cs{label}来定义标签，使用 \cs{ref}来引用标签。这样做没有问题，此处将讨论一些细节。在引用公式时，使用 \cs{eqref}可以自动加上两侧的半角括号，如果你需要全角括号，则只能使用 \cs{ref}并在两侧手动加上括号。此外，|xeCJK|无法自动处理引用产生的西文字母，如果你需要“图”和图编号之间的间距，要手动在“图”、\cs{ref}以及后续文字之间添加空格（\cs{ref}和后面的标点符号之间不需要添加），如
+% \LaTeX{}中的交叉引用通常使用 \cs{label}来定义标签，使用 \cs{ref}来引用标签。这样做没有问题，此处将讨论一些细节。在引用公式时，使用 \cs{eqref}可以自动加上两侧的半角括号，如果你需要全角括号，则只能使用 \cs{ref}并在两侧手动加上括号。此外，|xeCJK| 无法自动处理引用产生的西文字母，如果你需要“图”和图编号之间的间距，要手动在“图”、\cs{ref}以及后续文字之间添加空格（\cs{ref}和后面的标点符号之间不需要添加），如
 % \begin{example}
 %   引用图1时使用图\ref{fig:1}的引用方式不会加上空格。
 %   引用图1(a)时图 \ref{fig:1a} 的引用方式会加上空格。
@@ -637,12 +637,12 @@
 % 表、公式等引用中的空格处理同理。
 % 
 % \subsection{参考文献}
-% 本文档类使用的参考文献样式宏包为 |gbt7714|，其实现基于GBT7714-2015标准。具体的参考文献项填写方式请参考 |gbt7714|的文档 \url{https://mirrors.hit.edu.cn/CTAN/biblio/bibtex/contrib/gbt7714/gbt7714.pdf}。
+% 本文档类使用的参考文献样式宏包为 |gbt7714|，其实现基于GBT7714-2015标准。具体的参考文献项填写方式请参考 |gbt7714| 的文档 \url{https://mirrors.hit.edu.cn/CTAN/biblio/bibtex/contrib/gbt7714/gbt7714.pdf}。
 % 
 % \section{其他使用帮助}
 % \subsection{字体设置}
 % \changes{1.0.2}{2022/5/6}{修正关于自定义字体的例子。}
-% 如果你希望使用自定义的字体，请参考 |xeCJK|的文档 \url{http://mirrors.ibiblio.org/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf} 进行自定义更改。通常的使用情况是你的文档中包含一些文档类默认字体不支持的生僻字（常出现在使用fandol字体时），这时需要下载支持这些字的字体（如方正字体）放置在项目的根目录下，然后在导言区加入：
+% 如果你希望使用自定义的字体，请参考 |xeCJK| 的文档 \url{http://mirrors.ibiblio.org/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf} 进行自定义更改。通常的使用情况是你的文档中包含一些文档类默认字体不支持的生僻字（常出现在使用fandol字体时），这时需要下载支持这些字的字体（如方正字体）放置在项目的根目录下，然后在导言区加入：
 % \begin{example}
 %   \setCJKfamilyfont{zhsong}{FZSSK.TTF}
 %   \setCJKfamilyfont{zhhei}{FZHTK.TTF}
@@ -652,10 +652,10 @@
 %   \setCJKsansfont{FZHTK.TTF}
 %   \setCJKmonofont{FZFSK.TTF}
 % \end{example}
-% 上例会使用根目录下的 |FZSSK.TTF|、|FZHTK.TTF|、|FZFSK.TTF|和 |FZKTK.TTF|作为宋体、黑体、仿宋与楷体的字体，并且设置对应的文档主要、无衬线以及等宽字体。
+% 上例会使用根目录下的 |FZSSK.TTF|、|FZHTK.TTF|、|FZFSK.TTF| 和 |FZKTK.TTF| 作为宋体、黑体、仿宋与楷体的字体，并且设置对应的文档主要、无衬线以及等宽字体。
 % 
 % \subsection{自定义设置}
-% |seuthesis-2022.cfg|内包含了绝大部分文档类中用到的常量，如有需要可以自行修改。请不要随意修改其中的变量，有可能会导致编译错误。
+% |seuthesis-2022.cfg| 内包含了绝大部分文档类中用到的常量，如有需要可以自行修改。请不要随意修改其中的变量，有可能会导致编译错误。
 % 
 % \subsection{导入PDF}
 % \changes{1.0.3}{2022/5/13}{加入导入PDF的帮助章节。}
@@ -663,7 +663,7 @@
 % \begin{example}
 %   \includepdf[pages={1,2,5-8}]{abcd.pdf}
 % \end{example}
-% 上面的例子会把根目录下 |abcd.pdf|的第1、2、5--8页导入到当前位置。
+% 上面的例子会把根目录下 |abcd.pdf| 的第1、2、5--8页导入到当前位置。
 % 
 % 
 % \section{实现细节}\label{sec:implement}
@@ -676,10 +676,11 @@
 \newcommand*{\seut@space}[1]{\hspace{#1\ccwd}}
 %    \end{macrocode}
 % 定义封面页字段。
+% \changes{1.1.0}{2024/3/8}{针对2024.1版规范修改封面页常量字段。}
 %    \begin{macrocode}
 \newcommand*{\seut@const@str@titlepage@logotitle}%
-  {毕业设计\seut@space{-0.5}（论文）\seut@space{-0.5}报告}
-\newcommand*{\seut@const@path@titlepage@logo}{resources/seu-text-logo}
+  {本科毕业设计（论文）报告}
+\newcommand*{\seut@const@path@titlepage@logo}{resources/seu-text-logo.png}
 \newcommand*{\seut@field@str@titlepage@title}         {题\seut@space{0.5}目：}
 \newcommand*{\seut@field@str@titlepage@studentnum}    {学\seut@space{2}号：}
 \newcommand*{\seut@field@str@titlepage@author}        {姓\seut@space{2}名：}
@@ -907,6 +908,7 @@
 \RequirePackage[ruled,linesnumbered]{algorithm2e}
 %    \end{macrocode}
 % 导入引用和参考文献设置宏包并添加hyperref设置。
+% \changes{1.1.0}{2024/3/8}{修正超链接字体颜色。}
 %    \begin{macrocode}
 \RequirePackage[hyphens]{url}
 \RequirePackage{hyperref}
@@ -920,6 +922,7 @@
     bookmarksopenlevel=0,
     breaklinks=true,
     colorlinks=false,
+    linkcolor=black,
     plainpages=false,
     pdfpagelabels=true,
     pdfborder=0 0 0,
@@ -1057,7 +1060,7 @@
   \pagenumbering{Roman}
   \pagestyle{front}
 %    \end{macrocode}
-% 抑制章编号。这样做是为了能使摘要在无编号的情况下被加入目录和书签，目录中其他无编号的章也采用类似做法，参见致谢页（\ref{sec:implement-acknowledgement}节）。目录和参考文献章加入目录项的方式是使用了 |tocbibind|宏包。
+% 抑制章编号。这样做是为了能使摘要在无编号的情况下被加入目录和书签，目录中其他无编号的章也采用类似做法，参见致谢页（\ref{sec:implement-acknowledgement}节）。目录和参考文献章加入目录项的方式是使用了 |tocbibind| 宏包。
 %    \begin{macrocode}
   % \setcounter{secnumdepth}{-2}
   \ctexset{
@@ -1071,7 +1074,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\mainmatter}
-% 设置正文部分结构指令，恢复编号。深度2在 |report|中表示 |subsection|。
+% 设置正文部分结构指令，恢复编号。深度2在 |report| 中表示 |subsection|。
 %    \begin{macrocode}
 \newcommand{\mainmatter}{%
   \clearpage
@@ -1264,7 +1267,7 @@
 
 % \subsection{注释脚注}
 % \begin{macro}{\circled}
-% 设置注释的圆圈编号方式，这里的解决方案参考自\url{https://tex.stackexchange.com/questions/639370/how-to-enumerate-footnotes-with-circled-numbers}。首先使用 |tikz|宏包定义圆圈。
+% 设置注释的圆圈编号方式，这里的解决方案参考自\url{https://tex.stackexchange.com/questions/639370/how-to-enumerate-footnotes-with-circled-numbers}。首先使用 |tikz| 宏包定义圆圈。
 %    \begin{macrocode}
 \tikzset{seut@circled@node/.style={
     circle,
@@ -1370,16 +1373,17 @@
   }
 %    \end{macrocode}
 % 定义封面页。首先空出30pt（来自于Word模版内空行）的距离，放置东南大学文字Logo以及总标题。
+% \changes{1.1.0}{2024/3/8}{根据2024.1版规范修改封面页尺寸参数。}
 %    \begin{macrocode}
   \begin{titlepage}
     \vspace*{30pt}
     \begin{centering}
-      \includegraphics[width=7.2cm]{\seut@const@path@titlepage@logo}\par
-      \vspace{34pt}\par
-      {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\par
+      \includegraphics[width=10cm]{\seut@const@path@titlepage@logo}\par
+      \vspace{\seut@const@length@skipbetweenword}\par
+      {\heiti\zihao{1}\textbf{\seut@const@str@titlepage@logotitle}}\par
     \end{centering}
 %    \end{macrocode}
-% 空开60pt（Word内空行），放置论文题目。末尾的 \cs{par}是为了使 \cs{centering}能在 |group|内生效。
+% 空开60pt（Word内空行），放置论文题目。末尾的 \cs{par}是为了使 \cs{centering}能在 |group| 内生效。
 %    \begin{macrocode}
     \vspace{60pt}
     {\centering
@@ -1469,7 +1473,7 @@
 
 % \subsection{摘要页}
 % \begin{macro}{\keywords}
-% 实现关键词命令，用于生成关键词列表。用 |etools|宏包的循环处理逗号隔开的参数。
+% 实现关键词命令，用于生成关键词列表。用 |etools| 宏包的循环处理逗号隔开的参数。
 %    \begin{macrocode}
 \newcommand{\seut@control@keywords}[1]{%
   \def\nextitem{\def\nextitem{\seut@var@str@abstractsep}}%
