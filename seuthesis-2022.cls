@@ -106,6 +106,7 @@
     bookmarksopenlevel=0,
     breaklinks=true,
     colorlinks=false,
+    linkcolor=black,
     plainpages=false,
     pdfpagelabels=true,
     pdfborder=0 0 0,
@@ -395,9 +396,9 @@
   \begin{titlepage}
     \vspace*{30pt}
     \begin{centering}
-      \includegraphics[width=7.2cm]{\seut@const@path@titlepage@logo}\par
-      \vspace{34pt}\par
-      {\CJKfamily{zhsong}\zihao{-0}\textbf{\seut@const@str@titlepage@logotitle}}\par
+      \includegraphics[width=10cm]{\seut@const@path@titlepage@logo}\par
+      \vspace{\seut@const@length@skipbetweenword}\par
+      {\heiti\zihao{1}\textbf{\seut@const@str@titlepage@logotitle}}\par
     \end{centering}
     \vspace{60pt}
     {\centering

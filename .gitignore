@@ -1,0 +1,13 @@
+# LaTeX Compile Files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.hd
+*.toc
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
